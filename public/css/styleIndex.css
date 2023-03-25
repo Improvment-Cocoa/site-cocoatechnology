@@ -1,0 +1,617 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.banner {
+    width: 100%;
+    height: 100vh;
+    background-color:#EFC253 ;
+    background-image: url(../assets/imgs/Banner-Img.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar {
+    width: 100%;
+    margin: auto;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #EFC253;
+    background-size: cover;
+}
+
+.logotipo {
+    width: 110px;
+    cursor: pointer;
+    margin: 0px 0px 0px 20px;
+}
+
+.navbar ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 10px;
+    margin-right: 80px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.navbar ul li a:hover {
+    color: #714B36;
+}
+
+.conteudo {
+    width: 100%;
+    position: absolute;
+    top: 58%;
+    transform: translateY(-60%);
+    text-align: left;
+    color: #fff;
+}
+
+.conteudo h1 {
+    font-size: 55px;
+    margin-top: 80px;
+    margin-left: 70px;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+}
+
+.button {
+    width: 150px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    margin-left: 200px;
+    border-radius: 25px;
+    font-weight: bold;
+    background-color: #EFC253;
+    cursor: pointer;
+    color: #000;
+}
+
+  /*INTRODUCAO INICIO*/
+  
+
+  .intro{
+
+    background-color: #232323;
+    height: auto;
+  }
+
+
+  section h2 {
+    text-align: center;
+    font-size: 3.9rem;
+    color: #fff;
+    
+}
+
+section.intro .boxesIntro {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px;
+}
+
+.boxIntro:nth-child(2) {
+    width: 400px;
+    text-align: justify;
+}
+
+.boxIntro img {
+    width: 500px;
+}
+
+
+/* FIM INTRODUCAO*/
+ /*INICIO INTEGRANTES*/
+
+ .nosso-time {
+    background-color: #232323;
+    text-align: center;
+    overflow: auto;
+} 
+
+.nosso-time h2 {
+    margin: 0;
+    padding-top: 25px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.nosso-time .integrantes {
+    color: white;
+    overflow: auto;
+    margin-top: 30px;
+    padding-bottom: 35px;
+}
+
+.integrantes h2{
+    text-align: center;
+    /* margin-top: 5%; */
+    font-size: 3.9rem;
+    color: #fff;
+}
+
+
+
+
+
+.nosso-time .integrantes .integrante {
+    /*border: 3px solid cyan;*/
+    width: 18%;
+    float: left;
+    padding: 1%;
+    line-height: 1.5;
+}
+
+.nosso-time .integrante img {
+    height: 100px;
+    background-color: #ff8968;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+
+section.intro .boxesIntro {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px;
+    background-color: #232323;
+    text-align: center;
+    overflow: auto;
+}
+
+
+
+section.integrantes  .boxesIntegrantes{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* border: 2px solid red; */
+    padding: 15px;
+}
+
+
+.boxIntegrante .traco {
+    width: 50%;
+    height: 5px;
+    border-radius: 10px;
+    margin-block: 10px; 
+    background-color: var(--primary);
+   
+}
+
+
+.boxIntro p{
+    color: white;
+}
+
+
+
+/* FIM INTEGRANTES */
+
+
+/* FIM INTEGRANTES */
+
+
+/*INICIO SECTION VALORES*/
+section.valores .boxesValores {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* border: 2px solid red; */
+    padding: 40px;
+}
+
+.valores h2 {
+    text-align: center;
+    /* margin-top: 5%; */
+    font-size: 3.9rem;
+    color: #fff;
+}
+
+.boxesValores .boxValor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20vw;
+    /* border: 2px solid green; */
+    text-align: center;
+    gap: 5px;
+}
+
+.boxValor img {
+    width: 200px;
+    height: 213.94px;
+    border-radius: 50%;
+}
+
+.boxValor .traco {
+    width: 50%;
+    height: 5px;
+    border-radius: 10px;
+    margin-block: 10px; 
+    background-color: var(--primary);
+}
+
+
+.boxValor p{
+    color:white;
+}
+/*FIM SECTION VALORES*/
+
+
+/* SECTION CONTATO INICIO*/
+
+
+div.containerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    /* height: 75vh; */
+    width: 25vw;
+    margin: 3.7% auto;
+    padding-block: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid var(--secundary);
+    box-shadow: 2px 2px 2px var(--secundary);
+}
+
+div.form {
+    background-color: #232323;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+}
+.form .btn {
+    background-color: var(--primary);
+    color: var(--txColor);
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+    width: 150px;
+    font-size: 1.5rem;
+    box-shadow: 2px 2px 2px black;
+}
+
+.form .btn:hover {
+    background-color: var(--secundary);
+    color: var(--txColor);
+}
+
+.form input, .form h2 {
+    margin-bottom: 25px;
+}
+
+.inputBox {
+    position: relative;
+    width: 250px;
+}
+
+.inputBox input, 
+.inputBox textarea {
+    height: 30px;
+    border-radius: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--primary);
+    background: transparent;
+    outline: none;
+    color: chocolate;
+    font-size: 1em;
+    transition: 0.5s;
+    box-shadow: 2px 2px 2px var(--primary);
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: black;
+    transition: 0.5s;
+}
+
+.inputBox label {
+    font-size: 0.9em;
+    position: relative;
+    bottom: 10px;
+    left: 10px;
+}
+
+.inputBox input:valid ~ span, 
+.inputBox input:focus ~ span,
+.inputBox textarea:focus ~ span, 
+.inputBox textarea:valid ~ span {
+    color: white;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 1.5px 10px;
+    background: var(--primary);
+    border-inline: 1px solid var(--primary);
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.inputBox:nth-child(2) input:valid ~ span, 
+.inputBox:nth-child(2) input:focus ~ span,
+.inputBox textarea:focus ~ span, 
+.inputBox textarea:valid ~ span {
+    background: var(--primary);
+    color: black;
+    border-radius: 2px;
+}
+
+.inputBox input:valid, 
+.inputBox input:focus,
+.inputBox textarea:valid,
+.inputBox textarea:focus {
+    border: 1px solid var(--primary);
+}
+
+/* COMEÇO VALIDAÇÃO -- ERRO */
+.inputBox span.error {
+    color: red;
+}
+
+.inputBox input:valid ~ span.error, 
+.inputBox input:focus ~ span.error,
+.inputBox textarea:focus ~ span.error, 
+.inputBox textarea:valid ~ span.error {
+    background: var(--error);
+    color: white;
+    border-inline: 1px solid var(--error);
+    background: red;
+}
+
+.inputBox input.error,
+.inputBox textarea.error{
+    border: 1px solid var(--error);
+    color: var(--error);
+    box-shadow: 2px 2px 2px var(--error);
+}
+
+.inputBox input:valid.error,
+.inputBox textarea:valid.error {
+    color: black;
+}
+/* FIM VALIDAÇÃO -- ERRO*/
+
+.inputCad {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.inputCad a span {
+    margin-left: 5px;
+}
+
+.inputCad a {
+    text-decoration: none;
+    color: black;
+}
+/* FIM FORMULÁRIOS */
+
+::-webkit-scrollbar {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--secundary);
+}
+
+.panel h2 {
+    font-size: 2.9rem;
+}
+
+.inputBox span {
+    top: 0;
+    padding: 8px;
+}
+
+.inputBox span.error {
+    top: 15px;
+}
+
+/* .btnForm.error {
+    margin-top: 30%;
+} */
+
+section.contact {
+    margin-bottom: 4%;
+}
+
+section.contact h2 {
+    text-align: center;
+    font-size: 3.9rem;
+    margin-bottom: 35px;
+    color: black
+}
+
+section.contact .panelContact {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: 2.5%; */
+}
+
+section.contact div.form {
+    display: flex;
+    flex-direction: row;
+    gap: 50%;
+    padding: 40px;
+}
+
+section.contact .formInputs input {
+    border-radius: 30px;
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+}
+
+section.contact div.form .formInputs {
+    display: flex;
+    flex-direction: column;
+    /* width: 50%; */
+    gap: 15px;
+}
+
+section.contact div.form .formInputs2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+} 
+
+section.contact div.form .formInputs2 textarea {
+    height: 129px; 
+    width: 250px;
+    border-radius: 20px;
+    resize: none;
+}
+
+div.form label {
+    font-size: 0.9rem;
+}
+
+div.form .formInputs input:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.formInputs2 button {
+    /* margin-top: 10%; */
+    border-radius: 10px;
+    padding: 5px;
+    background-color: var(--primary);
+    color: wjot;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px black;
+}
+
+
+/* COMEÇO FOOTER */
+footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary);
+    padding: 2%;
+    /* color: white; */
+}
+
+footer span {
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    color: var(--txColor);
+}
+
+footer .social {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.socialLinks i, .contact i {
+    margin-right: 5px;
+    color: white;
+} 
+
+.social .traco{
+    width: 30%;
+    height: 5px;
+    border-radius: 10px;
+    margin-block: 10px; 
+    background-color: var(--primary);
+}
+
+.social img{
+    width: 60px;
+    height: 50px;
+
+}
+
+
+footer span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--txColor);
+}
+
+footer a {
+    color: var(--txColor);
+    text-decoration: none;
+}
+
+.fim{
+    background-color:chocolate;
+    width: 100%;
+    height: 40px;
+}
+
+.footer{
+background-color:#EFC253;
+    text-align: center;
+    height: 100px;
+    }
+    
+    .footer h4 {
+    color: white;
+    font-weight: 100;
+    margin: 0;
+    padding-top: 40px;
+    text-align: center;
+    }
+
+.copy{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #111;
+    font-weight: 200;
+    position: absolute;
+    left: 60px;
+    top: 990px;
+}
+.redes{
+    float: right;
+    width:85px;
+    margin-top: 3px;
+    margin-right: 7px;
+    border-radius: 80%;
+    width: 12%;
+
+    
+}
+
+
+.texto{
+    color: black;
+    text-align: center;
+}
+
+/* FIM FOOTER */
