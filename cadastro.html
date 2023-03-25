@@ -7,8 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="public/assets/imgs/Logo- Cocoa.png" type="image/x-icon" width="150" weight="150">
     <link rel="stylesheet" href="public/css/reset.css">
-    <link rel="stylesheet" href="public/css/cadastro.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/css/Cadastro.css">
+    <link rel="stylesheet" href="public/css/Home.css">
+    <script src="public/js/cadastro.js"></script>
+
+    
+    
 
 
     <title>Cadastro</title>
@@ -23,9 +27,9 @@
 
             <ul class="nav-list">
                 <li class="nav-idem"><a href="Site.html">Home</a></li>
-
+                <li>|</li>
                 <li class="nav-idem"><a href="#">Simule Agora</a></li>
-
+                <li>|</li>
                 <li class="nav-idem"><a href="login.html">Login</a></li>
 
             </ul>
@@ -36,10 +40,13 @@
         <div class="input-container">
             <h2>Faça seu cadastro!</h2>
             <p class="text">Cria sua conta para poder acessar nossa ferramenta!</p>
-            <input class="input" type="text" placeholder="Email" id="input_email">
-            <input class="input" type="password" placeholder="Senha" id="input_senha">
-            <input class="input" type="password" placeholder="Confirmar senha" id="input_confirmar_senha">
-            <button class="btn-cadastro">Cadastrar</button>
+            <input class="input" type="text" placeholder="Email" id="input_email" onkeyup="key_email()">
+            <span id="erro_email"></span>
+            <input class="input" type="password" placeholder="Senha" id="input_senha" onkeyup="key_senha()">
+            <span id="erro_senha"></span>
+            <input class="input" type="password" placeholder="Confirmar senha" id="input_confirmar_senha" onkeyup="key_confirmar_senha()">
+            <span id="erro_confirmar_senha"></span>
+            <button class="btn-cadastro" onclick="cadastrar()"><a href="login.html">Cadastrar</a></button>
         </div>
     </main>
 </body>
