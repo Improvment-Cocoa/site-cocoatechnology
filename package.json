@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "gmail-send": "^1.8.14"
+  }
+}
