@@ -1,5 +1,7 @@
 # Site Institucional - Cocoa
 
+Site institucional da empresa Cocoa Technology, onde apresentamos quem nós somos, nossos valores e projetos.
+
 Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade SPTECH.
 
 #
@@ -18,6 +20,7 @@ Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade 
 - 📌 Em progresso.
 - 🔗 sem link no momento
 
+ #
 
 ## 📝 Normas de convivência!
 
