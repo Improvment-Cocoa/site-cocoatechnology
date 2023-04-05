@@ -1,8 +1,16 @@
-# Site Institucional - Cocoa
+# 🍫 Site Institucional - Cocoa
 
-Site institucional da empresa Cocoa Technology, onde apresentamos quem nós somos, nossos valores e projetos.
+Site institucional da empresa Cocoa Technology, onde apresentamos quem nós somos, nossos valores e projetos. O site é composto por um cabeçalho onde damos boas vindas e também explicamos brevemente nosso intuito como empresa. Ademais, o site é separado em sessões, sendo elas: sobre nós, integrantes, projetos, fale conosco e um footer.
 
 Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade SPTECH.
+
+👷🏻‍♂️🔨 Desenvolvidos por:
+  - Anna Paula | @annamatos
+  - Davi Maciel | @Davi-britto
+  - Ewerton Lima | @EwertonLima2002
+  - Julia Hown | @JuliaHown
+  - Luigi Vicchietti | @luigiVicchietti
+  - Will Dantas | @dantaswilljpg
 
 #
 
@@ -18,22 +26,25 @@ Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade 
 #
 
 - 📌 Em progresso.
-- 🔗 sem link no momento
+- 🔗 Sem link no momento
 
- #
+
+
 
 ## 📝 Normas de convivência!
 
-1- Determinar dias e horários das reuniões(diárias) de reuniões de Sprint Review/Retrospective, sempre no mesmo horário.
+As regras de convivências determinadas para a realização deste trabalho foram:
 
-2- Se o integrante não participar da reunião, será registrado em ata e computado nos indicadores de participação do projeto.
+❗ [x] Determinar dias e horários das reuniões(diárias) de reuniões de Sprint Review/Retrospective, sempre no mesmo horário.
 
-3- Os integrantes que participarem da reunião poderão tomar decisões em relação ao projeto.
+❗ [x] Se o integrante não participar da reunião, será registrado em ata e computado nos indicadores de participação do projeto.
 
-4- Fedbacks do grupo referentes aos entregáveis de cada membro.
+❗ [x] Os integrantes que participarem da reunião poderão tomar decisões em relação ao projeto.
 
-5- Justificação para falta, verificaremos se abonaremos a falta no dia da reunião.
+❗ [x] Fedbacks do grupo referentes aos entregáveis de cada membro.
 
-6- Haverá uma rotatividade semanal na apresentação da Review para o Professor.
+❗ [x] Justificação para falta, verificaremos se abonaremos a falta no dia da reunião.
 
-7– A sprint dos grupos terá 7 dias de duração e as reuniões de final de Sprint serão sempre nas aulas de PI.
+❗ [x] Haverá uma rotatividade semanal na apresentação da Review para o Professor.
+
+❗ [x] A sprint dos grupos terá 7 dias de duração e as reuniões de final de Sprint serão sempre nas aulas de PI.

@@ -8,13 +8,15 @@
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Cocoa Technology</title>
 </head>
 
 <body>
     <header id="land-page">
         <nav class="" id="nav">
-            <a class="select-disable" href="#land-page"><img class="logo-nav" src="./assets/img/logotipo/branco.png" alt="Logo Cocoa Technology"></a>
+            <a class="select-disable" href="#land-page"><img class="logo-nav" src="./assets/img/logotipo/branco.png"
+                    alt="Logo Cocoa Technology"></a>
             <ul class="nav-list">
                 <li><a href="#sobre-nos">Sobre nós</a></li>
                 <li><a href="#">Projeto</a></li>
@@ -40,9 +42,80 @@
         </div>
     </header>
     <section id="sobre-nos">
+        <h1 class="titulo-section">Sobre Nós</h1>
+        <div>
+            <p data-aos="fade-right" data-aos-duration="700">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Sapiente labore, fugit animi amet magnam
+                repellat maxime placeat vero possimus, saepe laudantium autem voluptatibus officiis nemo incidunt
+                perferendis? Cum, inventore laboriosam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
+                beatae ab officiis officia facilis cupiditate! Tempore, tempora! Et, animi, dolorum modi consequatur
+                illo, eveniet totam deleniti corrupti vitae sint autem?</p>
+            <img data-aos="fade-right" data-aos-duration="700" class="select-disable"
+                src="./assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
+        </div>
+        <div data-aos="fade-up" data-aos-duration="700">
+            <div class="valores"><img class="valores-img select-disable" src="./assets/img/honestidade-icone.png"
+                    alt="Hosnestidade">
+                <p>Honestidade</p>
+            </div>
+            <div class="valores"><img class="valores-img select-disable" src="./assets/img/justica-icone.png"
+                    alt="Justiça">
+                <p>Justiça</p>
+            </div>
+            <div class="valores"><img class="valores-img select-disable" src="./assets/img/transparencia-icone.png"
+                    alt="Transparencia">
+                <p>Tranparência</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Precisamos mudar o fundo para um ter igação com o outro! -->
+    <!-- também decidir qual é a melhor fonte para por no nome dos integrantes: Munale ou Mulish -->
+    <section id="equipe">
+        <h1 class="titulo-section">Integrantes</h1>
+        <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
+            <div>
+                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Anna Paula">
+                <span>Anna Paula</span>
+                <text>Front-End</text>
+            </div>
+            <div>
+                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Davi Maciel">
+                <span>Davi Maciel</span>
+                <text>Front-End</text>
+            </div>
+            <div>
+                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Ewerton Lima">
+                <span>Ewerton Lima</span>
+                <text>Front-End</text>
+            </div>
+        </div>
+        <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
+            <div>
+                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Julia Hown">
+                <span>Julia Hown</span>
+                <text>Front-End</text>
+            </div>
+            <div>
+                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Luigi Vicchietti">
+                <span>Luigi Vicchietti</span>
+                <text>Front-End</text>
+            </div>
+            <div>
+                <img class="select-disable" src="./assets/volpz.jpg" alt="Will Dantas">
+                <span>Will Dantas</span>
+                <text>Front-End</text>
+            </div>
+        </div>
+    </section>
+    <section id="projeto">
+        
     </section>
 </body>
 
 </html>
 <script src="./js/index.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
