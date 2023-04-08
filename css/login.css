@@ -1,0 +1,118 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;1000&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: 7vh;
+    scroll-behavior: smooth;
+}
+
+
+.login-container {
+    display: flex;
+    height: 100%;
+   
+  }
+  
+  .login-left {
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(57.36% 57.36% at 50% 42.64%, #151515 0%, #0C0C0C 100%);
+    position: relative;
+  }
+  .login-left img{
+    width: 50px;
+    margin: 25px 0 0 30px;
+  }
+  
+  .login-right {
+    width: 50%;
+    height: 100%;
+    background-image: url('..//assets/img/login-image.jpg');
+    background-size: cover;
+    background-position: center;
+    
+  }
+  .login-left, .login-right {
+    min-height: 100vh;
+  }
+  .texto_login{
+    color: #FCF6C1;
+    font-family: 'Munale';
+    font-size: 3.5vw;
+    text-align: center;
+  margin: 10px 0 0 0;
+    font-weight: 400;
+  }
+  .form {
+   
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    gap: 9px;
+    margin: 0; /* adicionado para remover a margem padrão */
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+   
+  }
+  .form p{
+    color: #FCF6C1;
+    font-family: 'Munale';
+    font-weight: 5;
+    font-size: 1.5rem;
+  }
+  .form input{
+    width: 500px;
+    border-radius: 300px;
+    border: none;
+    background-color: #d1ceb7;
+    height: 30px;
+  }
+  .form > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .form input:hover {
+    border-radius: 10px;
+    transition: border-radius 0.2s ease-in-out;
+  }
+  .form span{
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 100;
+    font-family: 'Munale';
+   
+  }
+  .form a{
+   font-weight: 100;
+   text-decoration: none;
+    color: #ffff;
+  }
+  .botao{
+    padding: 10px;
+    width: 150px;
+    border-radius: 32px;
+    border: none;
+    background-color: #FDFF87;
+    font-size: 15px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .botao:hover{
+    background-color: #fcff5a;
+    border-radius: 15px;
+    transition: 0.5s;
+  }
