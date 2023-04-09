@@ -101,6 +101,12 @@ nav.ativa {
     gap: 30px;
 }
 
+.nav-list :hover{
+color:#F8D16F;
+}
+
+
+
 a {
     color: #FFF;
     text-decoration: none;
@@ -122,12 +128,13 @@ a {
 .header-content h1 {
     color: #FCF6C1;
     font-family: 'Munale';
-    font-size: 4vw;
+    font-size: 3.5vw;
 }
 
 .header-content p {
     width: 40%;
     font-size: 1.3vw;
+    text-align: justify;
 }
 
 #btn-header {
@@ -264,6 +271,7 @@ a {
 #sobre-nos div p {
     width: 50%;
     font-size: 20px;
+    text-align: justify;
 }
 
 #sobre-nos div img {
@@ -372,12 +380,14 @@ a {
     gap: 8vh;
     font-size: 17px;
     padding: 8vh 0 3vh 0;
+    text-align: justify;
 }
 
 #projeto img {
     max-width: 750px;
     max-height: 500px;
 }
+
 
 #fale-conosco {
     display: flex;
@@ -461,6 +471,7 @@ a {
     border: none;
     background-color: #FDFF87;
     font-size: 15px;
+    
 }
 
 .btn-fale-conosco:hover {
@@ -468,6 +479,7 @@ a {
     border-radius: 14px;
     transition: 0.7s;
 }
+
 
 footer {
     display: flex;
