@@ -29,7 +29,7 @@ Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade 
 - 🔗 Sem link no momento
 
 
-
+#
 
 ## 📝 Normas de convivência!
 

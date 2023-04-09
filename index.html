@@ -19,8 +19,8 @@
                     alt="Logo Cocoa Technology"></a>
             <ul class="nav-list">
                 <li><a href="#sobre-nos">Sobre nós</a></li>
-                <li><a href="#">Projeto</a></li>
-                <li><a href="#">Login</a></li>
+                <li><a href="#projeto">Projeto</a></li>
+                <li><a href="./login.html">Login</a></li>
                 <li><a href="#">Cadastro</a></li>
             </ul>
         </nav>
@@ -32,9 +32,9 @@
             <a href="#"><button id="btn-header">SAIBA MAIS</button></a>
         </div>
         <div class="redes select-disable">
-            <a href=""><img src="./assets/img/icones/twitter.png" alt="Logo Twitter"></a>
-            <a href=""><img src="./assets/img/icones/github.png" alt="Logo Github"></a>
-            <a href=""><img src="./assets/img/icones/instagram.png" alt="Logo Instagram"></a>
+            <a href="#"><img src="./assets/img/icones/twitter.png" alt="Logo Twitter"></a>
+            <a href="https://github.com/Improvment-Cocoa/site-cocoatechnology"><img src="./assets/img/icones/github.png" alt="Logo Github"></a>
+            <a href="#"><img src="./assets/img/icones/instagram.png" alt="Logo Instagram"></a>
         </div>
         <div class="scroll-sign select-disable">
             <img src="./assets/img/icones/mouse.png" alt="Mouse sinalizador de scroll">
@@ -75,9 +75,9 @@
         <h1 class="titulo-section">Integrantes</h1>
         <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
             <div>
-                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Anna Paula">
+                <img class="select-disable" src="./assets/img/integrantes/ft-anna.jpeg" alt="Foto Anna Paula">
                 <span>Anna Paula</span>
-                <text>Front-End</text>
+                <text>Back-End</text>
             </div>
             <div>
                 <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Davi Maciel">
@@ -87,24 +87,24 @@
             <div>
                 <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Ewerton Lima">
                 <span>Ewerton Lima</span>
-                <text>Front-End</text>
+                <text>Back-End</text>
             </div>
         </div>
         <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
             <div>
-                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Julia Hown">
+                <img class="select-disable" src="./assets/img/integrantes/ft-julia.jpeg" alt="Foto Julia Hown">
                 <span>Julia Hown</span>
-                <text>Front-End</text>
+                <text>Analista</text>
             </div>
             <div>
-                <img class="select-disable" src="./assets/volpz.jpg" alt="Foto Luigi Vicchietti">
+                <img class="select-disable" src="./assets/img/integrantes/ft-luigi.jpeg" alt="Foto Luigi Vicchietti">
                 <span>Luigi Vicchietti</span>
-                <text>Front-End</text>
+                <text>Full-Stack e Analista</text>
             </div>
             <div>
-                <img class="select-disable" src="./assets/volpz.jpg" alt="Will Dantas">
+                <img class="select-disable" src="./assets/img/integrantes/ft-will.jpeg" alt="Will Dantas">
                 <span>Will Dantas</span>
-                <text>Front-End</text>
+                <text>Front-End e Analista</text>
             </div>
         </div>
     </section>
@@ -114,7 +114,7 @@
                 alt="">
         </div>
         <div class="descricao-projeto">
-            <h1 class="titulo-section">Projeto</h1>
+            <h1 class="titulo-section select-disable">Projeto</h1>
             <p data-aos="fade-right" data-aos-duration="700">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Possimus dolorum laudantium suscipit dolore,
                 excepturi dicta id est architecto soluta adipisci cum, rerum voluptate amet quos quas et eaque at
@@ -133,28 +133,55 @@
     </section>
 
     <section id="fale-conosco">
-        <h1 class="titulo-section">Fale Conosco</h1>
+        <h1 class="titulo-section select-disable">Fale Conosco</h1>
 
-        <div data-aos="fade-right" data-aos-duration="700">
+        <div>
             <div class="fale-conosco-inputs">
                 <span class="fale-conosco-span">Nome:</span>
-                <input id="input_nome">
+                <input data-aos="fade-right" data-aos-duration="700" id="input_nome" placeholder="Digite seu nome">
                 <span class="fale-conosco-span">Assunto:</span>
-                <input id="input_assunto">
+                <input data-aos="fade-right" data-aos-duration="700" id="input_assunto" placeholder="Digite o assunto">
                 <span class="fale-conosco-span">E-mail:</span>
-                <input id="input_email">
+                <input data-aos="fade-right" data-aos-duration="700" id="input_email" placeholder="Digite seu e-mail">
             </div>
-    
+
             <div class="fale-conosco-comunicado">
                 <span class="fale-conosco-span">Dê um comunicado:</span>
-                <textarea name="" id="textarea_comunicado" cols="30" rows="10"></textarea>
+                <textarea data-aos="fade-right" data-aos-duration="700" id="textarea_comunicado" cols="30" rows="10" placeholder="Escreva aqui!"></textarea>
 
-                <button class="btn-fale-conosco">Enviar</button>
+                <button class="btn-fale-conosco select-disable">Enviar</button>
             </div>
         </div>
-
-
     </section>
+    <footer>
+        <div>
+            <a class="select-disable" href="#land-page"><img src="./assets/img/logotipo/branco.png"
+                    alt="Logo Cocoa Technology"></a>
+            <span>All rights reserved COCOA ₢ 2023</span>
+        </div>
+        <div class="div-footer">
+            <div class="subdiv-footer">
+                <span>Áreas do site:</span>
+                <a href="#land-page">Lading Page</a>
+                <a href="#sobre-nos">Sobre nós</a>
+                <a href="#equipe">Integrantes</a>
+                <a href="#projeto">Projetos</a>
+                <a href="#simulador">Simulador</a>
+                <a href="#fale-conosco">Fale conosco</a>
+            </div>
+            <div class="subdiv-footer">
+                <span>Redes Sociais:</span>
+                <a href="#">Instagram</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="div-footer">
+            <a href="#"><img src="./assets/img/icones/twitter.png" alt="Icone Twitter"></a>
+            <a href="https://github.com/Improvment-Cocoa/site-cocoatechnology"><img src="./assets/img/icones/github.png" alt="Icone GitHub"></a>
+            <a href="#"><img src="./assets/img/icones/instagram.png" alt="Icone Instagram"></a>
+        </div>
+    </footer>
 </body>
 
 </html>
