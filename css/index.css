@@ -132,7 +132,7 @@ a {
 .header-content p {
     width: 40%;
     font-size: 1.3vw;
-    text-align: right;
+    text-align: justify;
 }
 
 #btn-header {
@@ -373,10 +373,10 @@ a {
     display: flex;
     align-items: flex-end;
     flex-direction: column;
-    text-align: right;
     gap: 8vh;
     font-size: 17px;
     padding: 8vh 0 3vh 0;
+    text-align: justify;
 }
 
 #projeto img {
@@ -539,6 +539,12 @@ footer div span {
     font-size: 13px;
     text-decoration: underline;
 }
+
+.subdiv-footer :hover{
+    color:#F8D16F;
+}
+
+
 
 .div-footer:last-child {
     display: flex;
