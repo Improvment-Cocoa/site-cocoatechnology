@@ -101,11 +101,9 @@ nav.ativa {
     gap: 30px;
 }
 
-.nav-list :hover{
-color:#F8D16F;
+.nav-list :hover {
+    color: #F8D16F;
 }
-
-
 
 a {
     color: #FFF;
@@ -134,7 +132,7 @@ a {
 .header-content p {
     width: 40%;
     font-size: 1.3vw;
-    text-align: justify;
+    text-align: right;
 }
 
 #btn-header {
@@ -271,7 +269,6 @@ a {
 #sobre-nos div p {
     width: 50%;
     font-size: 20px;
-    text-align: justify;
 }
 
 #sobre-nos div img {
@@ -380,7 +377,6 @@ a {
     gap: 8vh;
     font-size: 17px;
     padding: 8vh 0 3vh 0;
-    text-align: justify;
 }
 
 #projeto img {
@@ -471,7 +467,7 @@ a {
     border: none;
     background-color: #FDFF87;
     font-size: 15px;
-    
+
 }
 
 .btn-fale-conosco:hover {
@@ -553,7 +549,7 @@ footer div span {
 }
 
 footer .div-footer img:hover {
-     -webkit-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);
     -o-transform: scale(1.1);
     -ms-transform: scale(1.1);
