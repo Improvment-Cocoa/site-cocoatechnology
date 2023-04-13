@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png">
+   <link rel="stylesheet" href="css/cadastro.css">
+   <script src="./js/funcoes.js"></script>
+</head>
+
+<body>
+    <div class="cadastro-container">
+        <div class="cadastro-left">
+        </div>
+        <div class="cadastro-right">
+            <a class="select-disable" href="index.html"><img src="assets/img/icones/seta-direita.png"></a>
+            <h1 class="texto_cadastro">Faça seu cadastro</h1>
+
+            <div class="form">
+                <p class="select-disable">Nome completo</p>
+                <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome">
+                <p class="select-disable">E-mail</p>
+                <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email">
+                <p class="select-disable">Senha</p>
+                <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="input_senha">
+                <p class="select-disable">Confirme a senha</p>
+                <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input">
+                <div class="direita">
+                    <p class="select-disable">CEP</p>
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep">
+                    <p class="select-disable">CNPJ</p>
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj">
+                    <span class="conta">Já tem uma conta? <a href="login.html">Clique Aqui</a></span>
+                    <button class="botao" onclick="cadastrar()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function cadastrar() {
+        //aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = input_nome.value;
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+        var cepVar = input_cep.value;
+        var cnpjVar = input_cnpj.value;
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || cepVar == "" || cnpjVar == "") {
+            //cardErro.style.display = "block"
+            alert("(Mensagem de erro para todos os campos em branco)");
+
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval('oi', 5000)
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                cepServer: cepVar,
+                cnpjServer: cnpjVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //cardErro.style.display = "block";
+
+                alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+                setTimeout(() => {
+                    window.location = "login.html";
+                }, "2000")
+
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    //function sumirMensagem() {
+        //cardErro.style.display = "none"
+    //}
+
+</script>
