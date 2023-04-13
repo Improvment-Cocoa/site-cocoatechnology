@@ -132,7 +132,7 @@ a {
 .header-content p {
     width: 40%;
     font-size: 1.3vw;
-    text-align: justify;
+    justify-content: left;
 }
 
 #btn-header {
@@ -384,6 +384,156 @@ a {
     max-height: 500px;
 }
 
+
+/*Linha do tempo*/
+
+.timeline{
+    display: flex;
+    justify-content:end;
+    flex-direction: row;
+    width: 100%;
+    height: 120vh;
+    background: radial-gradient(57.36% 57.36% at 50% 42.64%, #151515 0%, #0C0C0C 100%);
+    box-shadow: 307px 320px 177px rgba(0, 0, 0, 0.01), 173px 180px 150px rgba(0, 0, 0, 0.05),
+        77px 80px 111px rgba(0, 0, 0, 0.09), 19px 20px 61px rgba(0, 0, 0, 0.1),
+        0px 0px 0px rgba(0, 0, 0, 0.1);
+    gap: 3vh;
+    padding: 12vh;
+}
+
+.text{
+    text-align: center;
+    color: #FCF6C1;
+    font-size: 38px !important;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.timeline:before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 0%;
+}
+
+.timeline ul{
+    margin: 0;
+    padding: 0;
+}
+
+.timeline ul li{
+    list-style: none;
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+
+.timeline ul li:nth-child(odd){
+    float: left;
+    text-align: right;
+    clear: both;
+}
+
+.timeline ul li:nth-child(even){
+    float: right;
+    text-align: left;
+    clear: both;
+}
+
+.content .time{
+    display: none;
+    padding-bottom: 20px;
+    margin:10px 500px 0 0;
+}
+
+.time-text{
+    display: flex;
+    justify-content: end;
+    margin-left: 250px;
+    float: right;
+}
+
+
+.timeline ul li:nth-child(odd):before{
+    content: '';
+    position: absolute;
+    top: 24px;
+    right: -6px;
+    width: 10px;
+    height: 10px;
+    background:#FCF6C1;
+    border-radius: 50%;
+    box-shadow:#FCF6C1;
+}
+
+.timeline ul li:nth-child(even):before{
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    background: #FCF6C1;;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #FCF6C1;;
+}
+
+.timeline ul li h3{
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    color: #FCF6C1;;
+}
+
+.timeline ul li p{
+    margin: 10px 0 0;
+    padding: 0;
+}
+
+.timeline ul li .time h4{
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.timeline ul li:nth-child(odd) .time{
+    position: absolute;
+    top: 12px;
+    right: -165px;
+    margin: 0;
+    padding: 8px 16px;
+    background:black;
+    color:#FCF6C1;;
+    border-radius: 18px;
+    box-shadow: 0 0 0 3px #FCF6C1;;
+}
+
+.content p{
+   color: white;
+}
+
+
+.timeline ul li:nth-child(even) .time{
+    position: absolute;
+    top: 12px;
+    left: -165px;
+    margin: 0;
+    padding: 8px 16px;
+    background: black;
+    color:#FCF6C1;;
+    border-radius: 18px;
+    box-shadow: 0 0 0 3px #FCF6C1;
+}
+
+@media (max-width: 1000px){
+    .timeline{
+        width: 100%;
+    }
+}
+
+/* Fim do CSS do histórico */
 
 #fale-conosco {
     display: flex;

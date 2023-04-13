@@ -26,11 +26,7 @@ body {
   overflow-x: hidden;
 }
 
-@font-face {
-  font-family: 'Munale';
-  src: url(../assets/fonts/munale/Munale\ Loird.otf);
-  font-weight: normal;
-}
+
 
 .cadastro-container {
   display: flex;
