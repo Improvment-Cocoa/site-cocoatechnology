@@ -20,23 +20,29 @@
             <h1 class="texto_cadastro">Faça seu cadastro</h1>
 
             <div class="form">
-                <p class="select-disable">Nome completo</p>
-                <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome">
-                <p class="select-disable">E-mail</p>
-                <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email">
-                <p class="select-disable">Senha</p>
-                <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="input_senha">
-                <p class="select-disable">Confirme a senha</p>
-                <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input">
-                <div class="direita">
+                <div class="form-esquerda">
+                    <p class="select-disable">Nome completo</p>
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome">
+                    <p class="select-disable">Senha</p>
+                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="input_senha">
+                    <p class="select-disable">Confirme a senha</p>
+                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input">
+                </div>
+                <div class="form-direita">
+                    <p class="select-disable">E-mail</p>
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email">
                     <p class="select-disable">CEP</p>
                     <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep">
                     <p class="select-disable">CNPJ</p>
                     <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj">
-                    <span class="conta">Já tem uma conta? <a href="login.html">Clique Aqui</a></span>
-                    <button class="botao" onclick="cadastrar()">Cadastrar</button>
                 </div>
             </div>
+
+            <div class="form-centro">
+                <span class="conta">Já tem uma conta? <a href="login.html">Clique Aqui</a></span>
+                <button class="botao" onclick="cadastrar()">Cadastrar</button>
+            </div>
+            
         </div>
     </div>
 </body>

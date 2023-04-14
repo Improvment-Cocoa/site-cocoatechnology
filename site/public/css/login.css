@@ -116,27 +116,21 @@ body {
 }
 
 .form input {
-  width: 30vw;
-  border-radius: 20px;
-  border: none;
-  border-bottom: 2px solid Rgba(247, 221, 77, 1);
-  height: 30px;
   padding: 10px;
-  display: block;
-  margin: 0 auto;
+  width: 30vw;
+  border-radius: 22px;
+  border: 2px #361B08 solid;
+  font-size: 15px;
+  font-family: 'Mulish';
 }
 
 .form input:hover {
-  outline: none;
-  border-bottom: 2px #DCDCDC solid;
+  border-radius: 15px;
   transition: 0.5s;
-  cursor: pointer;
 }
 
 .form input:focus {
   outline: none;
-  border-bottom: 2px #DCDCDC solid;
-  transition: 0.5s;
 }
 
 .form span {

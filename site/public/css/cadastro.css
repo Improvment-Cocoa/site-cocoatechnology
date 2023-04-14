@@ -87,12 +87,10 @@ body {
 
 .form {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   gap: 2vh;
-  justify-content: center;
 }
 
 .form p {
@@ -106,36 +104,53 @@ body {
 }
 
 .form input {
-  width: 20vw;
-  border-radius: 20px;
-  border: none;
-  border-bottom: 2px solid Rgba(247, 221, 77, 1);
-  height: 30px;
   padding: 10px;
+  width: 20vw;
+  border-radius: 22px;
+  border: 2px #361B08 solid;
+  font-size: 15px;
+  font-family: 'Mulish';
   display: flex;
-  margin: 0;
-  justify-content: c ;
 }
 
 .form input:hover {
-  outline: none;
-  border-bottom: 2px #DCDCDC solid;
-  transition: 0.5s;
-  cursor: pointer;
+  border-radius: 15px;
+    transition: 0.5s;
 }
 
-.direita {
+.form input:focus{
+  outline: none;
+}
+
+.form-esquerda{
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  position: absolute;
   top: 31vh;
-  right: 3vw;
   width: 50%;
 }
 
-.direita input {
+.form-esquerda input{
   margin-bottom: 25px;
+}
+
+.form-direita {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 31vh;
+  width: 50%;
+}
+
+.form-direita input {
+  margin-bottom: 25px;
+}
+
+.form-centro{
+  display: flex;
+  flex-direction: column;
 }
 
 .botao {
@@ -162,7 +177,7 @@ body {
   box-shadow: 0px 0px 4px #FDFF87;
 }
 
-.form span {
+.form-centro span {
   align-self: center;
   text-align: center;
   color: #fff;
@@ -171,7 +186,7 @@ body {
   font-family: 'Mulish';
 }
 
-.form a {
+.form-centro a {
   text-decoration: underline;
   font-weight: 100;
   color: #ffff;
