@@ -9,6 +9,7 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png">
    <link rel="stylesheet" href="css/cadastro.css">
    <script src="./js/funcoes.js"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -22,19 +23,25 @@
             <div class="form">
                 <div class="form-esquerda">
                     <p class="select-disable">Nome completo</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome">
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome" onkeyup="validar_nome()" required>
+                    <span id="span_nome_validacao"></span>
                     <p class="select-disable">Senha</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="input_senha">
+                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="input_senha" onkeyup="validar_senha()" required>
+                    <span id="span_senha_validacao"></span>
                     <p class="select-disable">Confirme a senha</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input">
+                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input" onkeyup="confirmar_senha()" required>
+                     <span id="span_confirma_senha_validacao"></span>
                 </div>
                 <div class="form-direita">
                     <p class="select-disable">E-mail</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email">
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email" onkeyup="validar_email()" required>
+                    <span id="span_validar_email"></span>
                     <p class="select-disable">CEP</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep">
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep" onkeyup="validar_cep()" required>
+                    <span id="span_validar_cep"></span>
                     <p class="select-disable">CNPJ</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj">
+                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj" onkeyup="validar_cpnj()" required>
+                    <span id="span_validar_cnpj"></span>
                 </div>
             </div>
 
@@ -50,6 +57,144 @@
 </html>
 
 <script>
+    function validar_nome(){
+        var input = document.getElementById('input_nome')
+        var nome = input_nome.value
+        var span = document.getElementById('span_nome_validacao')
+
+        if(nome == ""){
+            span.style.color = 'red'
+            span.innerHTML = 'Campo vazio'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else if(nome.length <3){
+            span.style.color = 'red'
+            span.innerHTML = 'O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.add("shake");
+        }
+    }
+    function validar_senha(){
+        var input = document.getElementById('input_senha')
+        var senha = input_senha.value
+        var span = document.getElementById('span_senha_validacao')
+
+        if(senha.length <8){
+            span.style.color = 'red'
+            span.innerHTML = 'A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
+    function confirmar_senha(){
+        var input = document.getElementById('confirmacao_senha_input')
+        var senha = input_senha.value
+        var confirmar_senha_user = confirmacao_senha_input.value
+        var span = document.getElementById('span_confirma_senha_validacao')
+
+        if(confirmar_senha_user != senha){
+            span.style.color = 'red'
+            span.innerHTML = 'Ops! A senha inserida está incorreta. Por favor, tente novamente.'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
+    function validar_email(){
+        var input = document.getElementById('input_email')
+        var email = input_email.value
+        var span = document.getElementById('span_validar_email')
+
+        if(email.indexOf("@") == -1 || email.indexOf(".com") == -1 || email.length < 7 ){
+            span.style.color = 'red'
+            span.innerHTML = 'O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
+    function validar_cep(){
+        var input = document.getElementById('input_cep')
+        var cep = input_cep.value
+        var span = document.getElementById('span_validar_cep')
+
+        if(cep.length <9){
+            span.style.color = 'red'
+            span.innerHTML = 'O CEP inserido é inválido. Por favor, insira um CEP válido.'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
+
+    function validar_cpnj(){
+        var input = document.getElementById('input_cnpj')
+        var cnpj = input_cnpj.value
+        var span = document.getElementById('span_validar_cnpj')
+
+        if(cnpj.length <14){
+            span.style.color = 'red'
+            span.innerHTML = 'O CNPJ inserido é inválido. Por favor, insira um CNPJ válido.'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '12px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+            span.style.marginTop = '-20px'
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
+   
     function cadastrar() {
         //aguardar();
 
@@ -64,7 +209,7 @@
 
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || cepVar == "" || cnpjVar == "") {
             //cardErro.style.display = "block"
-            alert("(Mensagem de erro para todos os campos em branco)");
+            swal ( "Ops" ,  "Preencha todos os campos" ,  "error" )
 
             finalizarAguardar();
             return false;
@@ -95,7 +240,7 @@
             if (resposta.ok) {
                 //cardErro.style.display = "block";
 
-                alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+                swal("Bom trabalho!", "Cadastro realizado com sucesso redirecionando a tela de login...!", "success");
 
                 setTimeout(() => {
                     window.location = "login.html";

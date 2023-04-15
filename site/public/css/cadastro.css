@@ -184,6 +184,7 @@ body {
   font-size: 13px;
   font-weight: 100;
   font-family: 'Mulish';
+  margin: 15px 0 0 0;
 }
 
 .form-centro a {
@@ -195,3 +196,18 @@ body {
 .conta a:hover {
   color: #FDFF87;
 }
+
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+
+
+
