@@ -688,10 +688,7 @@ a {
 }
 
 .div-calculo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+
     width: 100%;
     height: 40vh;
 }
