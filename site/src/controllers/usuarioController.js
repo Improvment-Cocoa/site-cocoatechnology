@@ -45,8 +45,11 @@ function entrar(req, res) {
                         res.json(resultado[0]);
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
+                       
+                        
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                        res.redirect("/login?mensagem=Email já cadastrado!");
                     }
                 }
             ).catch(

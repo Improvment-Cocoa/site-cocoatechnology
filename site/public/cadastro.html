@@ -10,6 +10,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
    <link rel="stylesheet" href="css/cadastro.css">
    <link rel="stylesheet" href="./css/reset.css">
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -66,6 +67,7 @@
         var input = document.getElementById('input_nome')
         var nome = input_nome.value
         var span = document.getElementById('span_nome_validacao')
+        nome = nome.toLowerCase()
 
         if(nome == ""){
             span.style.color = 'red'
@@ -77,10 +79,11 @@
         }
         else if(nome.length <3){
             span.style.color = 'red'
-            span.innerHTML = 'O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres'
+            span.innerHTML = 'O nome inserido é muito curto. Por favor,<br> insira um nome com pelo menos 3 caracteres'
             span.style.fontFamily = 'Mulish'
             span.style.fontSize = '12px'
             input.style.borderColor = 'red'
+            span.style.marginTop = '-10px'
             input.classList.add("shake");
         }
         else{
@@ -88,7 +91,7 @@
             span.style.fontFamily = 'Mulish'
             span.style.fontSize = '15px'
             input.style.borderColor = 'green'
-            input.classList.add("shake");
+            input.classList.remove("shake");
         }
     }
     function validar_senha(){
@@ -98,10 +101,11 @@
 
         if(senha.length <8){
             span.style.color = 'red'
-            span.innerHTML = 'A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres'
+            span.innerHTML = 'A senha inserida é muito curta. Por favor, <br> insira uma senha com pelo menos 8 caracteres'
             span.style.fontFamily = 'Mulish'
             span.style.fontSize = '12px'
             input.style.borderColor = 'red'
+            span.style.marginTop = '-10px'
             input.classList.add("shake");
         }
         else{
@@ -122,8 +126,9 @@
             span.style.color = 'red'
             span.innerHTML = 'Ops! A senha inserida está incorreta. Por favor, tente novamente.'
             span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '12px'
+            span.style.fontSize = '10px'
             input.style.borderColor = 'red'
+            span.style.marginTop = '-15px'
             input.classList.add("shake");
         }
         else{
@@ -138,12 +143,13 @@
         var input = document.getElementById('input_email')
         var email = input_email.value
         var span = document.getElementById('span_validar_email')
+        email = email.toLowerCase()
 
         if(email.indexOf("@") == -1 || email.indexOf(".com") == -1 || email.length < 7 ){
             span.style.color = 'red'
             span.innerHTML = 'O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.'
             span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '12px'
+            span.style.fontSize = '10px'
             input.style.borderColor = 'red'
             input.classList.add("shake");
         }
@@ -160,11 +166,11 @@
         var cep = input_cep.value
         var span = document.getElementById('span_validar_cep')
 
-        if(cep.length <9){
+        if(cep.length <8 || cep.length >8 ){
             span.style.color = 'red'
             span.innerHTML = 'O CEP inserido é inválido. Por favor, insira um CEP válido.'
             span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '12px'
+            span.style.fontSize = '10px'
             input.style.borderColor = 'red'
             input.classList.add("shake");
         }
@@ -182,11 +188,11 @@
         var cnpj = input_cnpj.value
         var span = document.getElementById('span_validar_cnpj')
 
-        if(cnpj.length <14){
+        if(cnpj.length <14 || cnpj.length >14){
             span.style.color = 'red'
             span.innerHTML = 'O CNPJ inserido é inválido. Por favor, insira um CNPJ válido.'
             span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '12px'
+            span.style.fontSize = '10px'
             input.style.borderColor = 'red'
             input.classList.add("shake");
             span.style.marginTop = '-20px'
@@ -254,7 +260,7 @@
                 limparFormulario();
                 finalizarAguardar();
             } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
+                swal ( "Ops" ,  "Mais de um usuário com o mesmo login e senha!" ,  "error" )
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

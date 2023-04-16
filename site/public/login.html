@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Login</title>
     <script src="./js/funcoes.js"></script>
@@ -23,12 +24,14 @@
                     <div>
                         <p class="select-disable">E-mail</p>
                         <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
-                            id="email_input">
+                            id="email_input" onkeyup="validar_email()">
+                            <span id="span_validar_email"></span>
                     </div>
                     <div>
                         <p class="select-disable">Senha</p>
                         <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********"
-                            id="senha_input">
+                            id="senha_input" onkeyup="validar_senha()">
+                            <span id="span_senha_validacao"></span>
                     </div>
                 </div>
                 <div class="btn-container">
@@ -49,6 +52,50 @@
 </script>
 
 <script>
+    function validar_email(){
+        var input = document.getElementById('email_input')
+        var email = email_input.value
+        var span = document.getElementById('span_validar_email')
+
+        if(email.indexOf("@") == -1 || email.indexOf(".com") == -1 || email.length < 7 ){
+            span.style.color = 'red'
+            span.innerHTML = 'O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.'
+            span.style.marginTop = '-20px'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '11px'
+            input.style.borderColor = 'red'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
+    function validar_senha(){
+        var input = document.getElementById('senha_input')
+        var senha = senha_input.value
+        var span = document.getElementById('span_senha_validacao')
+
+        if(senha.length <8){
+            span.style.color = 'red'
+            span.innerHTML = 'A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres'
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '10px'
+            input.style.borderColor = 'red'
+            span.style.marginTop = '-20px'
+            input.classList.add("shake");
+        }
+        else{
+            span.innerHTML = ''
+            span.style.fontFamily = 'Mulish'
+            span.style.fontSize = '15px'
+            input.style.borderColor = 'green'
+            input.classList.remove("shake");
+        }
+    }
     function entrar() {
         //aguardar();
 
@@ -57,7 +104,7 @@
 
         if (emailVar == "" || senhaVar == "") {
             // cardErro.style.display = "block"
-            alert("Preencha os campos para logar!");
+            swal ( "Ops" ,  "Preencha os campos para logar!" ,  "error" )
             finalizarAguardar();
             return false;
         }
@@ -99,7 +146,7 @@
 
             } else {
 
-                console.log("Houve um erro ao tentar realizar o login!");
+                swal ( "Ops" ,  "Email e/ou senha inválido(s)" ,  "error" )
 
                 resposta.text().then(texto => {
                     console.error(texto);
