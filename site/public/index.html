@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/simulador.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Cocoa Technology</title>
 </head>
@@ -21,7 +20,8 @@
             <ul class="nav-list">
                 <li><a href="#sobre-nos">Sobre nós</a></li>
                 <li><a href="#projeto">Projeto</a></li>
-                <li><a href="./login.html">Login</a></li>
+                <li><a href="#simulador">Simulador</a></li>
+                <li style="margin-left: 5vh;"><a href="./login.html">Login</a></li>
                 <li><a href="./cadastro.html">Cadastro</a></li>
             </ul>
         </nav>
@@ -31,7 +31,7 @@
                 satisfação dos seus clientes. A Cocoa Technology é a empresa líder em monitoramento de temperatura e
                 umidade em plantações de cacau, ajudando os produtores a garantir que seu produto final seja sempre da
                 mais alta qualidade.</p>
-            <a href="#"><button id="btn-header">SAIBA MAIS</button></a>
+            <a href="#projeto"><button id="btn-header">SAIBA MAIS</button></a>
         </div>
         <div class="redes select-disable">
             <a href="#"><img src="./assets/img/icones/twitter.png" alt="Logo Twitter"></a>
@@ -47,7 +47,8 @@
     <section id="sobre-nos">
         <h1 class="titulo-section">Sobre Nós</h1>
         <div>
-            <p data-aos="fade-right" data-aos-duration="700">Reduzida e objetiva a Cocoa Technology é a empresa líder em
+            <p data-aos="fade-right" data-aos-duration="700">De forma reduzida e objetiva, a Cocoa Technology é a
+                empresa líder em
                 monitoramento de temperatura e umidade em plantações de cacau. Fornecemos informações precisas e em
                 tempo real sobre as condições climáticas em suas plantações, permitindo que você tome decisões
                 informadas sobre o momento de colheita, armazenamento e transporte do cacau.</p>
@@ -69,165 +70,173 @@
             </div>
         </div>
     </section>
-
-    <!-- Precisamos mudar o fundo para um ter ligação com o outro! -->
-    <!-- também decidir qual é a melhor fonte para por no nome dos integrantes: Munale ou Mulish -->
-    <section id="equipe">
-        <h1 class="titulo-section">Integrantes</h1>
-        <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
-            <div>
-                <img class="select-disable" src="./assets/img/integrantes/ft-anna.jpeg" alt="Foto Anna Paula">
-                <span>Anna Paula</span>
-                <text>Back-End</text>
+    <div class="background-linear">
+        <section id="equipe">
+            <h1 class="titulo-section">Integrantes</h1>
+            <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
+                <div>
+                    <img class="select-disable" src="./assets/img/integrantes/ft-anna.jpeg" alt="Foto Anna Paula">
+                    <span>Anna Paula</span>
+                    <text>Back-End</text>
+                </div>
+                <div>
+                    <img class="select-disable" src="./assets/img/integrantes/ft-Davi.jpg" alt="Foto Davi Maciel">
+                    <span>Davi Maciel</span>
+                    <text>Front-End</text>
+                </div>
+                <div>
+                    <img class="select-disable" src="./assets/img/integrantes/ft-Ewerton.jpg" alt="Foto Ewerton Lima">
+                    <span>Ewerton Lima</span>
+                    <text>Back-End</text>
+                </div>
             </div>
-            <div>
-                <img class="select-disable" src="./assets/img/integrantes/ft-Davi.jpg" alt="Foto Davi Maciel">
-                <span>Davi Maciel</span>
-                <text>Front-End</text>
+            <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
+                <div>
+                    <img class="select-disable" src="./assets/img/integrantes/ft-julia.jpeg" alt="Foto Julia Hown">
+                    <span>Julia Hown</span>
+                    <text>Analista</text>
+                </div>
+                <div>
+                    <img class="select-disable" src="./assets/img/integrantes/ft-luigi.jpeg"
+                        alt="Foto Luigi Vicchietti">
+                    <span>Luigi Vicchietti</span>
+                    <text>Full-Stack e Analista</text>
+                </div>
+                <div>
+                    <img class="select-disable" src="./assets/img/integrantes/ft-will.jpeg" alt="Will Dantas">
+                    <span>Will Dantas</span>
+                    <text>Front-End e Analista</text>
+                </div>
             </div>
-            <div>
-                <img class="select-disable" src="./assets/img/integrantes/ft-Ewerton.jpg" alt="Foto Ewerton Lima">
-                <span>Ewerton Lima</span>
-                <text>Back-End</text>
-            </div>
-        </div>
-        <div class="integrantes-row" data-aos="fade-up" data-aos-duration="1500">
-            <div>
-                <img class="select-disable" src="./assets/img/integrantes/ft-julia.jpeg" alt="Foto Julia Hown">
-                <span>Julia Hown</span>
-                <text>Analista</text>
-            </div>
-            <div>
-                <img class="select-disable" src="./assets/img/integrantes/ft-luigi.jpeg" alt="Foto Luigi Vicchietti">
-                <span>Luigi Vicchietti</span>
-                <text>Full-Stack e Analista</text>
-            </div>
-            <div>
-                <img class="select-disable" src="./assets/img/integrantes/ft-will.jpeg" alt="Will Dantas">
-                <span>Will Dantas</span>
-                <text>Front-End e Analista</text>
-            </div>
-        </div>
-    </section>
-    <section class="timeline">
-        <h3 class="text">Timeline</h3>
-            <ul>
-                <li>
-                    <div class="time-info"></div>
-                    <div class="content">
-                        <h3>Fundadores</h3>
-                        <p>A empresa foi fundada por Anna Paula,Davi Maciel,Ewerton Lima,Julia Hown,Luigi Tadeu e Will Dantas.</p>
-                    </div>          
+        </section>
+        <section class="timeline">
+            <h1 class="titulo-section">Linha do tempo</h1>
+            <div class="timeline-container">
+                <ul>
                     <li>
-                        <div class="time">
-                            <h4>Setembro, 2021</h4>
+                        <div class="time-info"></div>
+                        <div class="content" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                            <h3 data-aos="fade-up" data-aos-duration="650">Fundadores</h3>
+                            <p data-aos="fade-right" data-aos-duration="1200">A empresa foi fundada por Diego Hessel,
+                                Ewerton Lima, Kauã Telles, Natália Fernandes,
+                                Thais Stefani, Vitor Quintans e Will Dantas no mês de fevereiro.</p>
+                        </div>
+                        <div class="time select-disable">
+                            <h4>Fevereiro, 2022</h4>
+                        </div>
+                    <li>
+                        <div class="content" style="display: flex; flex-direction: column;">
+                            <h3 data-aos="fade-up" data-aos-duration="650">Improvment Cocoa</h3>
+                            <p style="align-self: flex-start;" data-aos="fade-left" data-aos-duration="1200">Projeto
+                                ganhou o nome de Improvment Cocoa e iniciou-se
+                                seu desenvolvimento.</p>
+                        </div>
+                        <div class="time select-disable">
+                            <h4>Março, 2023</h4>
                         </div>
                     </li>
                     <li>
-                        <div class="content">
-                            <h3>Improvment Cocoa</h3>
-                            <p>Projeto ganhou o nome de Improvment Cocoa e iniciou seu desenvolvimento.</p>
+                        <div class="content" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                            <h3 data-aos="fade-up" data-aos-duration="650">Cocoa Technology</h3>
+                            <p data-aos="fade-right" data-aos-duration="1200">O projeto foi renomeado para Cocoa
+                                Technology e ganhou uma nova identidade visual e uma
+                                nova equipe com a chegada de Anna Paula, Davi Maciel, Julia Hown e Luigi Vicchietti.</p>
                         </div>
-                        <div class="time">
-                            <h4>Novembro, 2021</h4>
+                        <div class="time select-disable">
+                            <h4>Abril, 2022</h4>
                         </div>
-                    </li>
-                    <li>
-                        <div class="content">
-                            <h3>Cocoa Technology</h3>
-                            <p>O projeto foi renomeado (Cocoa Technology) e ganhou uma identidade visual.</p>
-                        </div>
-                        <div class="time">
-                            <h4>Março, 2022</h4>
-                        </div>
-                    </div>
                     </li>
                 </ul>
             </div>
-    </section>
-    <section id="projeto">
-        <div class="imagem-projeto">
-            <img data-aos="fade-right" data-aos-duration="700" class="select-disable" src="assets/img/varios-choco.webp"
-                alt="">
-        </div>
-        <div class="descricao-projeto">
-            <h1 class="titulo-section select-disable">Projeto</h1>
-            <p data-aos="fade-right" data-aos-duration="700">  Temos como meta elevar a qualidade do chocolate,
-                oferecendo aos produtores as ferramentas necessárias para produzir um produto final de excelência. Com
-                nossa tecnologia de ponta e equipe altamente qualificada, estamos comprometidos com o sucesso dos nossos
-                clientes.
-            </p>
+        </section>
+        <section id="projeto">
+            <div class="imagem-projeto">
+                <div class="produto-projeto"></div>
+                <img class="produto-img" data-aos="fade-right" data-aos-duration="700" class="select-disable"
+                    src="assets/img/varios-choco.webp" alt="Produto de cacau">
+                <img class="pie-chart" src="./assets/img/pie-chart.svg" alt="Grafico de pizza" data-aos="fade-up"
+                    data-aos-duration="1200">
+                <div class="icones-sensores select-disable" data-aos="fade-right" data-aos-duration="1200">
+                    <img class="img-sensores" src="./assets/img/icones/moisture.png" alt="Umidade">
+                    <img class="img-sensores" src="./assets/img/icones/thermometer.png" alt="Temperatura">
+                </div>
+            </div>
+            <div class="descricao-projeto">
+                <h1 class="titulo-section select-disable">Projeto</h1>
+                <p data-aos="fade-right" data-aos-duration="700"> Temos como meta elevar a qualidade do chocolate,
+                    oferecendo aos produtores as ferramentas necessárias para produzir um produto final de excelência.
+                    Com
+                    nossa tecnologia de ponta e equipe altamente qualificada, estamos comprometidos com o sucesso dos
+                    nossos
+                    clientes.
+                </p>
 
-            <p data-aos="fade-right" data-aos-duration="700">  Nosso objetivo é ajudar a transformar a indústria do
-                chocolate, oferecendo aos produtores de cacau as ferramentas necessárias para produzir um produto final
-                de qualidade superior. Ao escolher a Cocoa Technology, você está optando por uma empresa que está
-                comprometida com a excelência e com o sucesso dos seus clientes. A Cocoa Technology está pronta
-                para ajudá-lo a alcançar seus objetivos de produção de cacau com nossa tecnologia de ponta e nossa
-                equipe de especialistas altamente qualificados. Juntos, podemos fazer do seu negócio de chocolate um
-                sucesso ainda maior.</p>
-        </div>
-    </section>
+                <p data-aos="fade-right" data-aos-duration="700"> Nosso objetivo é ajudar a transformar a indústria do
+                    chocolate, oferecendo aos produtores de cacau as ferramentas necessárias para produzir um produto
+                    final
+                    de qualidade superior. Ao escolher a Cocoa Technology, você está optando por uma empresa que está
+                    comprometida com a excelência e com o sucesso dos seus clientes. A Cocoa Technology está pronta
+                    para ajudá-lo a alcançar seus objetivos de produção de cacau com nossa tecnologia de ponta e nossa
+                    equipe de especialistas altamente qualificados. Juntos, podemos fazer do seu negócio de chocolate um
+                    sucesso ainda maior.</p>
+            </div>
+        </section>
 
-    <section id="simulador">
-        <h1 class="titulo-section select-disable">Simulador financeiro</h1>
-    <div>
-        <div class="simulador-inputs">
-            <span class="simulador-span">Insira a quantidade de hectares da sua plantação:</span>
-            <input data-aos="fade-right" data-aos-duration="700" id="input_hectares" placeholder="Digite quantidade de hectares ">
-            <span class="simulador-span-hectares"> Não sabe as medidas em hectares?</span>
-            <button class="bnt-qnthectares ">Calcular hectares</button>
-           
-            <span class="simulador-span">Quantidade de sacas produzida na última safra:</span>
-            <input data-aos="fade-right" data-aos-duration="700" id="input_sacas" placeholder="Digite a quantidade de sacas produzida ">
-            <span class="simulador-span">Valor vendido por saca produzida (R$):</span>
-            <input data-aos="fade-right" data-aos-duration="700" id="input_valorsacas" placeholder="Digite o valor vendido por saca">
-            <span class="simulador-span">Despesas totais da última safra:</span>
-            <input data-aos="fade-right" data-aos-duration="700" id="input_despezas" placeholder="Digite despesas ">
-            <button class="btn-simulador select-disable">Faça uma simulação</button>
-        </div>
-       
-        <div class="resultado">
-            <p class="introducaozinha">
-                Segundo estudos realizados pela Universidade de Columbia Britânica, mostra-se que a seca pode reduzir a produção de cacau em até 30%. Outros estudos apontam a vulnerabilidade que as plantações podem apresentar a baixas temperaturas e índices de umidade, sendo mais suscetíveis a doenças e pragas relacionadas ao cacau.
-            </p>
+        <section id="simulador">
+            <h1 class="titulo-section select-disable">Simulador financeiro</h1>
+            <div class="simulador-container">
+                <div class="simulador-inputs">
+                    <span class="simulador-span">Insira a quantidade de hectares da sua plantação:</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_hectares"
+                        placeholder="Digite quantidade de hectares">
+                    <span class="simulador-span">Quantidade de sacas produzida na última safra:</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_sacas"
+                        placeholder="Digite a quantidade de sacas produzida ">
+                    <span class="simulador-span">Valor vendido por saca produzida (R$):</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_valorsacas"
+                        placeholder="Digite o valor vendido por saca">
+                    <span class="simulador-span">Despesas totais da última safra:</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_despezas"
+                        placeholder="Digite despesas ">
+                    <button class="btn-simulador select-disable">Faça uma simulação</button>
+                </div>
+                <div class="simulador-resultado">
+                    <p class="introducao" data-aos="fade-left" data-aos-duration="700">
+                        Segundo estudos realizados pela Universidade de Columbia Britânica, mostra-se que a seca pode
+                        reduzir a produção de cacau em até 30%. Outros estudos apontam a vulnerabilidade que as
+                        plantações
+                        podem apresentar a baixas temperaturas e índices de umidade, sendo mais suscetíveis a doenças e
+                        pragas relacionadas ao cacau.
+                    </p>
+                    <!-- Limpar essa div. O conteúdo dela será via innerHTML -->
+                    <div class="div-calculo"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates id dolorem suscipit dicta nesciunt, cupiditate at et incidunt dolores alias. Illum eum ipsa quasi aperiam similique. Delectus reprehenderit impedit quas.</p></div>
+                </div>
+            </div>
+        </section>
 
-            <!--<div class="calculo">
-                <span>Sem a solução da Cocoa Technology</span>
-                <span>O valor de retorno será de R$ 0000,00.</span>
-                <span>Com a solução da Cocoa Technology</span>
-                <span>O valor de retorno será de R$ 0000,00.</span>
-                <span>Obtendo um lucro de 00%</span>
+        <section id="fale-conosco">
+            <h1 class="titulo-section select-disable">Fale Conosco</h1>
+            <div>
+                <div class="fale-conosco-inputs">
+                    <span class="fale-conosco-span">Nome</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_nome" placeholder="Digite seu nome">
+                    <span class="fale-conosco-span">Assunto</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_assunto"
+                        placeholder="Digite o assunto">
+                    <span class="fale-conosco-span">E-mail</span>
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_email"
+                        placeholder="Digite seu e-mail">
+                </div>
+                <div class="fale-conosco-comunicado">
+                    <span class="fale-conosco-span">Dê um comunicado</span>
+                    <textarea data-aos="fade-right" data-aos-duration="700" id="textarea_comunicado" cols="30" rows="10"
+                        placeholder="Escreva aqui!"></textarea>
 
-            </div>-->
-         
-             
-        </div>
-       
+                    <button class="btn-fale-conosco select-disable">Enviar</button>
+                </div>
+            </div>
+        </section>
     </div>
-    </section>
-
-    <section id="fale-conosco">
-        <h1 class="titulo-section select-disable">Fale Conosco</h1>
-
-        <div>
-            <div class="fale-conosco-inputs">
-                <span class="fale-conosco-span">Nome</span>
-                <input data-aos="fade-right" data-aos-duration="700" id="input_nome" placeholder="Digite seu nome">
-                <span class="fale-conosco-span">Assunto</span>
-                <input data-aos="fade-right" data-aos-duration="700" id="input_assunto" placeholder="Digite o assunto">
-                <span class="fale-conosco-span">E-mail</span>
-                <input data-aos="fade-right" data-aos-duration="700" id="input_email" placeholder="Digite seu e-mail">
-            </div>
-
-            <div class="fale-conosco-comunicado">
-                <span class="fale-conosco-span">Dê um comunicado</span>
-                <textarea data-aos="fade-right" data-aos-duration="700" id="textarea_comunicado" cols="30" rows="10"
-                    placeholder="Escreva aqui!"></textarea>
-
-                <button class="btn-fale-conosco select-disable">Enviar</button>
-            </div>
-        </div>
-    </section>
     <footer>
         <div>
             <a class="select-disable" href="#land-page"><img src="./assets/img/logotipo/branco.png"

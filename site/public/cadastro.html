@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
    <link rel="stylesheet" href="css/cadastro.css">
-   <script src="./js/funcoes.js"></script>
-   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <link rel="stylesheet" href="./css/reset.css">
 </head>
 
 <body>
@@ -17,36 +17,36 @@
         <div class="cadastro-left">
         </div>
         <div class="cadastro-right">
-            <a class="select-disable" href="index.html"><img src="assets/img/icones/seta-direita.png"></a>
-            <h1 class="texto_cadastro">Faça seu cadastro</h1>
+            <a class="select-disable" href="index.html"><img src="assets/img/icones/seta-esquerda.png"></a>
+            <h1 class="texto_cadastro select-disable">Faça seu cadastro</h1>
 
             <div class="form">
                 <div class="form-esquerda">
                     <p class="select-disable">Nome completo</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome" onkeyup="validar_nome()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="Insira seu Nome" id="input_nome" onkeyup="validar_nome()" required>
                     <span id="span_nome_validacao"></span>
                     <p class="select-disable">Senha</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="input_senha" onkeyup="validar_senha()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********" id="input_senha" onkeyup="validar_senha()" required>
                     <span id="span_senha_validacao"></span>
                     <p class="select-disable">Confirme a senha</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input" onkeyup="confirmar_senha()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********" id="confirmacao_senha_input" onkeyup="confirmar_senha()" required>
                      <span id="span_confirma_senha_validacao"></span>
                 </div>
                 <div class="form-direita">
                     <p class="select-disable">E-mail</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email" onkeyup="validar_email()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email" onkeyup="validar_email()" required>
                     <span id="span_validar_email"></span>
                     <p class="select-disable">CEP</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep" onkeyup="validar_cep()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep" onkeyup="validar_cep()" required>
                     <span id="span_validar_cep"></span>
                     <p class="select-disable">CNPJ</p>
-                    <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj" onkeyup="validar_cpnj()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj" onkeyup="validar_cpnj()" required>
                     <span id="span_validar_cnpj"></span>
                 </div>
             </div>
 
             <div class="form-centro">
-                <span class="conta">Já tem uma conta? <a href="login.html">Clique Aqui</a></span>
+                <span class="conta">Já tem uma conta? <a href="login.html">Clique Aqui</a> para logar!</span>
                 <button class="botao" onclick="cadastrar()">Cadastrar</button>
             </div>
             
@@ -55,6 +55,11 @@
 </body>
 
 </html>
+<script src="./js/funcoes.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 <script>
     function validar_nome(){

@@ -12,24 +12,36 @@
     <title>Login</title>
     <script src="./js/funcoes.js"></script>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-left">
             <a class="select-disable" href="./index.html"><img src="assets/img/icones/seta-esquerda.png"></a>
             <div class="form">
                 <h1 class="texto_login select-disable">Entre em sua conta!</h1>
-                <p class="select-disable">E-mail</p>
-                <input data-aos="fade-right" data-aos-duration="700" type="text" placeholder="E-mail" id="email_input">
-                <p class="select-disable">Senha</p>
-                <input data-aos="fade-right" data-aos-duration="700" type="password" placeholder="***********" id="senha_input">
-                <button class="botao select-disable" onclick="entrar()">Login</button>
-                <span class="conta">Ainda não tem uma conta? <a href="#">Clique Aqui</a></span>
+                <div class="input-container">
+                    <div>
+                        <p class="select-disable">E-mail</p>
+                        <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
+                            id="email_input">
+                    </div>
+                    <div>
+                        <p class="select-disable">Senha</p>
+                        <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********"
+                            id="senha_input">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <span class="conta">Ainda não tem uma conta? <a href="#">Clique Aqui</a></span>
+                    <button class="botao select-disable" onclick="entrar()">Login</button>
+                </div>
             </div>
         </div>
         <div class="login-right">
         </div>
     </div>
 </body>
+
 </html>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -37,8 +49,6 @@
 </script>
 
 <script>
-
-
     function entrar() {
         //aguardar();
 
@@ -46,13 +56,13 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-           // cardErro.style.display = "block"
-            alert("(Mensagem de erro para todos os campos em branco)");
+            // cardErro.style.display = "block"
+            alert("Preencha os campos para logar!");
             finalizarAguardar();
             return false;
         }
         else {
-            setInterval('oi', 5000)
+            setInterval('...', 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -82,7 +92,7 @@
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
-                        window.location = "./dashboard/dashboard.html";
+                        window.location = "./dashboard/dashboard-geral.html";
                     }, 1000); // apenas para exibir o loading
 
                 });

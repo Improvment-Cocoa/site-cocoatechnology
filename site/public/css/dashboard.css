@@ -25,7 +25,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: #FDFF87;
+    background-color: #DAA250;
     border-radius: 5px;
 }
 
@@ -59,7 +59,7 @@ nav {
     height: 100vh;
     color: #FFf;
     background: radial-gradient(57.36% 57.36% at 50% 42.64%, #151515 0%, #0C0C0C 100%);
-    border-right: 2px solid #F8D16F;
+    border-right: 2px solid #DAA250;
     gap: 2vh;
     padding: 0.6rem;
     top: 0;
@@ -68,6 +68,14 @@ nav {
 
 nav img {
     max-width: 13vw;
+}
+
+.texto-user {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    padding: 5vh 0;
 }
 
 .nav-list {
@@ -81,7 +89,7 @@ nav img {
     padding-left: 1vw;
 }
 
-a {
+.nav-list a {
     display: flex;
     align-items: center;
     color: #FFF;
@@ -89,7 +97,7 @@ a {
     gap: 1.4vw;
 }
 
-a:hover {
+.nav-list a:hover {
     -webkit-transform: scale(1.03);
     -moz-transform: scale(1.03);
     -o-transform: scale(1.03);
@@ -100,7 +108,19 @@ a:hover {
 li {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.3rem;
+}
+
+.pag-atual {
+    border-bottom: 1px solid #DAA250 !important;
+    border-radius: 5px;
+}
+
+.pag-atual:hover {
+    border-bottom: 1px solid #FFF !important;
+    transition: 0.5s;
 }
 
 li span {
@@ -136,36 +156,6 @@ nav button:hover {
     cursor: pointer;
 }
 
-.div-title {
-    display: flex;
-    position: fixed;
-    flex-direction: row;
-    justify-content: center;
-    width: 85.2vw;
-    height: 12vh;
-    background: linear-gradient(to bottom, #DCDCDC, #FFF);
-    top: 0;
-    transition: 0.6s;
-    z-index: 3;
-}
-
-.div-title.ativa {
-    background-color: rgb(00, 00, 00, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(00, 00, 00, 0.37);
-    backdrop-filter: blur(7.5px);
-    -webkit-backdrop-filter: blur(7.5px);
-}
-
-.div-title h1 {
-    align-self: center;
-    justify-self: center;
-    color: #000;
-    font-family: 'Munale';
-    font-size: 1.8vw;
-    margin: 1rem;
-    padding: 1rem;
-}
-
 input {
     width: 30vw;
     height: 3vh;
@@ -186,7 +176,7 @@ input {
     width: 85%;
     background-color: transparent;
     gap: 3vh;
-    margin: 15% 0 0 15%;
+    margin: 5vh 0 0 15%;
 }
 
 #content span {
@@ -200,7 +190,7 @@ input {
 }
 
 .slide-show::-webkit-scrollbar-thumb {
-    background-color: #FDFF87;
+    background-color: #DAA250;
     border-radius: 15px;
 }
 
