@@ -38,10 +38,10 @@
                     <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail" id="input_email" onkeyup="validar_email()" required>
                     <span id="span_validar_email"></span>
                     <p class="select-disable">CEP</p>
-                    <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="Insira seu CEP" id="input_cep" onkeyup="validar_cep()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="number" placeholder="Insira seu CEP" id="input_cep" onkeyup="validar_cep()" required >
                     <span id="span_validar_cep"></span>
                     <p class="select-disable">CNPJ</p>
-                    <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="Insira seu CNPJ" id="input_cnpj" onkeyup="validar_cpnj()" required>
+                    <input data-aos="fade-up" data-aos-duration="700" type="number" placeholder="Insira seu CNPJ" id="input_cnpj" onkeyup="validar_cpnj()" required >
                     <span id="span_validar_cnpj"></span>
                 </div>
             </div>
@@ -217,6 +217,8 @@
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
         var cepVar = input_cep.value;
         var cnpjVar = input_cnpj.value;
+        nomeVar = nomeVar.toLowerCase()
+        emailVar = emailVar.toLowerCase()
 
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || cepVar == "" || cnpjVar == "") {
             //cardErro.style.display = "block"
@@ -225,9 +227,24 @@
             finalizarAguardar();
             return false;
         }
+        else if(nomeVar.length <3){
+            swal ( "Ops" ,  "O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres" ,  "warning" )
+        }
+        else if(emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7 ){
+            swal ( "Ops" ,  "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido." ,  "warning" )
+        }
+        else if(senhaVar.length <8){
+            swal ( "Ops" ,  "A senha inserida é muito curta. Por favor,insira uma senha com pelo menos 8 caracteres." ,  "warning" )
+        }
+        else if(cepVar.length <8 || cepVar.length >8){
+            swal ( "Ops" ,  "O CEP inserido é inválido. Por favor, insira um CEP válido." ,  "warning" )
+        }
+        else if(cnpjVar.length <14 || cnpjVar.length >14){
+            swal ( "Ops" ,  "O CNPJ inserido é inválido. Por favor, insira um CNPJ válido." ,  "warning" )
+        }
         else {
             setInterval('oi', 5000)
-        }
+        
 
         // Enviando o valor da nova input
         fetch("/usuarios/cadastrar", {
@@ -268,7 +285,8 @@
         });
 
         return false;
-    }
+    }  
+}
 
     //function sumirMensagem() {
         //cardErro.style.display = "none"
