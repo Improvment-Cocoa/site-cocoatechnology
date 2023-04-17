@@ -508,6 +508,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100vh;
     gap: 3vh;
@@ -568,7 +569,7 @@ a {
     flex-direction: column;
     gap: 8vh;
     font-size: 17px;
-    padding: 8vh 0 3vh 0;
+    padding: 2vh 0 3vh 0;
     text-align: justify;
 }
 
@@ -581,13 +582,12 @@ a {
     max-height: 500px;
 }
 
-/*simulador */
 #simulador {
     display: flex;
     position: relative;
     flex-direction: column;
     width: 100%;
-    height: 96vh;
+    height: 115vh;
     background-image: url(../assets/img/simulador-background.png);
     background-repeat: no-repeat;
     gap: 10vh;
@@ -598,7 +598,7 @@ a {
 #simulador::before {
     content: '';
     position: absolute;
-    width: 20vw;
+    width: 100%;
     height: 30vh;
     background-image: url(../assets/img/fade/fade-down.svg);
     top: 0;
@@ -664,7 +664,7 @@ a {
     border-radius: 17px;
     transition: 0.7s;
 }
-/*css resultado-simulador*/
+
 .simulador-resultado {
     display: flex;
     flex-direction: column;
@@ -708,7 +708,6 @@ a {
     text-align: center;
 
 }
-/*fim do simulador*/
 
 #fale-conosco {
     display: flex;
@@ -801,6 +800,8 @@ a {
     border: none;
     background-color: #FDFF87;
     font-size: 15px;
+    align-self: flex-end;
+    margin-right: 1vw;
 }
 
 .btn-fale-conosco:hover {
