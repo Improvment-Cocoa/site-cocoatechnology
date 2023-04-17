@@ -21,8 +21,8 @@ Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade 
    <img align="center" alt="cocoaTechnology-HTML" height="50" width="60" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg">
   <img align="center" alt="cocoaTechnology-CSS" height="50" width="60" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
   <img align="center" alt="cocoaTechnology-Js" height="50" width="60" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
-  <img align="center" alt="Luigi-mysql" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
-  <img align="center" alt="cocoaTechnology-node" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"/>
+  <img align="center" alt="Luigi-mysql" height="50" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+  <img align="center" alt="cocoaTechnology-node" height="50" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"/>
 </div>
 
 #
@@ -31,9 +31,7 @@ Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade 
 - 🔗 Sem link no momento
 
 
-#
-
-### 📝 Normas de convivência!
+## 📝 Normas de convivência!
 
 As regras de convivências determinadas para a realização deste trabalho foram:
 
