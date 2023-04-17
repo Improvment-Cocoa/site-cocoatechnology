@@ -208,7 +208,7 @@
                         podem apresentar a baixas temperaturas e índices de umidade, sendo mais suscetíveis a doenças e
                         pragas relacionadas ao cacau.
                     </p>
-                    <div class="resultado-simulado" id="results">
+                    <div class="resultado-simulado" id="analise">
                     <script>
                         function resultado() {
                             var qtdHectares = Number(input_hectares.value)
@@ -223,7 +223,7 @@
                             var lucro = comCocoa - semCocoa
                             var produtividade = (qtdHectares * 10000) * 0.05
 
-                            results.innerHTML = `
+                            analise.innerHTML = `
                             <h4>Sem a solução da Cocoa Technology</h4><br><br>
                             <p>O valor de retorno será de R$${semCocoa}.</p><br>
                             <p>Perda de ${perdaHectare} (M²) da produtividade na plantação!</p><br><br>
