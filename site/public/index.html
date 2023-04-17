@@ -196,9 +196,9 @@
                     <input data-aos="fade-right" data-aos-duration="700" id="input_valorsacas"
                         placeholder="Digite o valor vendido por saca">
                     <span class="simulador-span">Despesas totais da última safra:</span>
-                    <input data-aos="fade-right" data-aos-duration="700" id="input_despezas"
+                    <input data-aos="fade-right" data-aos-duration="700" id="input_despesas"
                         placeholder="Digite despesas ">
-                    <button class="btn-simulador select-disable">Faça uma simulação</button>
+                    <button class="btn-simulador select-disable" onclick="resultado()">Faça uma simulação</button>
                 </div>
                 <div class="simulador-resultado">
                     <p class="introducao" data-aos="fade-left" data-aos-duration="700">
@@ -208,9 +208,31 @@
                         podem apresentar a baixas temperaturas e índices de umidade, sendo mais suscetíveis a doenças e
                         pragas relacionadas ao cacau.
                     </p>
-                    <!-- Limpar essa div. O conteúdo dela será via innerHTML -->
-                    <div class="div-calculo">
-                        
+                    <div class="resultado-simulado" id="results">
+                    <script>
+                        function resultado() {
+                            var qtdHectares = Number(input_hectares.value)
+                            var sacasProduzidas = Number(input_sacas.value)
+                            var valorSacas = Number(input_valorsacas.value)
+                            var despesas = Number(input_despesas.value)
+
+                            var semCocoa = (sacasProduzidas * valorSacas) - despesas
+                            var perdaHectare = (qtdHectares * 10000) * 0.30
+
+                            var comCocoa = (sacasProduzidas * 1.25) * valorSacas - despesas
+                            var lucro = comCocoa - semCocoa
+                            var produtividade = (qtdHectares * 10000) * 0.05
+
+                            results.innerHTML = `
+                            <h4>Sem a solução da Cocoa Technology</h4><br><br>
+                            <p>O valor de retorno será de R$${semCocoa}.</p><br>
+                            <p>Perda de ${perdaHectare} (M²) da produtividade na plantação!</p><br><br>
+
+                            <h4>Com a solução da Cocoa Technology</h4><br><br>
+                            <p>O valor de retorno será de R$${comCocoa}.</p><br>
+                            <p>Obtendo um aumento no lucro de R$${lucro}</p>`
+                        }
+                    </script>
                     </div>
                 </div>
             </div>
