@@ -687,12 +687,12 @@ a {
     text-align: justify;
 }
 
-.resultado-simulado {
+.div_resulCalculo {
     font-size: 17px;
     text-align: left;
 }
 
-.resultado-simulado h4 {
+.div_resulCalculo h1 {
     color: #f9faab;
     font-family: 'Munale';
     font-size: 22px;

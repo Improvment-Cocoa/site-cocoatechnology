@@ -22,11 +22,11 @@ function simulador(){
 
     div_resulCalculo.innerHTML = ` 
     
-    <p>Sem a solução da Cocoa Technology</p><br>
+    <h1>Sem a solução da Cocoa Technology</h1><br>
     <p>O valor de retorno será de R$${semCocoa}.</p>
     <p>Perda de ${perdaHectare}(M²) da produtividade na plantação!</p><br>
 
-    <p>Com a solução da Cocoa Technology</p><br>
+    <h1>Com a solução da Cocoa Technology</h1><br>
     <p>O valor de retorno será de R$${comCocoa}</p>
     <p>Obtendo um aumento no lucro de R$${lucro}</p>`;
 }
