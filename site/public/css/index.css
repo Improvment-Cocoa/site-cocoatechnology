@@ -587,18 +587,19 @@ a {
     position: relative;
     flex-direction: column;
     width: 100%;
-    height: 105vh;
+    height: 96vh;
     background-image: url(../assets/img/simulador-background.png);
     background-repeat: no-repeat;
     gap: 10vh;
     padding: 17vh;
+    background-size: cover;
 }
 
 #simulador::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 150px;
+    width: 20vw;
+    height: 30vh;
     background-image: url(../assets/img/fade/fade-down.svg);
     top: 0;
     left: 0;
@@ -663,11 +664,10 @@ a {
     border-radius: 17px;
     transition: 0.7s;
 }
-
+/*css resultado-simulador*/
 .simulador-resultado {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-start;
     text-align: justify;
     width: 50%;
@@ -682,17 +682,26 @@ a {
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    gap: 8vh;
-    font-size: 17px;
+    gap: 4vh;
+    font-size: 19px;
     text-align: justify;
 }
 
-.div_resulCalculo {
-    font-size: 17px;
+.analiseResultado {
+    font-size: 5px;
     text-align: left;
+    align-self: center;
+    
 }
 
-.div_resulCalculo h1 {
+.container-resultado {
+    border: 1px solid #FDFF87;
+    padding: 6vh 3vw;
+    border-radius: 10px;
+    box-shadow: 0.5vh 0.5vw #F8D16F;
+    
+}
+.analiseResultado h1 {
     color: #f9faab;
     font-family: 'Munale';
     font-size: 22px;
