@@ -22,10 +22,10 @@
             <ul class="nav-list">
                 <li><a href="./dashboard-geral.html"><img class="icon-nav" src="../assets/img/icones/global.png"
                             alt="Geral"><span>Geral</span></a></li>
-                <li><a href="./dashboard-umid.html"><img class="icon-nav" src="../assets/img/icones/moisture-white.png" alt="Umidade">
+                <li class="pag-atual"><a href="#"><img class="icon-nav" src="../assets/img/icones/moisture-white.png" alt="Umidade">
                         <span>Umidade</span></a>
                 </li>
-                <li class="pag-atual"><a href="#"><img class="icon-nav" src="../assets/img/icones/thermometer-white.png"
+                <li><a href="./dashboard-temp.html"><img class="icon-nav" src="../assets/img/icones/thermometer-white.png"
                             alt="Temperatura"><span>Temperatura</span></a>
                 </li>
                 <li><a href="#">
@@ -88,10 +88,10 @@
         data: {
             labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
             datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: 'crimson',
-                borderColor: 'crimson',
-                data: [30, 29, 28, 25, 22, 23],
+                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: [80, 82, 80, 85, 80, 83],
                 borderWidth: 1
             }]
         },
@@ -110,10 +110,10 @@
         data: {
             labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
             datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: 'crimson',
-                borderColor: 'crimson',
-                data: [30, 29, 28, 25, 22, 23],
+                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: [80, 82, 80, 85, 80, 83],
                 borderWidth: 1
             }]
         },
@@ -127,15 +127,16 @@
     });
 
     //Gráfico 1 - Plantação 2
+
     new Chart(ctx3, {
         type: 'line',
         data: {
             labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
             datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: 'crimson',
-                borderColor: 'crimson',
-                data: [24, 25, 28, 25, 23, 25],
+                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: [80, 82, 83, 83, 81, 83],
                 borderWidth: 1
             }]
         },
@@ -154,10 +155,10 @@
         data: {
             labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
             datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: 'crimson',
-                borderColor: 'crimson',
-                data: [24, 25, 28, 25, 23, 25],
+                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: [80, 82, 83, 83, 81, 83],
                 borderWidth: 1
             }]
         },
