@@ -539,26 +539,81 @@ a {
     left: 0;
 }
 
-.pie-chart {
-    position: absolute;
-    width: 140px;
-    top: -5vh;
-    right: 2vh;
-}
+/* 
+    Primeira versão com a .text-top ativa
 
-.icones-sensores {
+    .icon-top {
     display: flex;
     position: absolute;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 5vw;
-    /* transform: rotate(-15deg); */
-    bottom: 7vh;
-    left: -2vw;
+    gap: 2vw;
+    top: 3vh;
+    right: 2vw;
+} 
+
+    .icon-top-img {
+     width: 80px;
+}
+*/
+
+.icon-top {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 11.5vw;
+    height: 20vh;
+    gap: 2vw;
+    top: 10vh;
+    right: 2vw;
 }
 
-.img-sensores {
+.icon-top-img1 {
+    position: absolute;
+    width: 80px;
+    top: 0;
+    left: 0;
+}
+
+.icon-top-img2 {
+    position: absolute;
+    width: 80px;
+    bottom: 0;
+    right: 0;
+}
+
+/* .text-top {
+    display: flex;
+    position: absolute;
+    color: #E0E0E0;
+    font-weight: 700;
+    top: 18vh;
+    right: 4.5vw;
+}
+
+.text-top ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+} */
+
+.icon-left {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 5vw;
+    /* transform: rotate(-15deg); */
+    gap: 20vh;
+    bottom: 7vh;
+    left: 0.7vw;
+}
+
+.icon-left-img {
     max-width: 3.5vw !important;
 }
 
@@ -570,11 +625,11 @@ a {
     gap: 8vh;
     font-size: 17px;
     padding: 2vh 0 3vh 0;
-    text-align: justify;
 }
 
 .descricao-projeto p {
     width: 90%;
+    text-align: justify;
 }
 
 #projeto img {
@@ -862,15 +917,16 @@ footer div span {
     gap: 5px;
 }
 
-.subdiv-footer span {
+.subdiv-footer span{
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 5px;
 }
 
-.subdiv-footer a {
+.subdiv-footer ul li{
     font-size: 13px;
     text-decoration: underline;
+    margin-bottom: 1px;
 }
 
 .subdiv-footer a:hover {

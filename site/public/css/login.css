@@ -73,10 +73,10 @@ body {
   display: flex;
   width: 50%;
   height: 100vh;
-  background-image: url('..//assets/img/login-image.jpg');
-  background-size: 100% 160%;
+  background-image: url('..//assets/img/login-image_.webp');
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: right;
 }
 
 .login-left,
