@@ -78,6 +78,10 @@ nav img {
     padding: 5vh 0;
 }
 
+#b_usuario {
+    align-self: center;
+}
+
 .nav-list {
     display: flex;
     flex-direction: column;

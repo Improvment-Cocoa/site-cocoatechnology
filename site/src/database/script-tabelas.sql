@@ -7,14 +7,16 @@ comandos para mysql - banco local - ambiente de desenvolvimento
 */
 
 CREATE DATABASE aquatech;
-
+-- DROP DATABASE aquatech;
 USE aquatech;
 
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
 	email VARCHAR(50),
-	senha VARCHAR(50)
+	senha VARCHAR(50),
+    cep CHAR(8),
+    cnpj CHAR(14)
 );
 
 CREATE TABLE aviso (

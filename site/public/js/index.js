@@ -15,7 +15,6 @@ function simulador() {
 
     var comCocoa = (sacas_produzidas * 1.25) * valor_saca - despesas;
     var lucro = comCocoa - semCocoa;
-    var produtividadehectare = (qnt_hectares * 10000) * 0.05;
 
 
     div_resulCalculo.innerHTML = ` 
