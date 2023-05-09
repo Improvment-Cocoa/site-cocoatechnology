@@ -52,8 +52,11 @@
         </nav>
         <div id="content">
             <div class="first-div-container">
-                <div class="div-chart-grande">
-                    <canvas id="myChart1"></canvas>
+                <div class="chart-container-grande">
+                    <h2>Temperatura constante das plantações (5 dias)</h2>
+                    <div class="div-chart-grande">
+                        <canvas id="myChart1"></canvas>
+                    </div>
                 </div>
                 <div class="div-info-row">
                     <div class="info-row">
@@ -77,16 +80,24 @@
                 </div>
             </div>
             <div class="second-div-container">
-                <div class="div-chart-medium">
-                    <canvas id="myChart2"></canvas>
+                <div class="chart-container-medium">
+                    <h2>Status das plantações cadastradas</h2>
+                    <div class="div-chart-medium">
+                        <canvas id="myChart2"></canvas>
+                    </div>
                 </div>
-                <div class="div-chart-medium">
-                    <canvas id="myChart3"></canvas>
+                <div class="chart-container-medium">
+                    <h2>Temperatura atual da plantações</h2>
+                    <div class="div-chart-medium">
+                        <canvas id="myChart3"></canvas>
+                    </div>
                 </div>
                 <div class="alert-div">
                     <input type="text" placeholder="Pesquisar">
                     <div class="alert-row">
                         <div><img src="../assets/img/icones/danger.png" alt="Perigo"><span>Serra das araras</span></div>
+                        <div><img src="../assets/img/icones/orange-alert.png" alt="Perigo"><span>Rua Augusta</span>
+                        </div>
                         <div><img src="../assets/img/icones/warning.png" alt="Atenção"><span>Tingoassuiba</span></div>
                         <div><img src="../assets/img/icones/fine.png" alt="Ok"><span>Haddock Lobo</span></div>
                         <div><img src="../assets/img/icones/fine.png" alt="Ok"><span>Domingos lobos</span></div>
@@ -102,29 +113,35 @@
 
 <script>
     var usuario = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = " " + usuario;
 
-    b_usuario.innerHTML = " " + usuario
     const ctx1 = document.getElementById('myChart1');
+    ctx1.style.height='100%'; 
+    ctx1.style.width='100%';
+
     const ctx2 = document.getElementById('myChart2');
+
     const ctx3 = document.getElementById('myChart3');
+    ctx3.style.height='100%'; 
+    ctx3.style.width='100%';
 
     //Gráfico 1 - div-chart-grande
     new Chart(ctx1, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ['Serra das Araras', 'Domingos Lobos', 'Haddock Lobo', 'Tingoassuiba'],
+            labels: ['Serra das Araras', 'Rua Augusta', 'Domingos Lobos', 'Haddock Lobo', 'Tingoassuiba'],
             datasets: [{
                 label: 'Temperatura constante capturada das plantações',
-                backgroundColor: 'crimson',
-                borderColor: 'crimson',
-                data: [25, 18, 17, 22],
+                backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+                borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+                data: [30, 27, 25, 20, 22],
                 borderWidth: 1
             },
             {
                 label: 'Umidade constante capturada das plantações',
-                backgroundColor: '#6495ED',
-                borderColor: '#6495ED',
-                data: [83, 79, 75, 81],
+                backgroundColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
+                borderColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
+                data: [83, 80, 79, 71, 75],
                 borderWidth: 1
             }]
         },
@@ -141,17 +158,18 @@
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Perigo', 'Atenção', 'Estável'],
+            labels: ['Perigo', 'Cuidado', 'Atenção', 'Estável'],
             datasets: [{
                 label: 'Quantidade de plantações',
                 backgroundColor: [
                     'crimson',
+                    '#E25822',
                     '#DAA520',
                     '#99CC33'
                 ],
                 borderColor: '#000',
                 borderWidth: 1,
-                data: [1, 1, 2],
+                data: [1, 1, 1, 2],
                 hoverOffset: 4
             }]
         },
@@ -168,19 +186,19 @@
     new Chart(ctx3, {
         type: 'bar',
         data: {
-            labels: ['Serra das Araras', 'Domingos Lobos', 'Haddock Lobo', 'Tingoassuiba'],
+            labels: ['Serra das Araras', 'Rua Augusta', 'Domingos Lobos', 'Haddock Lobo'],
             datasets: [{
                 label: 'Temperatura',
-                backgroundColor: 'crimson',
-                borderColor: 'crimson',
-                data: [30, 19, 18, 23],
+                backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+                borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+                data: [30, 27, 25, 20, 22],
                 borderWidth: 1
             },
             {
                 label: 'Umidade',
-                backgroundColor: '#6495ED',
-                borderColor: '#6495ED',
-                data: [90, 79, 80, 81],
+                backgroundColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
+                borderColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
+                data: [83, 80, 79, 71, 75],
                 borderWidth: 1
             }
             ],
