@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/cadastro-plantacao.css">
+    <title>Cadastro da Plantação - Cocoa</title>
+</head>
+
+<body>
+    <div id="dashboard-container">
+        <nav class="select-disable" id="nav">
+            <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
+            <div class="texto-user">
+                <span>Bem-vindo</span>
+                <span id="b_usuario"></span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="./dashboard-geral.html">
+                        <img class="icon-nav" src="../assets/img/icones/global.png" alt="Geral">
+                        <span>Geral</span></a>
+                </li>
+                <li>
+                    <a href="./dashboard-umid.html">
+                        <img class="icon-nav" src="../assets/img/icones/moisture-white.png" alt="Umidade">
+                        <span>Umidade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./dashboard-temp.html">
+                        <img class="icon-nav" src="../assets/img/icones/thermometer-white.png" alt="Temperatura">
+                        <span>Temperatura</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <img class="icon-nav" src="../assets/img/icones/user.png" alt="Temperatura">
+                        <span>Cadastrar Usuário</span>
+                    </a>
+                </li>
+                <li class="pag-atual">
+                    <a href="./cadastro-plantacao.html">
+                        <img class="icon-nav" src="../assets/img/icones/folha.png" alt="Temperatura">
+                        <span>Cadastrar Plantações</span>
+                    </a>
+                </li>
+            </ul>
+            <a href="../login.html"><button>SAIR</button></a>
+        </nav>
+        <div id="content">
+            <div class="first-div-container">
+                <div class="titulo">
+                    <h1>Cadastro das plantações</h1>
+                </div>
+                <div class="formulario">
+                    <div class="campos">
+                        <div>
+                            <span>Nome da plantação:</span>
+                            <input id="input_nomePlantacao">
+                        </div>
+                        <div>
+                            <span>Tamanho da plantação:</span>
+                            <input id="input_tamanhoPlantacao">
+                        </div>
+                        <div>
+                            <span>CEP:</span>
+                            <input id="input_cepPlantacao">
+                        </div>
+                        <div>
+                            <span>Estado:</span>
+                            <input id="input_estadoPlantacao">
+                        </div>
+                        <div>
+                            <span>Cidade:</span>
+                            <input id="input_cidadePlantacao">
+                        </div>
+                        <div>
+                            <span>Bairro:</span>
+                            <input id="input_bairroPlantacao">
+                        </div>
+                        <div>
+                            <span>Número:</span>
+                            <input id="input_numeroPlantacao">
+                        </div>
+                        <div>
+                            <span>Complemento:</span>
+                            <input id="input_complementoPlantacao">
+                        </div>
+
+                        <div class="btn">
+                            <div>
+                                <button>Cadastrar</button>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+
+                    <div class="plantacoes">
+                        <h1>Plantações cadastradas:</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
