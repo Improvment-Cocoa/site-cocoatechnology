@@ -68,8 +68,13 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var cep = req.body.cepServer;
     var cnpj = req.body.cnpjServer;
+    var cep = req.body.cnpjServer;
+    var estado = req.body.estadoServer
+    var cidade = req.body.cidadeServer 
+    var bairro = req.body.bairroServer 
+    var numero = req.body.numeroServer 
+    var complemento = req;bod.complementoServer
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -78,14 +83,33 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (cep == undefined) {
-        res.status(400).send("Seu cep está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
-    } else {
+    }
+    else if(estado == undefined){
+        res.status(400).send("Seu estado está undefined!");
+    }
+    else if(cidade == undefined){
+        res.status(400).send("Sua cidade está undefined!");
+    }
+    else if(bairro == undefined){
+        res.status(400).send("Seu bairro está undefined!");
+    }
+    else if(numero == undefined){
+        res.status(400).send("Seu numero está undefined!");
+    }
+    else if(complemento == undefined){
+        res.status(400).send("Seu complemento está undefined!");
+    }
+
+  else if(cep == undefined){
+   req.status(400).send("Seu cpf está undefined")
+   }
+
+     else {
         
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, cep, cnpj)
+        usuarioModel.cadastrar(nome, email, senha, cnpj , cep , estado , cidade , bairro , numero , complemento)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -103,9 +127,11 @@ function cadastrar(req, res) {
     }
 }
 
+
+
 module.exports = {
     entrar,
     cadastrar,
     listar,
-    testar
+    testar,
 }
