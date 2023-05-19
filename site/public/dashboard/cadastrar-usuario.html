@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/cadastro-plantacao.css">
     <link rel="stylesheet" href="../css/cadastro-usuario.css">
-    <link rel="stylesheet" href="../css/">
-    <title>Cadastro de usuários - Cocoa</title>
+    <title>Cadastro dos usuários - Cocoa</title>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                 <li class="pag-atual">
                     <a href="./cadastro-plantacao.html">
                         <img class="icon-nav" src="../assets/img/icones/folha.png" alt="Temperatura">
-                        <span>Cadastrar de plantação</span>
+                        <span>Cadastrar Plantações</span>
                     </a>
                 </li>
             </ul>
@@ -56,38 +56,39 @@
                 <div class="titulo">
                     <h1>Cadastro dos usuários</h1>
                 </div>
-                <div class="form">
-                    <h1 class="texto_cadastro-usuario select-disable">Entre em sua conta!</h1>
-                    <div class="input-container">
-                        <div>
-                            <p class="select-disable">Nome</p>
-                            <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
-                                id="nome_input" onkeyup="validar_nome()">
-    
-                                <span id="span_validar_email"></span>
-                            <p class="select-disable">E-mail</p>
-                            <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
-                                id="email_input" onkeyup="validar_email()">
-                                <span id="span_validar_email"></span>
-                        </div>
-                        <div>
-                            <p class="select-disable">Senha</p>
-                            <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********"
-                                id="senha_input" onkeyup="validar_senha()">
-                                <span id="span_senha_validacao"></span>
+                <div class="cadastro">
+                        <div class="campos">
+                            <div>
+                                <div class="form">
+                                    <h1 class="texto_cadastro-usuario select-disable">Entre em sua conta!</h1>
+                                    <div class="input-container">
+                                        <div>
+                                            <p class="select-disable">Nome</p>
+                                            <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
+                                                id="nome_input" onkeyup="validar_nome()">
+                    
+                                                <span id="span_validar_email"></span>
+                                            <p class="select-disable">E-mail</p>
+                                            <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
+                                                id="email_input" onkeyup="validar_email()">
+                                                <span id="span_validar_email"></span>
+                                        </div>
+                                        <div>
+                                            <p class="select-disable">Senha</p>
+                                            <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********"
+                                                id="senha_input" onkeyup="validar_senha()">
+                                                <span id="span_senha_validacao"></span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="btn-container">
+                                        <button class="botao select-disable" onclick="entrar()">Cadastrar</button>
+                                    </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="btn-container">
-                        <button class="botao select-disable" onclick="entrar()">Cadastrar</button>
-                    </div>
-                </div>
-            </div>
-                </div>
-            </div>
-        </div>
 </body>
 
-</html>
 </html>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
