@@ -172,7 +172,7 @@ nav button:hover {
     padding: 2rem 3rem;
     margin-left: 15%;
     gap: 5vh;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .first-div-container {
@@ -195,25 +195,32 @@ nav button:hover {
     padding: 1vh 0
 }
 
-.formulario{
+.cadastro{
     display: flex;
     margin-top: 30px;
     height: 500px;
 }
 
-.campos{
-    width: 40%;
+.formulario{
     display: flex;
     flex-direction: column;
-    border-right: 1px white solid;
+    width: 50%;
     padding: 15px;
+}
+
+.campos{
+    display: flex;
+    border-right: 1px white solid;
 }
 
 .campos div{
     margin: 10px;
     display: flex;
+    flex-direction: column;
+}
+
+.campos div div{
     justify-content: space-between;
-    align-items: center;
 }
 
 .campos span{
@@ -223,11 +230,12 @@ nav button:hover {
 
 .campos input{
     color: #FFF;
-    padding: 8px;
+    padding: 5px;
     border-radius: 25px;
     background-color: #1f1f1f6f;
     border: 1px solid #bcbcbc;
     transition: 0.5s ease-in-out;
+    margin-top: 10px
 }
 
 .campos input:hover {
@@ -245,10 +253,10 @@ nav button:hover {
     box-shadow: 2px 1px 2px #FFF;
 }
 
-.btn div{
+.btn{
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 90%;
 }
 
 .btn button{
