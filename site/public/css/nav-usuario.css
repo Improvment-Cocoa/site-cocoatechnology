@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;1000&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: 7vh;
+    scroll-behavior: smooth;
+}
+
+.select-disable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@font-face {
+    font-family: 'Munale';
+    src: url(../assets/fonts/munale/Munale\ Loird.otf);
+    font-weight: normal;
+}
+
+/* @font-face {
+    font-family: 'Mulish';
+    src: url(../assets/fonts/mulish/Mulish-Regular.ttf);
+    font-weight: normal;
+} */
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #0C0C0C;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #FDFF87;
+    border-radius: 5px;
+}
+
+body {
+    scrollbar-width: thin;
+    color: #FFF;
+    font-family: 'Mulish', sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 96vh;
+    background-image: url(../assets/img/header-background.jpg);
+    background-repeat: no-repeat;
+    background-size: 104%;
+    background-position: -4vw top;
+    box-shadow: 0px 170px 48px rgba(0, 0, 0, 0.01), 0px 109px 44px rgba(0, 0, 0, 0.06),
+        0px 61px 37px rgba(0, 0, 0, 0.2), 0px 27px 27px rgba(0, 0, 0, 0.34),
+        0px 7px 15px rgba(0, 0, 0, 0.39), 0px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+nav {
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 12vh;
+    padding: 5vh 10vw 7vh 10vw;
+    transition: 0.6s;
+    z-index: 3;
+}
+
+nav.ativa {
+    background-color: rgb(00, 00, 00, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(00, 00, 00, 0.37);
+    backdrop-filter: blur(7.5px);
+    -webkit-backdrop-filter: blur(7.5px);
+}
+
+.logo-nav {
+    max-height: 58px;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-family: 'Mulish';
+    gap: 30px;
+}
+
+.nav-list :hover {
+    color: #F8D16F;
+}
+
+a {
+    color: #FFF;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    width: 100%;
+    height: 80vh;
+    gap: 5vh;
+    padding: 10vh 10vw 10vh 10vw;
+    margin: 20vh 0 13vh 0;
+}
+
+.header-content h1 {
+    color: #FCF6C1;
+    font-family: 'Munale';
+    font-size: 3.5vw;
+}
+
+.header-content p {
+    width: 40%;
+    font-size: 1.3vw;
+    justify-content: left;
+}
+
+#btn-header {
+    width: 10vw;
+    color: #361B08;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #f9faab;
+    border: none;
+    border-radius: 26px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#btn-header:hover {
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+    background-color: #FCF6C1;
+    box-shadow: 0px 0px 7px #FDFF87;
+}
+
+.redes {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    bottom: 10vh;
+    left: 10vw;
+}
+
+.redes img {
+    max-width: 20px;
+}
+
+.redes img:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.scroll-sign {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    bottom: 10vh;
+    right: 10vw;
+}
+
+.scroll-sign img {
+    max-width: 15px;
+}
+
+.scroll-sign img:nth-child(1) {
+    animation: subidinha 4s ease-in-out infinite;
+}
+
+.scroll-sign img:nth-child(2) {
+    animation: pulo 2s ease-in-out infinite;
+}
+
+@keyframes subidinha {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulo {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-6px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
