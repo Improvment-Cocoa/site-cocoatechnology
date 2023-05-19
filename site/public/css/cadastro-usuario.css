@@ -180,7 +180,6 @@ nav button:hover {
     color: #FFF;
     font-size: 40px;
     font-weight: 700;
-    padding: 1vh 0
 }
 
 
@@ -214,7 +213,8 @@ nav button:hover {
 .input-container div {
     display: flex;
     flex-direction: column;
-    gap: 3vh;
+    gap: 2.2vh;
+    margin-left: 85px;
 }
 
 .input-container div p {
@@ -246,32 +246,7 @@ nav button:hover {
 }
 
 
-.btn {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-}
-
-.btn button {
-    width: 100px;
-    padding: 10px;
-    border-radius: 15px;
-    border: 2px white solid;
-    cursor: pointer;
-    background: none;
-    color: rgb(255, 255, 255);
-    transition: 0.5s;
-}
-
-.btn button:hover {
-    font-weight: bold;
-    width: 120px;
-    transition: 0.5s;
-}
-
-
 .form input {
-    padding: 5px;
     width: 20vw;
     border-radius: 6px;
     border: 2px #FDFF87 solid;
@@ -303,7 +278,6 @@ nav button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.5vh;
 }
 
 
@@ -324,7 +298,7 @@ nav button:hover {
     background-color: #FDFF87;
     font-size: 15px;
     margin: 0 auto;
-    margin-top: 90px;
+    margin-top: 55px;
 }
 
 .botao:hover {
