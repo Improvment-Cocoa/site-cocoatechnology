@@ -14,6 +14,19 @@
     user-select: none;
 }
 
+body::-webkit-scrollbar-track {
+    background-color: #0C0C0C;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #DAA250;
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar {
+    width: 7px;
+}
+
 @font-face {
     font-family: 'Munale';
     src: url(../assets/fonts/munale/Munale\ Loird.otf);
@@ -247,13 +260,24 @@ nav button:hover {
 
 
 .form input {
-    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8vh;
+    width: 397px;
     border-radius: 6px;
-    border: 2px #FDFF87 solid;
     font-size: 15px;
     font-family: 'Mulish';
-    display: flex;
-  }
+}
+
+.form input:focus {
+    outline: none;
+    border-bottom: 2px solid #DAA250;
+}
+
+.form input:hover {
+    border-radius: 15px;
+    transition: 0.5s;
+}
 
 .form input:hover {
     border-radius: 15px;
@@ -298,7 +322,7 @@ nav button:hover {
     background-color: #FDFF87;
     font-size: 15px;
     margin: 0 auto;
-    margin-top: 55px;
+    margin-top: 48px;
 }
 
 .botao:hover {
