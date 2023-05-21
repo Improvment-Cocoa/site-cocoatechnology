@@ -40,6 +40,7 @@ body {
     overflow-x: hidden;
 }
 
+
 #dashboard-container {
     display: flex;
     flex-direction: row;
@@ -170,7 +171,6 @@ nav button:hover {
     width: 85%;
     height: 100vh;
     background: linear-gradient(to bottom, #0C0C0C, #1F1F1F);
-    padding: 2rem 3rem;
     margin-left: 15%;
     gap: 5vh;
     overflow: auto;
@@ -193,26 +193,31 @@ nav button:hover {
     color: #FFF;
     font-size: 40px;
     font-weight: 700;
+    margin-left: 5%;
 }
 
 
 .texto_cadastro-usuario {
     color: #FCF6C1;
     font-family: 'Munale';
-    font-size: 29px;
+    font-size: 2.3rem;
     text-align: center;
     align-self: center;
     font-weight: 400;
-
+   margin-top: 30px;
 }
 
-.form {
+.cadastro{
+    display: flex;
+    margin-top: 30px;
+    height: 500px;
+}
+
+.formulario{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 7vh;
+    width: 50%;
+    padding: 15px;
 }
 
 .input-container {
@@ -238,101 +243,76 @@ nav button:hover {
     font-size: 21px;
 }
 
-.campos {
+.form {
     display: flex;
     border-right: 1px white solid;
 }
 
-.campos div {
+.form div {
     margin: 10px;
     display: flex;
     flex-direction: column;
 }
 
-.campos div div {
+.form div div {
     justify-content: space-between;
 }
 
-.campos span {
+.form span {
     color: #FFF;
     font-size: 18px;
 }
 
 
-.form input {
-    display: flex;
-    flex-direction: column;
-    gap: 1.8vh;
-    width: 397px;
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: 'Mulish';
+.form input{
+    color: #DAA250;
+    padding: 5px;
+    border-radius: 25px;
+    background-color: #1f1f1f6f;
+    border: 1px solid #bcbcbc;
+    transition: 0.5s ease-in-out;
+    margin-top: 10px;
+    width: 15vw;
+    height: 5vh;
+}
+
+.form input:hover {
+    border-color: #E0E0E0;
+    cursor: pointer;
+}
+
+.form input::placeholder {
+    color: #E0E0E0;
 }
 
 .form input:focus {
     outline: none;
-    border-bottom: 2px solid #DAA250;
+    border-color: #FFF;
+    box-shadow: 2px 1px 2px #FFF;
 }
 
-.form input:hover {
-    border-radius: 15px;
-    transition: 0.5s;
-}
-
-.form input:hover {
-    border-radius: 15px;
-    transition: 0.5s;
-}
-
-.form input:focus {
-    outline: none;
-}
-
-.form span {
-    align-self: center;
-    text-align: center;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 100;
-    font-family: 'Mulish';
-}
-
-.btn-container {
+.btn{
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    width: 90%;
 }
 
 
-.btn-container a {
-    text-decoration: underline;
-    font-weight: 100;
-    color: #ffff;
-}
-
-.botao {
+.btn button{
+    width: 100px;
     padding: 10px;
-    width: 150px;
-    border-radius: 32px;
-    border: none;
-    color: #361B08;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: #FDFF87;
-    font-size: 15px;
-    margin: 0 auto;
-    margin-top: 48px;
+    border-radius: 15px;
+    border: 2px white solid;
+    cursor: pointer;
+    background: none;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
 }
 
-.botao:hover {
-    -webkit-transform: scale(1.02);
-    -moz-transform: scale(1.02);
-    -o-transform: scale(1.02);
-    -ms-transform: scale(1.02);
-    transform: scale(1.02);
-    background-color: #FCF6C1;
-    box-shadow: 0px 0px 4px #FDFF87;
+.btn button:hover{
+    font-weight: bold;
+    width: 120px;
+    transition: 0.5s;
 }
 
 .conta a:hover {
@@ -341,4 +321,49 @@ nav button:hover {
 
 .shake {
     animation: shake 0.3s;
+}
+
+
+.div-info-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    height: 45vh;
+    gap: 15px;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 15vw;
+    height: 12vh;
+    background-color: #151515;
+    border: 1px solid #DAA250;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 100px;
+}
+
+.info-row div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    color: #FFF;
+    font-weight: 700;
+    font-size: 17px;
+    gap: 1vw;
+}
+
+.info-row div span {
+    font-size: 25px;
+}
+
+.info-row img {
+    max-width: 3.5rem;
 }

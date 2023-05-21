@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/cadastro-plantacao.css">
     <link rel="stylesheet" href="../css/cadastro-usuario.css">
-    <script src="..//js/funcoes.js"></script>
-    <title>Cadastro dos usuários - Cocoa</title>
+    <title>Cadastro de usuarios - Cocoa</title>
+     <!-- Sweet alert-->
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <!-- Sweet alert -->
 </head>
 
 <body>
@@ -56,37 +57,76 @@
             <div class="first-div-container">
                 <div class="titulo">
                     <h1>Cadastro dos usuários</h1>
-                </div>
+                </div>  
                 <div class="cadastro">
-                        <div class="campos">
+                    <div class="formulario">
+                        <h1 class="texto_cadastro-usuario select-disable">Entre em sua conta!</h1>
+                        <div class="form">
                             <div>
-                                <div class="form">
-                                    <h1 class="texto_cadastro-usuario select-disable">Cadastro de Funcionários</h1>
-                                    <div class="input-container">
-                                        <div>
-                                            <p class="select-disable">Nome</p>
-                                            <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
-                                                id="nome_input" onkeyup="validar_nome()">
-                    
-                                                <span id="span_validar_email"></span>
-                                            <p class="select-disable">E-mail</p>
-                                            <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="E-mail"
-                                                id="email_input" onkeyup="validar_email()">
-                                                <span id="span_validar_email"></span>
-                                        </div>
-                                        <div>
-                                            <p class="select-disable">Senha</p>
-                                            <input data-aos="fade-up" data-aos-duration="700" type="password" placeholder="***********"
-                                                id="senha_input" onkeyup="validar_senha()">
-                                                <span id="span_senha_validacao"></span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-container">
-                                        <button class="botao select-disable" onclick="cadastrar_usuario()">Cadastrar</button>
-                                    </div>
+                                <div>
+                                    <span>Nome:</span>
+                                    <input id="nome_input" placeholder="Insira seu nome">
+                                </div>
+    
+                                <div>
+                                    <span>Email:</span>
+                                    <input id="email_input" placeholder="Insira seu E-mail">
+                                </div>
+    
+                                <div>
+                                    <span>Senha:</span>
+                                    <input id="senha_input" placeholder="Insira sua senha">
+                                </div>
+    
+                                <div>
+                                    <span>Confirmar senha</span>
+                                    <input id="confirmar_input"placeholder="Este campo não é obrigatório">
+                                </div>
+    
+                                <div>
+                                    <span>Cidade:</span>
+                                    <input id="cidade_input"placeholder="Este campo não é obrigatório">
+                                </div>
+    
+                                <div>
+                                    <span>Telefone:</span>
+                                    <input id="telefone_input" placeholder="Este campo não é obrigatório">
+                                </div>
+    
+                            </div>
+                            <div>
+                                <div>
+                                    <span>Inicio do plantio:</span>
+                                    <input id="plantio_input" placeholder="Este campo não é obrigatório">
+                                </div>
+    
+                                <div>
+                                    <span>Bairro:</span>
+                                    <input id="input_bairroPlantacao"placeholder="Este campo não é obrigatório">
+                                </div>
+    
+    
+                                <div>
+                                    <span>Complemento:</span>
+                                    <input id="input_complementoPlantacao" placeholder="Este campo não é obrigatório">
+                                </div>
                             </div>
                         </div>
+
+                        <div class="btn">
+                            <button onclick="cadastrar_usuario()">Cadastrar</button>
+                        </div>
+                        
                     </div>
+                    <div class="info-row">
+                        <div><span>5</span>
+                            <h4>Usuários Cadastrados</h4>
+                        </div>
+                        <img src="../assets/img/icones/user.png" alt="Usuário">
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>
