@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/cadastro-plantacao.css">
     <link rel="stylesheet" href="../css/cadastro-usuario.css">
+    <script src="..//js/funcoes.js"></script>
     <title>Cadastro dos usuários - Cocoa</title>
 </head>
 
@@ -60,7 +61,7 @@
                         <div class="campos">
                             <div>
                                 <div class="form">
-                                    <h1 class="texto_cadastro-usuario select-disable">Entre em sua conta!</h1>
+                                    <h1 class="texto_cadastro-usuario select-disable">Cadastro de Funcionários</h1>
                                     <div class="input-container">
                                         <div>
                                             <p class="select-disable">Nome</p>
@@ -81,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="btn-container">
-                                        <button class="botao select-disable" onclick="entrar()">Cadastrar</button>
+                                        <button class="botao select-disable" onclick="cadastrar_usuario()">Cadastrar</button>
                                     </div>
                             </div>
                         </div>
@@ -93,145 +94,75 @@
 <script>
     AOS.init();
 </script>
-
 <script>
-     function validar_nome(){
-        var input = document.getElementById('nome_input')
-        var nome = nome_input.value
-        var span = document.getElementById('span_validar_nome')
+    var email = sessionStorage.EMAIL_USUARIO;
+    var idUsuario = sessionStorage.getItem('ID_USUARIO');
+console.log(idUsuario);
+var id = sessionStorage.getItem('idcliente');
 
-        if(email.indexOf("@") == -1 || email.indexOf(".com") == -1 || email.length < 7 ){
-            span.style.color = 'red'
-            span.innerHTML = 'O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.'
-            span.style.marginTop = '20px'
-            span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '11px'
-            input.style.borderColor = 'red'
-            input.classList.add("shake");
-        }
-        else{
-            span.innerHTML = ''
-            span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '15px'
-            input.style.borderColor = 'green'
-            input.classList.remove("shake");
-        }
-    }
+function cadastrar_usuario() {
+    //aguardar();
 
-    function validar_email(){
-        var input = document.getElementById('email_input')
-        var email = email_input.value
-        var span = document.getElementById('span_validar_email')
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    
+    console.log(idUsuario);
 
-      
-        if(nome.length <8){
-            span.style.color = 'red'
-            span.innerHTML = 'O nome inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres'
-            span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '30px'
-            input.style.borderColor = 'red'
-            span.style.marginTop = '-20px'
-            input.classList.add("shake");
-        }
-        else{
-            span.innerHTML = ''
-            span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '15px'
-            input.style.borderColor = 'green'
-            input.classList.remove("shake");
-        }
-    }
+    if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+        //cardErro.style.display = "block"
+        swal("Ops", "Preencha todos os campos", "error");
 
+        finalizarAguardar();
+        return false;
+    } else if (nomeVar.length < 3) {
+        swal("Ops", "O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres", "warning");
+    } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
+        swal("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.", "warning");
+    } else if (senhaVar.length < 8) {
+        swal("Ops", "A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres.", "warning");
+    } else {
+        setInterval('oi', 5000);
 
-    function validar_senha(){
-        var input = document.getElementById('senha_input')
-        var senha = senha_input.value
-        var span = document.getElementById('span_senha_validacao')
-
-        if(senha.length <8){
-            span.style.color = 'red'
-            span.innerHTML = 'A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres'
-            span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '10px'
-            input.style.borderColor = 'red'
-            span.style.marginTop = '-20px'
-            input.classList.add("shake");
-        }
-        else{
-            span.innerHTML = ''
-            span.style.fontFamily = 'Mulish'
-            span.style.fontSize = '15px'
-            input.style.borderColor = 'green'
-            input.classList.remove("shake");
-        }
-    }
-    function entrar() {
-        //aguardar();
-
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-
-        if (emailVar == "" || senhaVar == "") {
-            // cardErro.style.display = "block"
-            swal ( "Ops" ,  "Preencha os campos para logar!" ,  "error" )
-            finalizarAguardar();
-            return false;
-        }
-        else {
-            setInterval('...', 5000)
-        }
-
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
-        fetch("/usuarios/autenticar", {
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar_usuario", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
                 emailServer: emailVar,
-                senhaServer: senhaVar
+                senhaServer: senhaVar,
+                idUsuario: idUsuario // Adicione o idUsuario ao objeto JSON enviado no corpo da requisição
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+            console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                console.log(resposta);
+                //cardErro.style.display = "block";
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
+                swal("Bom trabalho!", `Usuário ${nomeVar} cadastrado com sucesso`, "success");
 
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
+                setTimeout(() => {
+                    window.location = "cadastrar-usuario.html";
+                }, "2000");
 
-                    setTimeout(function () {
-                        window.location = "./dashboard/dashboard-geral.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
+                limparFormulario();
+                finalizarAguardar();
             } else {
-
-                swal ( "Ops" ,  "Email e/ou senha inválido(s)" ,  "error" )
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
+                swal("Ops", "Mais de um usuário com o mesmo login e senha!", "error");
             }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
     }
 
-    //function sumirMensagem() {
-      //  cardErro.style.display = "none"
-   // }
-
+    return false;
+}
 </script>
