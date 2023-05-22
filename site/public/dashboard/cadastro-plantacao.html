@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/cadastro-plantacao.css">
+    <link rel="stylesheet" href="../css/cadastro-area.css">
     <title>Cadastro da Plantação - Cocoa</title>
 </head>
 
@@ -51,93 +51,163 @@
             <a href="../login.html"><button>SAIR</button></a>
         </nav>
         <div id="content">
-            <div class="first-div-container">
-                <div class="titulo">
-                    <h1>Cadastro das plantações</h1>
-                </div>
+            <section class="first-div-container">
+                <h1 class="titulo">Cadastro das plantações</h1>
                 <div class="cadastro">
-                    <div class="formulario">
-                        <div class="campos">
+                    <form>
+                        <div class="column-form">
                             <div>
-                                <div>
-                                    <span>Nome da plantação:</span>
-                                    <input id="input_nomePlantacao">
-                                </div>
-    
-                                <div>
-                                    <span>Temperatura Máxima:</span>
-                                    <input id="input_tempMaxima">
-                                </div>
-    
-                                <div>
-                                    <span>Umidade Máxima:</span>
-                                    <input id="input_umidMaxima">
-                                </div>
-    
-                                <div>
-                                    <span>CEP:</span>
-                                    <input id="input_cepPlantacao">
-                                </div>
-    
-                                <div>
-                                    <span>Cidade:</span>
-                                    <input id="input_cidadePlantacao">
-                                </div>
-    
-                                <div>
-                                    <span>Número:</span>
-                                    <input id="input_numeroPlantacao">
-                                </div>
-    
+                                <span>Nome da plantação:</span>
+                                <input id="input_nomePlantacao">
                             </div>
-    
+
                             <div>
-    
-                                <div>
-                                    <span>Tamanho da plantação:</span>
-                                    <input id="input_tamanhoPlantacao">
-                                </div>
-    
-                                <div>
-                                    <span>Temperatura Mínima:</span>
-                                    <input id="input_tempMinima">
-                                </div>
-    
-                                <div>
-                                    <span>Umidade Mínima:</span>
-                                    <input id="input_umidMinima">
-                                </div>
-    
-                                <div>
-                                    <span>Estado:</span>
-                                    <input id="input_estadoPlantacao">
-                                </div>
-    
-                                <div>
-                                    <span>Bairro:</span>
-                                    <input id="input_bairroPlantacao">
-                                </div>
-    
-    
-                                <div>
-                                    <span>Complemento:</span>
-                                    <input id="input_complementoPlantacao">
-                                </div>
+                                <span>Temperatura Máxima:</span>
+                                <input id="input_tempMaxima">
+                            </div>
+
+                            <div>
+                                <span>Umidade Máxima:</span>
+                                <input id="input_umidMaxima">
+                            </div>
+
+                            <div>
+                                <span>CEP:</span>
+                                <input id="input_cepPlantacao">
+                            </div>
+
+                            <div>
+                                <span>Cidade:</span>
+                                <input id="input_cidadePlantacao">
+                            </div>
+
+                            <div>
+                                <span>Número:</span>
+                                <input id="input_numeroPlantacao">
                             </div>
                         </div>
+                        <div class="column-form">
+                            <div>
+                                <span>Tamanho da plantação:</span>
+                                <input id="input_tamanhoPlantacao">
+                            </div>
 
-                        <div class="btn">
-                            <button>Cadastrar</button>
+                            <div>
+                                <span>Temperatura Mínima:</span>
+                                <input id="input_tempMinima">
+                            </div>
+
+                            <div>
+                                <span>Umidade Mínima:</span>
+                                <input id="input_umidMinima">
+                            </div>
+
+                            <div>
+                                <span>Estado:</span>
+                                <input id="input_estadoPlantacao">
+                            </div>
+
+                            <div>
+                                <span>Bairro:</span>
+                                <input id="input_bairroPlantacao">
+                            </div>
+                            <div>
+                                <span>Complemento:</span>
+                                <input id="input_complementoPlantacao">
+                            </div>
                         </div>
-                        
-                    </div>
-                    
-
-                    <div class="plantacoes">
-                        <h1>Plantações cadastradas:</h1>
-                    </div>
                 </div>
-            </div>
+                <button class="btn_cadastro" onclick="">Cadastrar</button>
+                </form>
+            </section>
+            <section class="second-div_container">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Nome</td>
+                                <td>Modificar</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
 </body>
 

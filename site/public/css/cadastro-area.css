@@ -14,6 +14,12 @@
     user-select: none;
 }
 
+@font-face {
+    font-family: 'Munale';
+    src: url(../assets/fonts/munale/Munale\ Loird.otf);
+    font-weight: normal;
+}
+
 body::-webkit-scrollbar-track {
     background-color: #0C0C0C;
 }
@@ -27,19 +33,12 @@ body::-webkit-scrollbar {
     width: 7px;
 }
 
-@font-face {
-    font-family: 'Munale';
-    src: url(../assets/fonts/munale/Munale\ Loird.otf);
-    font-weight: normal;
-}
-
 body {
     scrollbar-width: thin;
     font-family: 'Mulish', sans-serif;
     background-color: #fcfcfc;
     overflow-x: hidden;
 }
-
 
 #dashboard-container {
     display: flex;
@@ -161,209 +160,238 @@ nav button:hover {
     cursor: pointer;
 }
 
-
 #content {
     display: flex;
-    position: relative;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     width: 85%;
     height: 100vh;
     background: linear-gradient(to bottom, #0C0C0C, #1F1F1F);
+    padding: 2rem;
     margin-left: 15%;
-    gap: 5vh;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .first-div-container {
-    width: 100%;
+    width: 55%;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 7vh;
 }
 
 .titulo {
-    display: flex;
+    color: #FFF;
     text-align: center;
+    font-size: 26px;
+    font-family: 'Mulish';
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.cadastro {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
-.titulo h1 {
-    color: #FFF;
-    font-size: 40px;
-    font-weight: 700;
-    margin-left: 5%;
-}
-
-
-.texto_cadastro-usuario {
-    color: #FCF6C1;
-    font-family: 'Munale';
-    font-size: 2.3rem;
-    text-align: center;
-    align-self: center;
-    font-weight: 400;
-   margin-top: 30px;
-}
-
-.cadastro{
+form {
     display: flex;
-    margin-top: 30px;
-    height: 500px;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
-.formulario{
+.column-form {
     display: flex;
+    position: relative;
     flex-direction: column;
-    width: 50%;
-    padding: 15px;
-}
-
-.input-container {
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
-    height: 35vh;
+    width: 50%;
+    gap: 3vh;
 }
 
-.input-container div {
+.column-form div {
     display: flex;
     flex-direction: column;
-    gap: 2.2vh;
-    margin-left: 85px;
+    text-align: left;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
 }
 
-.input-container div p {
-    align-self: start;
-    color: #FCF6C1;
-    font-family: 'Muslih';
-    font-weight: 5;
-    font-size: 21px;
-}
-
-.form {
-    display: flex;
-    border-right: 1px white solid;
-}
-
-.form div {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form div div {
-    justify-content: space-between;
-}
-
-.form span {
+.column-form span {
     color: #FFF;
-    font-size: 18px;
+    font-size: 16px;
 }
 
-
-.form input{
-    color: #DAA250;
-    padding: 5px;
+.column-form input {
+    color: #FFF;
     border-radius: 25px;
-    background-color: #1f1f1f6f;
-    border: 1px solid #bcbcbc;
-    transition: 0.5s ease-in-out;
-    margin-top: 10px;
-    width: 15vw;
-    height: 5vh;
+    background-color: #151515;
+    border: transparent;
+    border-bottom: 2px solid #E0E0E0;
+    transition: 0.5s ease-in;
+    padding: 5px;
+    outline: none;
 }
 
-.form input:hover {
-    border-color: #E0E0E0;
+.column-form input:hover {
+    border-radius: 15px;
+    transition: 0.5s ease-in;
     cursor: pointer;
 }
 
-.form input::placeholder {
+.column-form input::placeholder {
     color: #E0E0E0;
 }
 
-.form input:focus {
+.column-form input:focus {
     outline: none;
-    border-color: #FFF;
-    box-shadow: 2px 1px 2px #FFF;
+    border-bottom: 2px solid #DAA250;
+    transition: 0.5s ease-in;
 }
 
-.btn{
+.btn_cadastro {
     display: flex;
     justify-content: center;
-    width: 90%;
-}
-
-
-.btn button{
+    align-items: center;
+    align-self: center;
     width: 100px;
-    padding: 10px;
+    color: #361B08;
+    font-weight: 700;
+    background: #FDFF87;
+    border: none;
     border-radius: 15px;
-    border: 2px white solid;
+    padding: 10px;
+    transition: 0.2s ease-in;
     cursor: pointer;
-    background: none;
-    color: rgb(255, 255, 255);
-    transition: 0.5s;
 }
 
-.btn button:hover{
-    font-weight: bold;
-    width: 120px;
-    transition: 0.5s;
+.btn_cadastro:hover {
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+    background-color: #FCF6C1;
+    box-shadow: 0px 0px 4px #FDFF87;
+    transition: 0.2s ease-in;
 }
 
-.conta a:hover {
-    color: #FCF6C1;
-}
-
-.shake {
-    animation: shake 0.3s;
-}
-
-
-.div-info-row {
+.second-div_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 35%;
-    height: 45vh;
-    gap: 15px;
+    width: 55%;
+    height: 90vh;
 }
 
-.info-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 15vw;
-    height: 12vh;
-    background-color: #151515;
+.table-container {
+    width: 70%;
+    height: 80vh;
+    color: #FFF;
+    border-radius: 5px;
+    background: transparent;
     border: 1px solid #DAA250;
-    border-radius: 6px;
-    padding: 15px;
-    margin-top: 100px;
+    box-shadow: 3px 3px 5px #DAA25099;
+    overflow: hidden scroll;
 }
 
-.info-row div {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 80%;
+.table-container::-webkit-scrollbar {
+    width: 7px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(to top, #DAA250, #0C0C0C);
+    border-radius: 5px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: #151515;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 5px;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    background: transparent;
+}
+
+table thead tr td,
+table tbody tr td {
+    width: 33%;
+    height: 40px;
+    padding: 15px;
+    border-bottom: 1px solid #FFF;
+    border-right: 1px solid #FFF;
+
+}
+
+table thead tr td {
     color: #FFF;
     font-weight: 700;
-    font-size: 17px;
-    gap: 1vw;
+    font-size: 19px;
+    border-bottom: 1px solid #DAA250 !important;
 }
 
-.info-row div span {
-    font-size: 25px;
+.btn-crud {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 3vh;
+    color: #FFF;
+    background: transparent;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 2px;
+    transition: 0.5s ease-in;
+    outline: none;
+    cursor: pointer;
 }
 
-.info-row img {
-    max-width: 3.5rem;
+.red {
+    color: #FF5555;
+    border-color: #FF5555;
+}
+
+.green {
+    color: #74C365;
+    border-color: #489e37;
+}
+
+.blue {
+    color: cornflowerblue;
+    border-color: rgb(75, 135, 245);
+}
+
+.btn-crud.red:hover {
+    color: #FFF;
+    background: #FF5555;
+    transition: 0.5s ease-in;
+}
+
+.btn-crud.green:hover {
+    color: #FFF;
+    background: #74C365;
+    transition: 0.5s ease-in;
+}
+
+.btn-crud.blue:hover {
+    color: #FFF;
+    background: cornflowerblue;
+    transition: 0.5s ease-in;
 }
