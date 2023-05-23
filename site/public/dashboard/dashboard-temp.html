@@ -11,7 +11,7 @@
     <title>Dashboard - Cocoa</title>
 </head>
 
-<body>
+<body onload="obterDadosGrafico()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -84,203 +84,160 @@
 <script src="./js/dashboard.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <script>
-    var usuario = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    b_usuario.innerHTML = " " + usuario
-    const ctx1 = document.getElementById('myChart1');
-    const ctx2 = document.getElementById('myChart2');
-    const ctx3 = document.getElementById('myChart3');
-    const ctx4 = document.getElementById('myChart4');
+    let proximaAtualizacao;
 
-    //Gráfico 1 - Plantação 1
-    new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+    window.onload = obterDadosGraficos();
+
+    function obterDadosGraficos() {
+        obterDadosGrafico(1)
+        
+    }
+
+    function obterDadosGrafico(idAquario) {
+
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/dados_temperatura/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idAquario);
+                    
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+ 
+    function plotarGrafico(resposta, idAquario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
             datasets: [{
                 label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: ['crimson', 'crimson', 'orange', 'yellow', '#99CC33', '#99CC33'],
-                borderColor: 'brown',
-                data: [30, 29, 28, 25, 22, 23],
-                borderWidth: 1
+                backgroundColor: ['crimson', 'crimson'],
+                data: [],
+                fill: false,
+                borderColor: 'crimson',
+                tension: 0.1
+            },
+            {
+                label: '',
+                data: [],
+                fill: false,
+               
+                tension: 0.1
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.umidade);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.dataLeitura_hora);
         }
-    });
 
-    //Gráfico 2 - Plantação 1
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-            datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: ['crimson', 'crimson', 'orange', 'yellow', '#99CC33', '#99CC33'],
-                borderColor: ['crimson', 'crimson', 'orange', 'yellow', '#99CC33', '#99CC33'],
-                data: [30, 29, 28, 25, 22, 23],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart1`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+    }
+
+    function atualizarGrafico(idAquario, dados, myChart) {
+
+
+
+        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    obterdados(idAquario);
+                    // alertar(novoRegistro, idAquario);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
+                    avisoCaptura.innerHTML = ""
+
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[1].momento_grafico); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de temperatura
+
+                        myChart.update();
+                    }
+
+                  
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+           
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
             }
-        }
-    });
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
 
-    //Gráfico 1 - Plantação 2
-    new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-            datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: ['#99CC33', 'yellow', 'orange', 'yellow', '#99CC33', 'yellow'],
-                borderColor: 'brown',
-                data: [24, 25, 28, 25, 23, 25],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    //Gráfico 2 - Plantação 2
-    new Chart(ctx4, {
-        type: 'bar',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-            datasets: [{
-                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: ['#99CC33', 'yellow', 'orange', 'yellow', '#99CC33', 'yellow'],
-                borderColor: ['#99CC33', 'yellow', 'orange', 'yellow', '#99CC33', 'yellow'],
-                data: [24, 25, 28, 25, 23, 25],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    //Gráfico 1 - Plantação 2
-    // new Chart(ctx5, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-    //         datasets: [{
-    //             label: 'Umidade da plantação dentre o período do meio dia ás cinco da tarde',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'blue',
-    //             data: [80, 82, 80, 85, 80, 83],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
-
-    // //Gráfico 2 - Plantação 2
-    // new Chart(ctx6, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-    //         datasets: [{
-    //             label: 'Temperatura da plantação dentre o período do meio dia ás duas e meia da tarde',
-    //             backgroundColor: 'crimson',
-    //             borderColor: 'crimson',
-    //             data: [30, 29, 28, 25, 22, 23],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
-
-    // //Gráfico 3 - Plantação 2
-    // new Chart(ctx7, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-    //         datasets: [{
-    //             label: 'Temperatura',
-    //             backgroundColor: 'crimson',
-    //             borderColor: 'crimson',
-    //             data: [30, 29, 28, 25, 22, 23],
-    //             borderWidth: 1
-    //         },
-    //         {
-    //             label: 'Umidade',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'blue',
-    //             data: [80, 82, 80, 85, 80, 83],
-    //             borderWidth: 1
-    //         }
-    //         ],
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
-
-    // //Gráfico 4 - Plantação 2
-    // new Chart(ctx8, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
-    //         datasets: [{
-    //             label: 'Temperatura média',
-    //             backgroundColor: 'crimson',
-    //             borderColor: 'crimson',
-    //             data: [22, 24, 27, 23, 20, 18],
-    //             borderWidth: 1
-    //         },
-    //         {
-    //             label: 'Umidade média',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'blue',
-    //             data: [90, 89, 93, 87, 88, 82],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+    }
 </script>

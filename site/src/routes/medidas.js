@@ -11,4 +11,10 @@ router.get("/tempo-real/:idsensor", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
+
+
+router.get("/dados_temperatura/:idsensor", function (req, res) {
+    medidaController.dados_temperatura(req, res);
+})
+
 module.exports = router;

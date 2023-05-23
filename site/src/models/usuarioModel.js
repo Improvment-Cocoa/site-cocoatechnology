@@ -34,7 +34,7 @@ function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, n
     database.executar(instrucao)
       .then((resultado) => {
         var idUsuario = resultado.insertId;
-        sessionStorage.setItem('ID_USUARIO', idUsuario.toString());
+      
 
         console.log("Executando a instrução SQL para cadastrar endereço: \n" + instrucaoEndereco);
 

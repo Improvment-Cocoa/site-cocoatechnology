@@ -12,7 +12,7 @@
     <title>Cadastro da Plantação - Cocoa</title>
 </head>
 
-<body>
+<body onload="atualizarFeed()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -55,7 +55,7 @@
             <section class="first-div-container" style="gap: 9vh;">
                 <h1 class="titulo">Cadastro de usuários</h1>
                 <div class="cadastro">
-                    <form>
+                    <form id="form_postagem" method="post" onsubmit="return publicar()">
                         <div class="column-form">
                             <div>
                                 <span>Nome:</span>
@@ -73,11 +73,11 @@
                             </div>
                         </div>
                 </div>
-                <button class="btn_cadastro" onclick="">Cadastrar</button>
+                <button class="btn_cadastro">Cadastrar</button>
                 </form>
             </section>
             <section class="second-div_container">
-                <div class="table-container">
+                <div class="table-container" id="table_container">
                     <table>
                         <thead>
                             <tr>
@@ -97,70 +97,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Haddock Lobo</td>
-                                <td>
-                                    <button class="btn-crud red">Deletar</button>
-                                    <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
-
-                                </td>
-                            </tr>
-                        </tbody>
+                              
                     </table>
                 </div>
             </section>
@@ -175,74 +112,169 @@
     AOS.init();
 </script>
 <script>
-    var email = sessionStorage.EMAIL_USUARIO;
-    var idUsuario = sessionStorage.getItem('ID_USUARIO');
-    console.log(idUsuario);
-    var id = sessionStorage.getItem('idcliente');
 
-    function cadastrar_usuario() {
-        //aguardar();
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var nomeVar = nome_input.value;
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+function limparFormulario() {
+document.getElementById("form_postagem").reset();
+}
 
-        console.log(idUsuario);
+function publicar() {
+var idUsuario = sessionStorage.ID_USUARIO;
 
-        if (nomeVar == "" || emailVar == "" || senhaVar == "") {
-            //cardErro.style.display = "block"
-            swal("Ops", "Preencha todos os campos", "error");
+var corpo = {
+nome: form_postagem.nome_input.value,
+email: form_postagem.email_input.value,
+senha: form_postagem.senha_input.value
+}
 
-            finalizarAguardar();
-            return false;
-        } else if (nomeVar.length < 3) {
-            swal("Ops", "O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres", "warning");
-        } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
-            swal("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.", "warning");
-        } else if (senhaVar.length < 8) {
-            swal("Ops", "A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres.", "warning");
-        } else {
-            setInterval('oi', 5000);
+fetch(`/avisos/publicar/${idUsuario}`, {
+method: "post",
+headers: {
+    "Content-Type": "application/json"
+},
+body: JSON.stringify(corpo)
+}).then(function (resposta) {
 
-            // Enviando o valor da nova input
-            fetch("/usuarios/cadastrar_usuario", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    // crie um atributo que recebe o valor recuperado aqui
-                    // Agora vá para o arquivo routes/usuario.js
-                    nomeServer: nomeVar,
-                    emailServer: emailVar,
-                    senhaServer: senhaVar,
-                    idUsuario: idUsuario // Adicione o idUsuario ao objeto JSON enviado no corpo da requisição
-                })
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
+console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
-                    //cardErro.style.display = "block";
+if (resposta.ok) {
+    swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
 
-                    swal("Bom trabalho!", `Usuário ${nomeVar} cadastrado com sucesso`, "success");
+    limparFormulario();
+    finalizarAguardar();
+} else if (resposta.status == 404) {
+    window.alert("Deu 404!");
+    window.location = "cadastrar-usuario.html"
+    alert("ERRO")
+} else {
+    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+}
+}).catch(function (resposta) {
+console.log(`#ERRO: ${resposta}`);
+finalizarAguardar();
+});
 
-                    setTimeout(() => {
-                        window.location = "cadastrar-usuario.html";
-                    }, "2000");
+return false;
 
-                    limparFormulario();
-                    finalizarAguardar();
-                } else {
-                    swal("Ops", "Mais de um usuário com o mesmo login e senha!", "error");
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
-            });
+}
+
+function editar(idAviso) {
+sessionStorage.ID_POSTAGEM_EDITANDO = idAviso;
+console.log("cliquei em editar - " + idAviso);
+window.alert("Você será redirecionado à página de edição do aviso de id número: " + idAviso);
+window.location = "/dashboard/edicao-aviso.html"
+
+}
+
+function deletar(idAviso) {
+console.log("Criar função de apagar post escolhido - ID" + idAviso);
+fetch(`/avisos/deletar/${idAviso}`, {
+method: "DELETE",
+headers: {
+    "Content-Type": "application/json"
+}
+}).then(function (resposta) {
+
+if (resposta.ok) {
+    window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+    window.location = "/dashboard/mural.html"
+} else if (resposta.status == 404) {
+    window.alert("Deu 404!");
+} else {
+    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+}
+}).catch(function (resposta) {
+console.log(`#ERRO: ${resposta}`);
+});
+}
+
+function atualizarFeed() {
+//aguardar();
+fetch("/avisos/listar").then(function (resposta) {
+if (resposta.ok) {
+    if (resposta.status == 204) {
+        var feed = document.getElementById("feed_container");
+        var mensagem = document.createElement("span");
+        mensagem.innerHTML = "Nenhum resultado encontrado."
+        feed.appendChild(mensagem);
+        throw "Nenhum resultado encontrado!!";
+    }
+
+    resposta.json().then(function (resposta) {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+        var feed = document.getElementById("feed_container");
+        feed.innerHTML = "";
+        for (let i = 0; i < resposta.length; i++) {
+            var publicacao = resposta[i];
+
+            // criando e manipulando elementos do HTML via JavaScript
+            var divPublicacao = document.createElement("div");
+            var spanID = document.createElement("span");
+            var spanTitulo = document.createElement("span");
+            var spanNome = document.createElement("span");
+            var divDescricao = document.createElement("div");
+            var divButtons = document.createElement("div");
+            var btnEditar = document.createElement("button");
+            var btnDeletar = document.createElement("button");
+
+
+            spanID.innerHTML = "ID: <b>" + publicacao.idusuario + "</b>";
+            spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+            btnEditar.innerHTML = "Editar";
+            btnDeletar.innerHTML = "Deletar";
+
+            divPublicacao.className = "publicacao";
+            spanTitulo.id = "inputNumero" + publicacao.idusuario;
+            spanNome.className = "publicacao-nome";
+            spanTitulo.className = "publicacao-titulo";
+            divDescricao.className = "publicacao-descricao";
+
+            divButtons.className = "div-buttons"
+
+            btnEditar.className = "publicacao-btn-editar"
+            btnEditar.id = "btnEditar" + publicacao.idusuario;
+            btnEditar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
+
+            btnDeletar.className = "publicacao-btn-editar"
+            btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
+            btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
+
+            divPublicacao.appendChild(spanID);
+            divPublicacao.appendChild(spanNome);
+            divPublicacao.appendChild(spanTitulo);
+            divPublicacao.appendChild(divDescricao);
+            divPublicacao.appendChild(divButtons);
+            divButtons.appendChild(btnEditar);
+            divButtons.appendChild(btnDeletar);
+            feed.appendChild(divPublicacao);
         }
 
-        return false;
-    }
+        finalizarAguardar();
+    });
+} else {
+    throw ('Houve um erro na API!');
+}
+}).catch(function (resposta) {
+console.error(resposta);
+finalizarAguardar();
+});
+}
+
+function testar() {
+aguardar();
+
+var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
+
+var divResultado = document.getElementById("div_feed");
+
+divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
+divResultado.innerHTML = formulario.get("descricao");
+
+finalizarAguardar();
+
+return false;
+}
+
 </script>

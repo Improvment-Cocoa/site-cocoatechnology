@@ -66,18 +66,19 @@ function pesquisarDescricao(req, res) {
 }
 
 function publicar(req, res) {
-    var titulo = req.body.titulo;
-    var descricao = req.body.descricao;
+    var nome = req.body.nome;
+    var email = req.body.email;
+    var senha = req.body.senha
     var idUsuario = req.params.idUsuario;
 
-    if (titulo == undefined) {
+    if (nome == undefined) {
         res.status(400).send("O título está indefinido!");
-    } else if (descricao == undefined) {
+    } else if (email == undefined) {
         res.status(400).send("A descrição está indefinido!");
-    } else if (idUsuario == undefined) {
+    } else if (senha == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        avisoModel.publicar(titulo, descricao, idUsuario)
+        avisoModel.publicar(nome, email, senha , idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
