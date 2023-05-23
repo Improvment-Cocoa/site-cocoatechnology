@@ -7,11 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/cadastro-area.css">
-    <title>Cadastro de usuarios - Cocoa</title>
-     <!-- Sweet alert-->
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-     <!-- Sweet alert -->
+    <link rel="stylesheet" href="../css/cadastro-users.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>Cadastro da Plantação - Cocoa</title>
 </head>
 
 <body>
@@ -39,12 +37,12 @@
                         <span>Temperatura</span>
                     </a>
                 </li>
-                <li class="pag-atual"><a href="./cadastrar-usuario.html">
+                <li><a href="./cadastrar-usuario.html">
                         <img class="icon-nav" src="../assets/img/icones/user.png" alt="Temperatura">
                         <span>Cadastrar Usuário</span>
                     </a>
                 </li>
-                <li>
+                <li class="pag-atual">
                     <a href="./cadastro-plantacao.html">
                         <img class="icon-nav" src="../assets/img/icones/folha.png" alt="Temperatura">
                         <span>Cadastrar Plantações</span>
@@ -54,80 +52,122 @@
             <a href="../login.html"><button>SAIR</button></a>
         </nav>
         <div id="content">
-            <div class="first-div-container">
-                <div class="titulo">
-                    <h1>Cadastro dos usuários</h1>
-                </div>  
+            <section class="first-div-container" style="gap: 9vh;">
+                <h1 class="titulo">Cadastro de usuários</h1>
                 <div class="cadastro">
-                    <div class="formulario">
-                        <h1 class="texto_cadastro-usuario select-disable">Entre em sua conta!</h1>
-                        <div class="form">
+                    <form>
+                        <div class="column-form">
                             <div>
-                                <div>
-                                    <span>Nome:</span>
-                                    <input id="nome_input" placeholder="Insira seu nome">
-                                </div>
-    
-                                <div>
-                                    <span>Email:</span>
-                                    <input id="email_input" placeholder="Insira seu E-mail">
-                                </div>
-    
-                                <div>
-                                    <span>Senha:</span>
-                                    <input id="senha_input" placeholder="Insira sua senha">
-                                </div>
-    
-                                <div>
-                                    <span>Confirmar senha</span>
-                                    <input id="confirmar_input"placeholder="Este campo não é obrigatório">
-                                </div>
-    
-                                <div>
-                                    <span>Cidade:</span>
-                                    <input id="cidade_input"placeholder="Este campo não é obrigatório">
-                                </div>
-    
-                                <div>
-                                    <span>Telefone:</span>
-                                    <input id="telefone_input" placeholder="Este campo não é obrigatório">
-                                </div>
-    
+                                <span>Nome:</span>
+                                <input id="nome_input">
                             </div>
-                            <div>
-                                <div>
-                                    <span>Inicio do plantio:</span>
-                                    <input id="plantio_input" placeholder="Este campo não é obrigatório">
-                                </div>
-    
-                                <div>
-                                    <span>Bairro:</span>
-                                    <input id="input_bairroPlantacao"placeholder="Este campo não é obrigatório">
-                                </div>
-    
-    
-                                <div>
-                                    <span>Complemento:</span>
-                                    <input id="input_complementoPlantacao" placeholder="Este campo não é obrigatório">
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="btn">
-                            <button onclick="cadastrar_usuario()">Cadastrar</button>
+                            <div>
+                                <span>Email:</span>
+                                <input id="email_input">
+                            </div>
+
+                            <div>
+                                <span>Senha:</span>
+                                <input id="senha_input">
+                            </div>
                         </div>
-                        
-                    </div>
-                    <div class="info-row">
-                        <div><span>5</span>
-                            <h4>Usuários Cadastrados</h4>
-                        </div>
-                        <img src="../assets/img/icones/user.png" alt="Usuário">
-                    </div>
                 </div>
-            </div>
+                <button class="btn_cadastro" onclick="">Cadastrar</button>
+                </form>
+            </section>
+            <section class="second-div_container">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Nome</td>
+                                <td>Modificar</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Haddock Lobo</td>
+                                <td>
+                                    <button class="btn-crud red">Deletar</button>
+                                    <button class="btn-crud green">Alterar</button>
+                                    <button class="btn-crud blue">Informações</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
 </body>
+
+</html>
 
 </html>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -137,72 +177,72 @@
 <script>
     var email = sessionStorage.EMAIL_USUARIO;
     var idUsuario = sessionStorage.getItem('ID_USUARIO');
-console.log(idUsuario);
-var id = sessionStorage.getItem('idcliente');
-
-function cadastrar_usuario() {
-    //aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    
     console.log(idUsuario);
+    var id = sessionStorage.getItem('idcliente');
 
-    if (nomeVar == "" || emailVar == "" || senhaVar == "") {
-        //cardErro.style.display = "block"
-        swal("Ops", "Preencha todos os campos", "error");
+    function cadastrar_usuario() {
+        //aguardar();
 
-        finalizarAguardar();
-        return false;
-    } else if (nomeVar.length < 3) {
-        swal("Ops", "O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres", "warning");
-    } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
-        swal("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.", "warning");
-    } else if (senhaVar.length < 8) {
-        swal("Ops", "A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres.", "warning");
-    } else {
-        setInterval('oi', 5000);
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
 
-        // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar_usuario", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                idUsuario: idUsuario // Adicione o idUsuario ao objeto JSON enviado no corpo da requisição
-            })
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
+        console.log(idUsuario);
 
-            if (resposta.ok) {
-                //cardErro.style.display = "block";
+        if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+            //cardErro.style.display = "block"
+            swal("Ops", "Preencha todos os campos", "error");
 
-                swal("Bom trabalho!", `Usuário ${nomeVar} cadastrado com sucesso`, "success");
-
-                setTimeout(() => {
-                    window.location = "cadastrar-usuario.html";
-                }, "2000");
-
-                limparFormulario();
-                finalizarAguardar();
-            } else {
-                swal("Ops", "Mais de um usuário com o mesmo login e senha!", "error");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
             finalizarAguardar();
-        });
-    }
+            return false;
+        } else if (nomeVar.length < 3) {
+            swal("Ops", "O nome inserido é muito curto. Por favor, insira um nome com pelo menos 3 caracteres", "warning");
+        } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1 || emailVar.length < 7) {
+            swal("Ops", "O e-mail cadastrado é inválido. Por favor, insira um e-mail válido.", "warning");
+        } else if (senhaVar.length < 8) {
+            swal("Ops", "A senha inserida é muito curta. Por favor, insira uma senha com pelo menos 8 caracteres.", "warning");
+        } else {
+            setInterval('oi', 5000);
 
-    return false;
-}
+            // Enviando o valor da nova input
+            fetch("/usuarios/cadastrar_usuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    idUsuario: idUsuario // Adicione o idUsuario ao objeto JSON enviado no corpo da requisição
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    //cardErro.style.display = "block";
+
+                    swal("Bom trabalho!", `Usuário ${nomeVar} cadastrado com sucesso`, "success");
+
+                    setTimeout(() => {
+                        window.location = "cadastrar-usuario.html";
+                    }, "2000");
+
+                    limparFormulario();
+                    finalizarAguardar();
+                } else {
+                    swal("Ops", "Mais de um usuário com o mesmo login e senha!", "error");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+        }
+
+        return false;
+    }
 </script>
