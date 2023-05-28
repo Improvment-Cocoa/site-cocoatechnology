@@ -78,6 +78,40 @@ function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, n
 
 
 
+function cadastrar_plantacoes_usuario(nome , temp_maxima , umidade_maxima , cep , cidade , numero , tamanho_plantacao ,
+  temperatura_minima , umidade_minima , estado , bairro , complemento , id) {
+  console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_plantacoes(): ", nome , temp_maxima , umidade_maxima , cep , cidade , numero , tamanho_plantacao ,
+  temperatura_minima , umidade_minima , estado , bairro , complemento);
+
+
+  var instrucao_plantacao = `
+    INSERT INTO plantacao (nome, tamanho , fkPlantacao_cliente) VALUES ('${nome}', '${tamanho_plantacao}', '${id}');
+`;
+
+var instrucao_parametro = `
+    INSERT INTO plantacao_param (temp_min, temp_max, umid_min, umid_max) VALUES ('${temperatura_minima}', '${temp_maxima}', '${umidade_minima}', '${umidade_maxima}');
+`;
+
+var instrucao_endereco = `
+    INSERT INTO endereco (cep, estado, bairro, numero, complemento , cidade) VALUES ('${cep}', '${estado}', '${bairro}', '${numero}', '${complemento}' , '${cidade}');
+`;
+
+return database.executar(instrucao_plantacao)
+.then(() => {
+  return database.executar(instrucao_parametro);
+})
+.then(() => {
+  return database.executar(instrucao_endereco);
+})
+.catch((erro) => {
+  console.log("Deu erro aqui", erro);
+  throw erro;
+})
+
+}
+
+
+
 
 
 
@@ -85,5 +119,6 @@ function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, n
 module.exports = {
   entrar,
   cadastrar,
-  listar
+  listar,
+  cadastrar_plantacoes_usuario
 };

@@ -237,6 +237,27 @@ function mostrar_dados(req, res) {
             }
         );
 }
+
+function mostrar_dados_plantacao(req, res) {
+    var idAviso = req.params.idAviso;
+
+    avisoModel.mostrar_dados_plantacao(idAviso)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+
 module.exports = {
     testar,
     listar,
@@ -246,5 +267,6 @@ module.exports = {
     editar,
     deletar,
     mostrar_dados,
-    plantacoes
+    plantacoes,
+    mostrar_dados_plantacao
 }

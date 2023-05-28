@@ -83,6 +83,18 @@ function plantacoes(nome_plantacao , temp_max , umid_max , cep , cidade , numero
     var instucao_endereco = `INSERT INTO endereco(cep , estado , bairro , numero , complemento) VALUES ('${cep}' , '${estado} , '${bairro}' , '${numero} , '${complemento}');`
     return database.executar(instrucao_plantacao , instucao_paramentro , instucao_endereco);
 }
+
+
+
+
+function mostrar_dados_plantacao(idUsuario) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
+    var instrucao = `
+    SELECT usuario.idusuario , usuario.nome from usuario;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 module.exports = {
     listar,
     listarPorUsuario,
@@ -91,5 +103,6 @@ module.exports = {
     editar,
     deletar,
     mostrar_dados,
-    plantacoes
+    plantacoes,
+    mostrar_dados_plantacao
 }

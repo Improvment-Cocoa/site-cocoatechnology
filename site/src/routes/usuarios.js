@@ -22,6 +22,9 @@ router.post("/cadastrar", function (req, res) {
 router.post("/cadastrar_usuario", function (req, res) {
     usuarioController.cadastrar_usuario(req, res);
 })
+router.post("/cadastrar_plantacoes_usuario", function (req, res) {
+    usuarioController.cadastrar_plantacoes_usuario(req, res);
+})
 
 
 

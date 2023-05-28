@@ -73,6 +73,7 @@ function cadastrar(req, res) {
   var complemento = req.body.complementoServer;
 
  
+  
 
   if (nome == undefined) {
     res.status(400).send("Seu nome está undefined!");
@@ -123,8 +124,81 @@ else {
 }
 }
 
+
+
+
+
+function cadastrar_plantacoes_usuario(req, res) {
+    var nome = req.body.nomeServer;
+    var temp_maxima = req.body.temp_maxServer;
+    var umidade_maxima = req.body.umid_max_Server;
+    var cep = req.body.cepServer;
+    var cidade = req.body.cidadeServer;
+    var numero = req.body.numeroServer
+    var tamanho_plantacao = req.body.tamanho_plantacaoServer
+    var temperatura_minima = req.body.temp_minServer
+    var umidade_minima = req.body.umid_minServer
+    var estado = req.body.estado_plantacaoServer;
+    var bairro = req.body.bairroServer;
+    var complemento = req.body.complementoServer;
+    var id = req.body.idSever
+  
+  console.log(nome , temp_maxima , umidade_maxima , cep , cidade , numero , tamanho_plantacao , temperatura_minima , umidade_minima, 
+    estado , bairro , complemento , id)
+    if (nome == undefined) {
+      res.status(400).send("Seu nome está undefined!");
+  } else if (temp_maxima == undefined) {
+      res.status(400).send("Seu email está undefined!");
+  } else if (umidade_maxima == undefined) {
+      res.status(400).send("Sua senha está undefined!");
+  }
+  else if (cep == undefined) {
+    res.status(400).send("Seu email está undefined!");
+  } else if (cidade == undefined) {
+    res.status(400).send("Sua senha está undefined!");
+  }
+  else if (numero == undefined) {
+    res.status(400).send("Seu email está undefined!");
+  } else if (tamanho_plantacao == undefined) {
+    res.status(400).send("Sua senha está undefined!");
+  }
+  else if (temperatura_minima == undefined) {
+    res.status(400).send("Seu email está undefined!");
+  } else if (umidade_minima == undefined) {
+    res.status(400).send("Sua senha está undefined!");
+  }
+  else if (estado == undefined) {
+    res.status(400).send("Seu email está undefined!");
+  } else if (bairro == undefined) {
+    res.status(400).send("Sua senha está undefined!");
+  }
+  else if (complemento == undefined) {
+    res.status(400).send("Sua senha está undefined!");
+  }
+  else {
+      
+      // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+      usuarioModel.cadastrar_plantacoes_usuario(nome , temp_maxima , umidade_maxima , cep , cidade , numero , tamanho_plantacao ,
+        temperatura_minima , umidade_minima , estado , bairro , complemento , id)
+          .then(
+              function (resultado) {
+                  res.json(resultado);
+              }
+          ).catch(
+              function (erro) {
+                  console.log(erro);
+                  console.log(
+                      "\nHouve um erro ao realizar o cadastro! Erro: ",
+                      erro.sqlMessage
+                  );
+                  res.status(500).json(erro.sqlMessage);
+              }
+          );
+  }
+  }
 module.exports = {
   listar,
   entrar,
-  cadastrar
+  cadastrar,
+  cadastrar_plantacoes_usuario
 };

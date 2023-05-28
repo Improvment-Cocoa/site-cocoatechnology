@@ -11,7 +11,7 @@
     <title>Cadastro da Plantação - Cocoa</title>
 </head>
 
-<body>
+<body onload="mostrar_dados_funcionario()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -54,7 +54,7 @@
             <section class="first-div-container">
                 <h1 class="titulo">Cadastro das plantações</h1>
                 <div class="cadastro">
-                    <form id="form_postagem" method="post" onsubmit="return cadastrar()">
+                    <form>
                         <div class="column-form">
                             <div>
                                 <span>Nome da plantação:</span>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                 </div>
-                <button class="btn_cadastro" onclick="">Cadastrar</button>
+                <button class="btn_cadastro" onclick="cadastrar_plantacao()">Cadastrar</button>
                 </form>
             </section>
             <section class="second-div_container">
@@ -149,7 +149,8 @@
 
 </html>
 <script>
-     var tipo_de_usuario = sessionStorage.TIPO_CLIENTE
+     var tipo_de_usuario = sessionStorage.TIPO_CLIENTE;
+     var idcliente = sessionStorage.ID_USUARIO;
     function api_cep(){
         var cep = input_cepPlantacao.value
         var cidade = input_cidadePlantacao.value
@@ -185,72 +186,152 @@
                 });
         }
     
-    function cadastrar() {
-        var idUsuario = sessionStorage.ID_USUARIO;
+   function cadastrar_plantacao(){
 
-        var cadastro_plantacoes = {
-            nome_plantacao: form_postagem.input_nomePlantacao.value,
-            temp_max: form_postagem.input_tempMaxima.value,
-            umid_max: form_postagem.input_umidMaxima.value,
-            cep: form_postagem.input_cepPlantacao.value,
-            cidade: form_postagem.input_cidadePlantacao.value,
-            numero: form_postagem.input_numeroPlantacao.value,
-            tamanho_plantacao: form_postagem.input_tamanhoPlantacao.value,
-            temp_min: form_postagem.input_tempMinima.value,
-            umid_min: form_postagem.input_umidMinima.value,
-            estado: form_postagem.input_estadoPlantacao.value,
-            bairro: form_postagem.input_bairroPlantacao.value,
-            complemento: form_postagem.input_complementoPlantacao.value,
-
-        }
-
-        console.log(cadastro_plantacoes)
-        if (tipo_de_usuario == "usuario") {
+    var nome = input_nomePlantacao.value
+    var temp_max = Number(input_tempMaxima.value)
+    var umid_max = Number(input_umidMaxima.value)
+    var cep = input_cepPlantacao.value
+    var cidade = input_cidadePlantacao.value
+    var numero = Number(input_numeroPlantacao.value)
+    var tamanho_plantacao = Number(input_tamanhoPlantacao.value)
+    var temperatura_minima = Number(input_tempMinima.value)
+    var umidade_minima = Number(input_umidMinima.value)
+    var estado_plant = input_estadoPlantacao.value
+    var bairro_plantacao = input_bairroPlantacao.value
+    var coomplemeto_plantacao = input_complementoPlantacao.value
 
 
 
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                html: `Prezado usuário,
+    fetch("/usuarios/cadastrar_plantacoes_usuario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nome,
+                temp_maxServer: temp_max,
+                umid_max_Server: umid_max,
+                cepServer: cep,
+                cidadeServer: cidade,
+                numeroServer: numero,
+                tamanho_plantacaoServer: tamanho_plantacao,
+                temp_minServer: temperatura_minima,
+                umid_minServer: umidade_minima,
+                estado_plantacaoServer: estado_plant,
+                bairroServer: bairro_plantacao,
+                complementoServer:coomplemeto_plantacao,
+                idSever:idcliente
 
-             Informamos que, de acordo com as políticas da Cocoa Technology, você não tem permissão para cadastrar funcionários em nosso sistema. Essa restrição garante a consistência dos dados e o cumprimento das responsabilidades atribuídas a membros específicos da equipe de recursos humanos.<br>
-
-             Para cadastrar um novo funcionário, solicitamos que entre em contato com o departamento de recursos humanos da Cocoa Technology. Eles estão autorizados a realizar essa tarefa de forma adequada.<br>
-
-            Agradecemos sua compreensão e cooperação quanto a essa política de acesso.
-
-            Atenciosamente,
-            Cocoa Technology`,
             })
-            return false;
-        }
-        else {
-           
-            fetch(`/avisos/plantacoes/${idUsuario}`, {
-    method: "post",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(cadastro_plantacoes)
-}).then(function (resposta) {
-    console.log("resposta: ", resposta);
-    if (resposta.ok) {
-        swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
-        limparFormulario();
-    } else if (resposta.status == 404) {
-        window.alert("Deu 404!");
-        alert("ERRO");
-    } else {
-        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //cardErro.style.display = "block";
+                swal("Bom trabalho!", "Cadastro realizado com sucesso redirecionando a tela de login...!", "success");
+
+             
+
+             
+                finalizarAguardar();
+            } else {
+                swal ( "Ops" ,  "Houve um erro ao fazer o cadastro" ,  "error" )
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+
+
+
+
+
+
+
+
+   }
+
+
+
+
+
+   function mostrar_dados_funcionario() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        //aguardar();
+        fetch(`/avisos/mostrar_dados_plantacao/${idUsuario}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var linha = document.createElement("tr");
+                        var tdId = document.createElement("td");
+                        var tdNome = document.createElement("td");
+                        var btnDeletar = document.createElement("button");
+                        var btnAlterar = document.createElement("button");
+                        var btnInformacao = document.createElement("button");
+
+
+                        tdId.innerHTML = publicacao.idusuario;
+                        var id_usuario = publicacao.idusuario
+                        console.log("O id é " + id_usuario)
+                        tdNome.innerHTML = publicacao.nome;
+                        btnDeletar.innerHTML = "Deletar";
+                        btnAlterar.innerHTML = "Alterar";
+                        btnInformacao.innerHTML = "Informações";
+
+
+                        tdNome.className = "publicacao-nome";
+                        btnAlterar.className = "btn-crud green"
+                        btnInformacao.className = "btn-crud blue"
+                        btnAlterar.id = "btnAlterar" + publicacao.idusuario;
+                        btnAlterar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
+                        btnInformacao.setAttribute("onclick", `mostrar(${publicacao.idusuario})`);
+
+                        btnDeletar.className = "btn-crud red"
+                        btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
+                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
+
+                        linha.appendChild(tdId);
+                        linha.appendChild(tdNome);
+                        linha.appendChild(btnDeletar);
+                        linha.appendChild(btnAlterar);
+                        linha.appendChild(btnInformacao);
+                        feed.appendChild(linha);
+                    }
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
     }
-}).catch(function (resposta) {
-    console.log(`#ERRO: ${resposta}`);
-});
 
-return false;
 
- }
 
-  }
+
+
 </script>
