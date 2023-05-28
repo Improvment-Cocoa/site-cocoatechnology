@@ -149,8 +149,10 @@
 
 </html>
 <script>
-     var tipo_de_usuario = sessionStorage.TIPO_CLIENTE
-    function api_cep(){
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    var tipo_de_usuario = sessionStorage.TIPO_CLIENTE
+    function api_cep() {
         var cep = input_cepPlantacao.value
         var cidade = input_cidadePlantacao.value
         var estado = input_estadoPlantacao.value
@@ -158,33 +160,33 @@
         var complemento = input_complementoPlantacao.value
 
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.erro) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
 
 
-                        input_bairro.value = '';
-                        input_cidade.value = '';
-                        input_estado.value = '';
-                        span.style.color = 'red'
-                
-                  
-                    } else {
+                    input_bairro.value = '';
+                    input_cidade.value = '';
+                    input_estado.value = '';
+                    span.style.color = 'red'
 
 
-                        input_bairroPlantacao.value = data.bairro
-                        input_cidadePlantacao.value = data.localidade
-                        input_estadoPlantacao.value = data.uf
-                        input_complementoPlantacao.value = data.complemento
-                    
+                } else {
 
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    
+
+                    input_bairroPlantacao.value = data.bairro
+                    input_cidadePlantacao.value = data.localidade
+                    input_estadoPlantacao.value = data.uf
+                    input_complementoPlantacao.value = data.complemento
+
+
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     function cadastrar() {
         var idUsuario = sessionStorage.ID_USUARIO;
 
@@ -226,31 +228,31 @@
             return false;
         }
         else {
-           
+
             fetch(`/avisos/plantacoes/${idUsuario}`, {
-    method: "post",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(cadastro_plantacoes)
-}).then(function (resposta) {
-    console.log("resposta: ", resposta);
-    if (resposta.ok) {
-        swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
-        limparFormulario();
-    } else if (resposta.status == 404) {
-        window.alert("Deu 404!");
-        alert("ERRO");
-    } else {
-        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(cadastro_plantacoes)
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
+                    limparFormulario();
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                    alert("ERRO");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+            return false;
+
+        }
+
     }
-}).catch(function (resposta) {
-    console.log(`#ERRO: ${resposta}`);
-});
-
-return false;
-
- }
-
-  }
 </script>

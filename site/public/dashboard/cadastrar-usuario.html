@@ -88,15 +88,15 @@
                             </tr>
                         </thead>
                         <tbody id="feed_container">
-                            <tr>
+                            <!-- <tr>
                                 <td>1</td>
-
+                                <td>Gerson</td>
                                 <td>
                                     <button class="btn-crud red">Deletar</button>
                                     <button class="btn-crud green">Alterar</button>
                                     <button class="btn-crud blue" onclick="mostrar_dados()">Informações</button>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -316,36 +316,47 @@ Cocoa Technology`,
                         var linha = document.createElement("tr");
                         var tdId = document.createElement("td");
                         var tdNome = document.createElement("td");
-                        var btnDeletar = document.createElement("button");
-                        var btnAlterar = document.createElement("button");
-                        var btnInformacao = document.createElement("button");
+                        var tdButtons = document.createElement("td");
+                        // var btnDeletar = document.createElement("button");
+                        // var btnAlterar = document.createElement("button");
+                        // var btnInformacao = document.createElement("button");
 
 
                         tdId.innerHTML = publicacao.idusuario;
                         var id_usuario = publicacao.idusuario
                         console.log("O id é " + id_usuario)
                         tdNome.innerHTML = publicacao.nome;
-                        btnDeletar.innerHTML = "Deletar";
-                        btnAlterar.innerHTML = "Alterar";
-                        btnInformacao.innerHTML = "Informações";
+                        tdButtons.innerHTML = `
+                            <button class="btn-crud red" id="btn_delete${i}" >Deletar</button>
+                            <button class="btn-crud green" id="btn_update${i}">Alterar</button>
+                            <button class="btn-crud blue" id="btn_get${i}" onclick="mostrar_dados()">Informações</button>
+                        `
+                        // btnDeletar.innerHTML = "Deletar";
+                        // btnAlterar.innerHTML = "Alterar";
+                        // btnInformacao.innerHTML = "Informações";
+
+                        // btnDeletar.innerHTML = "Deletar";
+                        // btnAlterar.innerHTML = "Alterar";
+                        // btnInformacao.innerHTML = "Informações";
 
 
                         tdNome.className = "publicacao-nome";
-                        btnAlterar.className = "btn-crud green"
-                        btnInformacao.className = "btn-crud blue"
-                        btnAlterar.id = "btnAlterar" + publicacao.idusuario;
-                        btnAlterar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
-                        btnInformacao.setAttribute("onclick", `mostrar(${publicacao.idusuario})`);
+                        // btnAlterar.className = "btn-crud green"
+                        // btnInformacao.className = "btn-crud blue"
+                        // btnAlterar.id = "btnAlterar" + publicacao.idusuario;
+                        // btnAlterar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
+                        // btnInformacao.setAttribute("onclick", `mostrar(${publicacao.idusuario})`);
 
-                        btnDeletar.className = "btn-crud red"
-                        btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
-                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
+                        // btnDeletar.className = "btn-crud red"
+                        // btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
+                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
 
                         linha.appendChild(tdId);
                         linha.appendChild(tdNome);
-                        linha.appendChild(btnDeletar);
-                        linha.appendChild(btnAlterar);
-                        linha.appendChild(btnInformacao);
+                        linha.appendChild(tdButtons);
+                        // linha.appendChild(btnDeletar);
+                        // linha.appendChild(btnAlterar);
+                        // linha.appendChild(btnInformacao);
                         feed.appendChild(linha);
                     }
 

@@ -228,6 +228,7 @@ input:focus {
 
 .slide-show {
     overflow: scroll hidden;
+    width: 80vw;
 }
 
 .slide-show h2 {
