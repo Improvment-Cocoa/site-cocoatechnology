@@ -54,7 +54,7 @@
             <section class="first-div-container">
                 <h1 class="titulo">Cadastro das plantações</h1>
                 <div class="cadastro">
-                    <form>
+                    <form id="form_postagem" method="post" onsubmit="return cadastrar()">
                         <div class="column-form">
                             <div>
                                 <span>Nome da plantação:</span>
@@ -73,7 +73,7 @@
 
                             <div>
                                 <span>CEP:</span>
-                                <input id="input_cepPlantacao">
+                                <input id="input_cepPlantacao" onkeyup="api_cep()">
                             </div>
 
                             <div>
@@ -148,3 +148,109 @@
 </body>
 
 </html>
+<script>
+     var tipo_de_usuario = sessionStorage.TIPO_CLIENTE
+    function api_cep(){
+        var cep = input_cepPlantacao.value
+        var cidade = input_cidadePlantacao.value
+        var estado = input_estadoPlantacao.value
+        var bairro = input_bairroPlantacao.value
+        var complemento = input_complementoPlantacao.value
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.erro) {
+
+
+                        input_bairro.value = '';
+                        input_cidade.value = '';
+                        input_estado.value = '';
+                        span.style.color = 'red'
+                
+                  
+                    } else {
+
+
+                        input_bairroPlantacao.value = data.bairro
+                        input_cidadePlantacao.value = data.localidade
+                        input_estadoPlantacao.value = data.uf
+                        input_complementoPlantacao.value = data.complemento
+                    
+
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    
+    function cadastrar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        var cadastro_plantacoes = {
+            nome_plantacao: form_postagem.input_nomePlantacao.value,
+            temp_max: form_postagem.input_tempMaxima.value,
+            umid_max: form_postagem.input_umidMaxima.value,
+            cep: form_postagem.input_cepPlantacao.value,
+            cidade: form_postagem.input_cidadePlantacao.value,
+            numero: form_postagem.input_numeroPlantacao.value,
+            tamanho_plantacao: form_postagem.input_tamanhoPlantacao.value,
+            temp_min: form_postagem.input_tempMinima.value,
+            umid_min: form_postagem.input_umidMinima.value,
+            estado: form_postagem.input_estadoPlantacao.value,
+            bairro: form_postagem.input_bairroPlantacao.value,
+            complemento: form_postagem.input_complementoPlantacao.value,
+
+        }
+
+        console.log(cadastro_plantacoes)
+        if (tipo_de_usuario == "usuario") {
+
+
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                html: `Prezado usuário,
+
+             Informamos que, de acordo com as políticas da Cocoa Technology, você não tem permissão para cadastrar funcionários em nosso sistema. Essa restrição garante a consistência dos dados e o cumprimento das responsabilidades atribuídas a membros específicos da equipe de recursos humanos.<br>
+
+             Para cadastrar um novo funcionário, solicitamos que entre em contato com o departamento de recursos humanos da Cocoa Technology. Eles estão autorizados a realizar essa tarefa de forma adequada.<br>
+
+            Agradecemos sua compreensão e cooperação quanto a essa política de acesso.
+
+            Atenciosamente,
+            Cocoa Technology`,
+            })
+            return false;
+        }
+        else {
+           
+            fetch(`/avisos/plantacoes/${idUsuario}`, {
+    method: "post",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(cadastro_plantacoes)
+}).then(function (resposta) {
+    console.log("resposta: ", resposta);
+    if (resposta.ok) {
+        swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
+        limparFormulario();
+    } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+        alert("ERRO");
+    } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    }
+}).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+});
+
+return false;
+
+ }
+
+  }
+</script>

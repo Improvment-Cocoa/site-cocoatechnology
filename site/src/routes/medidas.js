@@ -10,11 +10,24 @@ router.get("/ultimas/:idsensor", function (req, res) {
 router.get("/tempo-real/:idsensor", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
-
-
+router.get("/medidas_temperatura_ultimas/:idsensor", function (req, res) {
+    medidaController.medidas_temperatura_ultimas(req, res);
+})
+router.get("/medidas_umidade_ultimas/:idsensor", function (req, res) {
+    medidaController.medidas_umidade_ultimas(req, res);
+})
+router.get("/temperatura_contante/:idsensor", function (req, res) {
+    medidaController.temperatura_contante(req, res);
+})
+router.get("/temperatura_atual/:idsensor", function (req, res) {
+    medidaController.temperatura_atual(req, res);
+})
 
 router.get("/dados_temperatura/:idsensor", function (req, res) {
     medidaController.dados_temperatura(req, res);
+})
+router.get("/dados_umidade/:idsensor", function (req, res) {
+    medidaController.dados_umidade(req, res);
 })
 
 module.exports = router;

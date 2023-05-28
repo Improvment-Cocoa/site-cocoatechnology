@@ -11,7 +11,7 @@
     <title>Dashboard Geral - Cocoa</title>
 </head>
 
-<body>
+<body onload="obterDadosGrafico() , obterTemperaturaAtual()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -113,106 +113,215 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    var usuario = sessionStorage.NOME_USUARIO;
-    var id = sessionStorage.ID_USUARIO
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    console.log(id)
-    b_usuario.innerHTML = " " + usuario;
+    let proximaAtualizacao;
 
-    const ctx1 = document.getElementById('myChart1');
-    ctx1.style.height='100%'; 
-    ctx1.style.width='100%';
+    window.onload = obterDadosGraficos();
 
-    const ctx2 = document.getElementById('myChart2');
+    function obterDadosGraficos() {
+        obterDadosGrafico(1),
+        obterTemperaturaAtual()
+       
+    }
 
-    const ctx3 = document.getElementById('myChart3');
-    ctx3.style.height='100%'; 
-    ctx3.style.width='100%';
+  
 
-    //Gráfico 1 - div-chart-grande
-    new Chart(ctx1, {
-        type: 'bar',
-        data: {
-            labels: ['Serra das Araras', 'Rua Augusta', 'Domingos Lobos', 'Haddock Lobo', 'Tingoassuiba'],
+
+   
+    function obterDadosGrafico(idAquario) {
+
+    
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/temperatura_contante/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+             
+
+                    plotarGrafico(resposta, idAquario);
+                    
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico(resposta, idAquario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
             datasets: [{
-                label: 'Temperatura constante capturada das plantações',
+                label: 'Umidade constante captura das plantações',
+                data: [],
                 backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
                 borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-                data: [30, 27, 25, 20, 22],
-                borderWidth: 1
+                fill: false,
+               
+                tension: 0.1
             },
             {
-                label: 'Umidade constante capturada das plantações',
-                backgroundColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                borderColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                data: [83, 80, 79, 71, 75],
-                borderWidth: 1
+                label: 'Temperatura constante captura das plantações',
+                data: [],
+                fill: false,
+                backgroundColor: ['#4fb37c'],
+                borderColor: '#4fb37c',
+                tension: 0.1
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+        };
 
-    //Gráfico 2 - div-chart-medium 1
-    new Chart(ctx2, {
-        type: 'doughnut',
-        data: {
-            labels: ['Perigo', 'Cuidado', 'Atenção', 'Estável'],
-            datasets: [{
-                label: 'Quantidade de plantações',
-                backgroundColor: [
-                    'crimson',
-                    '#E25822',
-                    '#DAA520',
-                    '#99CC33'
-                ],
-                borderColor: '#000',
-                borderWidth: 1,
-                data: [1, 1, 1, 2],
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
 
-    //Gráfico 2 - div-chart-medium 1
-    new Chart(ctx3, {
-        type: 'bar',
-        data: {
-            labels: ['Serra das Araras', 'Rua Augusta', 'Domingos Lobos', 'Haddock Lobo'],
-            datasets: [{
-                label: 'Temperatura',
-                backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-                borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-                data: [30, 27, 25, 20, 22],
-                borderWidth: 1
-            },
-            {
-                label: 'Umidade',
-                backgroundColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                borderColor: ['crimson', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                data: [83, 80, 79, 71, 75],
-                borderWidth: 1
-            }
-            ],
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.nome);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.temperatura);
+            console.log(registro)
+            
         }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart1`),
+            config
+        );
+
+    
+    }
+
+
+
+
+
+    function obterTemperaturaAtual(idAquario) {
+
+    
+
+if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+}
+
+fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (resposta_temperatura) {
+            console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
+     
+
+            plotarGrafico2(resposta_temperatura, idAquario);
+            
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
+}
+
+
+
+
+function plotarGrafico2(resposta_temperatura, idAquario) {
+
+console.log('iniciando plotagem do gráfico...');
+
+// Criando estrutura para plotar gráfico - labels
+let labels = [];
+
+// Criando estrutura para plotar gráfico - dados
+let dados = {
+    labels: labels,
+    datasets: [{
+        label: 'Temperatura',
+        data: [],
+        backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+        borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+        fill: false,
+       
+        tension: 0.1
+    },
+    {
+        label: 'Umidade',
+        data: [],
+        fill: false,
+        backgroundColor: ['#4fb37c'],
+        borderColor: '#4fb37c',
+        tension: 0.1
+    }]
+};
+
+console.log('----------------------------------------------')
+console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+console.log(resposta_temperatura)
+
+// Inserindo valores recebidos em estrutura para plotar o gráfico
+for (i = 0; i < resposta_temperatura.length; i++) {
+    var registro = resposta_temperatura[i];
+    labels.push(registro.nome);
+    dados.datasets[0].data.push(registro.temperatura);
+    dados.datasets[1].data.push(registro.umidade);
+    console.log(registro)
+    
+
+  
+}
+
+console.log('----------------------------------------------')
+console.log('O gráfico será plotado com os respectivos valores:')
+console.log('Labels:')
+console.log(labels)
+console.log('Dados:')
+console.log(dados.datasets)
+console.log('----------------------------------------------')
+
+// Criando estrutura para plotar gráfico - config
+const config = {
+    type: 'line',
+    data: dados,
+};
+
+// Adicionando gráfico criado em div na tela
+let myChart = new Chart(
+    document.getElementById(`myChart3`),
+    config
+);
+
+
+}
+
+
+
 </script>

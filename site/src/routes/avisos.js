@@ -7,8 +7,11 @@ router.get("/", function (req, res) {
     avisoController.testar(req, res);
 });
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listar(req, res);
+});
+router.get("/mostrar_dados/:idAviso", function (req, res) {
+    avisoController.mostrar_dados(req, res);
 });
 
 router.get("/listar/:idUsuario", function (req, res) {
@@ -21,6 +24,10 @@ router.get("/pesquisar/:descricao", function (req, res) {
 
 router.post("/publicar/:idUsuario", function (req, res) {
     avisoController.publicar(req, res);
+});
+
+router.post("/plantacoes/:idUsuario", function (req, res) {
+    avisoController.plantacoes(req, res);
 });
 
 router.put("/editar/:idAviso", function (req, res) {

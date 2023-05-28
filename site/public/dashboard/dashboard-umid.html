@@ -11,7 +11,7 @@
     <title>Dashboard - Cocoa</title>
 </head>
 
-<body>
+<body onload="obterDadosGrafico()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -76,203 +76,339 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    var usuario = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    b_usuario.innerHTML = " " + usuario
-    const ctx1 = document.getElementById('myChart1');
-    const ctx2 = document.getElementById('myChart2');
-    const ctx3 = document.getElementById('myChart3');
-    const ctx4 = document.getElementById('myChart4');
+    let proximaAtualizacao;
 
-    //Gráfico 1 - Plantação 1
-    new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+    window.onload = obterDadosGraficos();
+
+    function obterDadosGraficos() {
+        obterDadosGrafico(1)
+
+    }
+
+    function obterDadosGrafico(idAquario) {
+
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/dados_umidade/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idAquario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+    function plotarGrafico(resposta, idAquario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
             datasets: [{
-                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
-                backgroundColor: ['#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                borderColor: 'brown',
-                data: [80, 82, 80, 85, 80, 83],
-                borderWidth: 1
+                label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
+                backgroundColor: ['#00FFFF'],
+                borderColor: '#00FFFF',
+                data: [],
+                fill: false,
+
+                tension: 0.1
+            },
+            {
+                label: '',
+                data: [],
+                fill: false,
+
+                tension: 0.1
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        var umidades = [];
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.umidade);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.dataLeitura_hora);
+            var umidade = registro.umidade
+            umidades.push(umidade)
+
+            if (registro.umidade >= 12) {
+                dados.datasets[0].backgroundColor.push('#FF0000');
+                dados.datasets[0].borderColor = '#FF0000';
             }
         }
-    });
 
-    //Gráfico 2 - Plantação 1
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-            datasets: [{
-                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
-                backgroundColor: ['#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                borderColor: ['#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                data: [80, 82, 80, 85, 80, 83],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+
+
+
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log("Dados  novos" + umidade)
+        console.log('----------------------------------------------')
+
+        let dados_grafico1 = labels;
+        let novos_dados_umidade = umidades
+        console.log(dados_grafico1)
+        let dados_grafico2 = [];
+        let novos_dados_grafico_2 = []
+
+        for (var i = 0; i < novos_dados_umidade.length; i++) {
+            var valor_nomal = novos_dados_umidade[i]
+            var alteracao_grafico_2 = (valor_nomal * 0.50).toFixed(1)
+
+            dados_grafico2.push(alteracao_grafico_2)
+            console.log("GGGAHSH" + alteracao_grafico_2)
+
+
+        }
+
+        console.log(dados_grafico1);
+        console.log('----------------------------------------------');
+        console.log('O gráfico será plotado com os respectivos valores:');
+        console.log('Labels:');
+        console.log(labels);
+        console.log('Dados:');
+        console.log(dados.datasets);
+        console.log('----------------------------------------------');
+
+        // Criando estrutura para plotar gráfico - config
+        let dados2 = {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '',
+                        backgroundColor: ['#00FFFF'],
+                        borderColor: '#00FFFF',
+                        data: dados_grafico2,
+
+                    },
+                    {
+                        label: 'Temperatura da plantação dentre o período do meio dia às cinco da tarde',
+                        data: '',
+
+                    }
+                ]
+            }
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart2 = new Chart(
+            document.getElementById(`myChart2`),
+            dados2
+        );
+
+        for (let i = 0; i < dados_grafico2.length; i++) {
+            if (dados_grafico2[i] < 12) {
+                myChart2.data.datasets[0].backgroundColor[i] = 'orange';
+                myChart2.data.datasets[0].borderColor = 'orange';
             }
         }
-    });
 
-    //Gráfico 1 - Plantação 2
 
-    new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-            datasets: [{
-                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
-                backgroundColor: ['#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                borderColor: 'brown',
-                data: [80, 82, 83, 83, 81, 83],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+
+
+        let dados_grafico = umidades;
+        console.log("O grafico 3 tera os seguintes dados " + dados_grafico)
+        let dados_grafico3 = [];
+
+        for (var i = 0; i < dados_grafico.length; i++) {
+            var valor_original = dados_grafico[i];
+            var novo_valor = (valor_original * 0.60).toFixed(2);
+            dados_grafico3.push(novo_valor);
+
+            console.log("Valor Normal: " + valor_original);
+            console.log("Valor Alterado: " + novo_valor);
         }
-    });
 
-    //Gráfico 2 - Plantação 2
-    new Chart(ctx4, {
-        type: 'bar',
-        data: {
-            labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-            datasets: [{
-                label: 'Umidade da plantação dentre o período do meio dia ás duas e meia da tarde',
-                backgroundColor: ['#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                borderColor: ['#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33', '#99CC33'],
-                data: [80, 82, 83, 83, 81, 83],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+
+        const config3 = {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '',
+                        backgroundColor: ['#00FFFF'],
+                        borderColor: '#00FFFF',
+                        data: dados_grafico3,
+
+                    },
+                    {
+                        label: 'Temperatura da plantação dentre o período do meio dia às cinco da tarde',
+
+                    }
+                ]
             }
+        };
+
+        let myChart3 = new Chart(
+            document.getElementById(`myChart3`),
+            config3
+        );
+
+
+
+        let dados_grafico_um = umidades;
+        console.log("O grafico 3 tera os seguintes dados " + dados_grafico)
+        let dados_grafico4 = [];
+
+        for (var count = 0; count < dados_grafico_um.length; count++) {
+            var valor_original = dados_grafico_um[count];
+            var novo_valor = (valor_original * 1.05).toFixed(2);
+            dados_grafico4.push(novo_valor);
+
+            console.log("Valor Normal: " + valor_original);
+            console.log("Valor Alterado: " + novo_valor);
         }
-    });
 
-    //Gráfico 1 - Plantação 2
-    // new Chart(ctx5, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-    //         datasets: [{
-    //             label: 'Umidade da plantação dentre o período do meio dia ás cinco da tarde',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'blue',
-    //             data: [80, 82, 80, 85, 80, 83],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
 
-    // //Gráfico 2 - Plantação 2
-    // new Chart(ctx6, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-    //         datasets: [{
-    //             label: 'Temperatura da plantação dentre o período do meio dia ás duas e meia da tarde',
-    //             backgroundColor: 'crimson',
-    //             borderColor: 'crimson',
-    //             data: [30, 29, 28, 25, 22, 23],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+        const config4 = {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Temperatura da plantação dentre o período do meio dia às cinco da tarde',
+                        data: dados_grafico4,
+                        fill: false,
+                        backgroundColor: ['#00FFFF'],
+                        borderColor: '#00FFFF',
+                        tension: 0.1
 
-    // //Gráfico 3 - Plantação 2
-    // new Chart(ctx7, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-    //         datasets: [{
-    //             label: 'Temperatura',
-    //             backgroundColor: 'crimson',
-    //             borderColor: 'crimson',
-    //             data: [30, 29, 28, 25, 22, 23],
-    //             borderWidth: 1
-    //         },
-    //         {
-    //             label: 'Umidade',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'blue',
-    //             data: [80, 82, 80, 85, 80, 83],
-    //             borderWidth: 1
-    //         }
-    //         ],
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+                    },
+                    {
+                        label: '',
+                        data: '',
 
-    // //Gráfico 4 - Plantação 2
-    // new Chart(ctx8, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
-    //         datasets: [{
-    //             label: 'Temperatura média',
-    //             backgroundColor: 'crimson',
-    //             borderColor: 'crimson',
-    //             data: [22, 24, 27, 23, 20, 18],
-    //             borderWidth: 1
-    //         },
-    //         {
-    //             label: 'Umidade média',
-    //             backgroundColor: 'blue',
-    //             borderColor: 'blue',
-    //             data: [90, 89, 93, 87, 88, 82],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+                    }
+                ]
+            }
+        };
+        let myChart4 = new Chart(
+            document.getElementById(`myChart4`),
+            config4
+        );
+
+
+
+
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+
+
+
+
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart1`),
+            config
+        );
+
+
+
+
+
+        setTimeout(() => atualizarGrafico(idAquario, dados, myChart, myChart2, myChart3, myChart4), 2000);
+    }
+
+    function atualizarGrafico(idAquario, dados, myChart, myChart2, myChart3, myChart4) {
+
+
+
+        fetch(`/medidas/medidas_umidade_ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    obterDadosGrafico(idAquario)
+                
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de temperatura
+
+                        myChart.update();
+
+
+
+
+                        myChart2.data.labels.shift();
+                        myChart2.data.labels.push(novoRegistro[0].momento_grafico);
+
+                        myChart2.data.datasets[0].data.shift();
+                        myChart2.data.datasets[0].data.push(novoRegistro[0].umidade * 0.50);
+
+                        myChart2.update();
+
+                        myChart3.data.labels.shift();
+                        myChart3.data.labels.push(novoRegistro[0].momento_grafico);
+
+                        myChart3.data.datasets[0].data.shift();
+                        myChart3.data.datasets[0].data.push(novoRegistro[0].umidade * 0.45);
+
+                        myChart3.update();
+
+                        myChart4.data.labels.shift();
+                        myChart4.data.labels.push(novoRegistro[0].momento_grafico);
+
+                        myChart4.data.datasets[0].data.shift();
+                        myChart4.data.datasets[0].data.push(novoRegistro[0].umidade * 0.90);
+
+                        myChart4.update();
+
+                      
+                    
+
+
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart, myChart2, myChart3, myChart4), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart, myChart2, myChart3, myChart4), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
 </script>

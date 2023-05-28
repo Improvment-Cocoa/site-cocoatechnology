@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/cadastro-users.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Cadastro da Plantação - Cocoa</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body onload="atualizarFeed()">
@@ -89,11 +90,11 @@
                         <tbody id="feed_container">
                             <tr>
                                 <td>1</td>
-                                <td>Haddock Lobo</td>
+
                                 <td>
                                     <button class="btn-crud red">Deletar</button>
                                     <button class="btn-crud green">Alterar</button>
-                                    <button class="btn-crud blue">Informações</button>
+                                    <button class="btn-crud blue" onclick="mostrar_dados()">Informações</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -113,6 +114,8 @@
 <script>
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    var tipo_de_usuario = sessionStorage.TIPO_CLIENTE
+    console.log(tipo_de_usuario)
 
     function limparFormulario() {
         document.getElementById("form_postagem").reset();
@@ -127,35 +130,97 @@
             senha: form_postagem.senha_input.value
         }
 
-        fetch(`/avisos/publicar/${idUsuario}`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(corpo)
-        }).then(function (resposta) {
+        if (tipo_de_usuario == "usuario") {
 
-            console.log("resposta: ", resposta);
 
-            if (resposta.ok) {
-                swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
 
-                limparFormulario();
-                finalizarAguardar();
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-                window.location = "cadastrar-usuario.html"
-                alert("ERRO")
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                html: `Prezado usuário,
+
+Informamos que, de acordo com as políticas da Cocoa Technology, você não tem permissão para cadastrar funcionários em nosso sistema. Essa restrição garante a consistência dos dados e o cumprimento das responsabilidades atribuídas a membros específicos da equipe de recursos humanos.<br>
+
+Para cadastrar um novo funcionário, solicitamos que entre em contato com o departamento de recursos humanos da Cocoa Technology. Eles estão autorizados a realizar essa tarefa de forma adequada.<br>
+
+Agradecemos sua compreensão e cooperação quanto a essa política de acesso.
+
+Atenciosamente,
+Cocoa Technology`,
+            })
+            return false;
+        }
+        else {
+            fetch(`/avisos/publicar/${idUsuario}`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(corpo)
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
+
+                    limparFormulario();
+
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                    window.location = "cadastrar-usuario.html"
+                    alert("ERRO")
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+
+        }
+    }
+
+    function mostrar(idAviso) {
+
+        //aguardar();
+        fetch(`/avisos/mostrar_dados/${idAviso}`).then(function (resposta_dados_usuario) {
+            if (resposta_dados_usuario.ok) {
+                if (resposta_dados_usuario.status == 204) {
+                    alert("ERRO")
+                }
+
+                resposta_dados_usuario.json().then(function (resposta_dados_usuario) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta_dados_usuario));
+
+
+                    for (let i = 0; i < resposta_dados_usuario.length; i++) {
+                        var dados = resposta_dados_usuario[i];
+                        console.log(dados)
+                        Swal.fire({
+
+                            title: 'Dados do Funcionário',
+                            html: `<div style="display: flex;">
+                            <div style="flex: 1;">
+                            <b>Nome</b>: ${dados.nome}<br>
+                            <b>Email</b>: ${dados.email}<br>
+                            <b>Responsável:</b> ${dados.responsavel}<br>
+                            <b>CNPJ:</b> ${dados.cnpj}
+                             </div>
+                            </div>`
+                        })
+                    }
+                });
             } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                console.error('Houve um erro na API!', resposta_dados_usuario.status);
+
             }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
+        }).catch(function (erro) {
+            console.error(erro);
+
         });
-
-        return false;
-
     }
 
     function editar(idAviso) {
@@ -168,29 +233,68 @@
 
     function deletar(idAviso) {
         console.log("Criar função de apagar post escolhido - ID" + idAviso);
-        fetch(`/avisos/deletar/${idAviso}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
 
-            if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                window.location = "/dashboard/mural.html"
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+
+
+        if (tipo_de_usuario == "usuario") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                html: `Prezado usuário,
+
+Gostaríamos de informar que, de acordo com as políticas da Cocoa Technology, você não possui permissão para deletar funcionários em nosso sistema. Essa restrição foi estabelecida visando à segurança e integridade dos dados, bem como para garantir que as decisões de término de contrato e outras ações relacionadas aos funcionários sejam tomadas de acordo com os procedimentos adequados.
+<br>
+Para solicitar a exclusão de um funcionário em nosso sistema, pedimos que entre em contato com o departamento de recursos humanos da Cocoa Technology. Eles possuem a autoridade e o conhecimento necessário para gerenciar essa ação de maneira apropriada.
+<br>
+Agradecemos pela sua compreensão e colaboração em relação a essa política de acesso. Estamos empenhados em proteger a segurança dos dados e em assegurar que todas as atividades sejam conduzidas em conformidade com as diretrizes estabelecidas.
+<br>
+Atenciosamente,
+Cocoa Technology`,
+            })
+            return false;
+        }
+        else {
+            Swal.fire({
+                title: 'Você tem certeza que deseja deletar?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Deletar',
+                denyButtonText: `Não Deletar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/avisos/deletar/${idAviso}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(function (resposta) {
+                        if (resposta.ok) {
+                            Swal.fire('Saved!', '', 'success')
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Bom trabalho!',
+                                text: 'Usuário deletado com sucesso',
+                                timer: 4500
+                            })
+                            window.location = "cadastrar-usuario.html";
+                        } else {
+                            Swal.fire('Falha ao deletar o usuário', '', 'error')
+                        }
+                    }).catch(function (resposta) {
+                        console.log(resposta);
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire('Usuário não deletado', '', 'warning')
+                }
+            });
+        }
     }
 
     function atualizarFeed() {
+        var idUsuario = sessionStorage.ID_USUARIO;
         //aguardar();
-        fetch("/avisos/listar").then(function (resposta) {
+        fetch(`/avisos/listar/${idUsuario}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
@@ -218,18 +322,22 @@
 
 
                         tdId.innerHTML = publicacao.idusuario;
+                        var id_usuario = publicacao.idusuario
+                        console.log("O id é " + id_usuario)
                         tdNome.innerHTML = publicacao.nome;
                         btnDeletar.innerHTML = "Deletar";
                         btnAlterar.innerHTML = "Alterar";
                         btnInformacao.innerHTML = "Informações";
-                        
+
 
                         tdNome.className = "publicacao-nome";
-                        btnAlterar.className = "publicacao-btn-editar"
+                        btnAlterar.className = "btn-crud green"
+                        btnInformacao.className = "btn-crud blue"
                         btnAlterar.id = "btnAlterar" + publicacao.idusuario;
                         btnAlterar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
+                        btnInformacao.setAttribute("onclick", `mostrar(${publicacao.idusuario})`);
 
-                        btnDeletar.className = "publicacao-btn-editar"
+                        btnDeletar.className = "btn-crud red"
                         btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
                         btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
 
@@ -241,16 +349,29 @@
                         feed.appendChild(linha);
                     }
 
-                    finalizarAguardar();
+
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            finalizarAguardar();
+
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function testar() {
         aguardar();
@@ -262,7 +383,7 @@
         divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
         divResultado.innerHTML = formulario.get("descricao");
 
-        finalizarAguardar();
+
 
         return false;
     }
