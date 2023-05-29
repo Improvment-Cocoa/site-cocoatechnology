@@ -11,7 +11,7 @@
     <title>Dashboard Geral - Cocoa</title>
 </head>
 
-<body onload="obterDadosGrafico() , obterTemperaturaAtual()">
+<body onload="obterDadosGrafico() , obterquantidadeusuario()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -191,6 +191,7 @@
     function obterDadosGraficos() {
         obterDadosGrafico(1),
             obterTemperaturaAtual()
+            obterquantidadeusuario()
     }
 
     function obterDadosGrafico(idAquario) {
@@ -286,103 +287,130 @@
 
 
 
-    function obterTemperaturaAtual(idAquario) {
+    // function obterTemperaturaAtual(idAquario) {
 
 
 
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
+    //     if (proximaAtualizacao != undefined) {
+    //         clearTimeout(proximaAtualizacao);
+    //     }
 
-        fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta_temperatura) {
-                    console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
+    //     fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (resposta_temperatura) {
+    //                 console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
 
 
-                    plotarGrafico2(resposta_temperatura, idAquario);
+    //                 plotarGrafico2(resposta_temperatura, idAquario);
 
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+    //             });
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //         }
+    //     })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+    // }
+
+
+
+
+    // function plotarGrafico2(resposta_temperatura, idAquario) {
+
+    //     console.log('iniciando plotagem do gráfico...');
+
+    //     // Criando estrutura para plotar gráfico - labels
+    //     let labels = [];
+
+    //     // Criando estrutura para plotar gráfico - dados
+    //     let dados = {
+    //         labels: labels,
+    //         datasets: [{
+    //             label: 'Temperatura',
+    //             data: [],
+    //             backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+    //             borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+    //             fill: false,
+
+    //             tension: 0.1
+    //         },
+    //         {
+    //             label: 'Umidade',
+    //             data: [],
+    //             fill: false,
+    //             backgroundColor: ['#4fb37c'],
+    //             borderColor: '#4fb37c',
+    //             tension: 0.1
+    //         }]
+    //     };
+
+    //     console.log('----------------------------------------------')
+    //     console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    //     console.log(resposta_temperatura)
+
+    //     // Inserindo valores recebidos em estrutura para plotar o gráfico
+    //     for (i = 0; i < resposta_temperatura.length; i++) {
+    //         var registro = resposta_temperatura[i];
+    //         labels.push(registro.nome);
+    //         dados.datasets[0].data.push(registro.temperatura);
+    //         dados.datasets[1].data.push(registro.umidade);
+    //         console.log(registro)
+
+
+
+    //     }
+
+    //     console.log('----------------------------------------------')
+    //     console.log('O gráfico será plotado com os respectivos valores:')
+    //     console.log('Labels:')
+    //     console.log(labels)
+    //     console.log('Dados:')
+    //     console.log(dados.datasets)
+    //     console.log('----------------------------------------------')
+
+    //     // Criando estrutura para plotar gráfico - config
+    //     const config = {
+    //         type: 'line',
+    //         data: dados,
+    //     };
+
+    //     // Adicionando gráfico criado em div na tela
+    //     let myChart = new Chart(
+    //         document.getElementById(`myChart3`),
+    //         config
+    //     );
+
+
+    // }
+
+
+
+
+function obterquantidadeusuario(idAquario) {
+
+
+
+if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+}
+
+fetch(`/medidas/obter_quantidade_usuario/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (resposta_usuario) {
+            console.log(`Dados da quantidade de usuario: ${JSON.stringify(resposta_usuario)}`);
+
+
+           
+
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
     }
-
-
-
-
-    function plotarGrafico2(resposta_temperatura, idAquario) {
-
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Temperatura',
-                data: [],
-                backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-                borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-                fill: false,
-
-                tension: 0.1
-            },
-            {
-                label: 'Umidade',
-                data: [],
-                fill: false,
-                backgroundColor: ['#4fb37c'],
-                borderColor: '#4fb37c',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta_temperatura)
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta_temperatura.length; i++) {
-            var registro = resposta_temperatura[i];
-            labels.push(registro.nome);
-            dados.datasets[0].data.push(registro.temperatura);
-            dados.datasets[1].data.push(registro.umidade);
-            console.log(registro)
-
-
-
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChart3`),
-            config
-        );
-
-
-    }
-
-
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
 
 </script>

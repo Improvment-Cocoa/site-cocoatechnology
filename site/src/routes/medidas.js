@@ -30,4 +30,8 @@ router.get("/dados_umidade/:idsensor", function (req, res) {
     medidaController.dados_umidade(req, res);
 })
 
+router.get("/obterquantidadeusuario/:idAquario", function (req, res) {
+    medidaController.obterquantidadeusuario(req, res);
+})
+
 module.exports = router;

@@ -10,6 +10,11 @@ router.get("/", function (req, res) {
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listar(req, res);
 });
+
+router.get("/listarPlantacao/:idUsuario", function (req, res) {
+    avisoController.listarPlantacao(req, res);
+});
+
 router.get("/mostrar_dados/:idAviso", function (req, res) {
     avisoController.mostrar_dados(req, res);
 });

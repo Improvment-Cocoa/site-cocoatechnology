@@ -184,6 +184,28 @@ function temperatura_atual(idsensor, limite_linhas) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+
+function obterquantidadeusuario(idAquario) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select count(usuario.idusuario) as Quantidade_usuario 
+        from usuario join cliente on idcliente = fkUsuario_cliente where idcliente = ${idAquario};`;
+    } 
+    else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `select count(usuario.idusuario) as Quantidade_usuario 
+        from usuario join cliente on idcliente = fkUsuario_cliente where idcliente = ${idAquario};
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal, 
@@ -192,5 +214,6 @@ module.exports = {
     dados_umidade,
     medidas_umidade_ultimas,
     temperatura_contante,
-    temperatura_atual
+    temperatura_atual,
+    obterquantidadeusuario
 }
