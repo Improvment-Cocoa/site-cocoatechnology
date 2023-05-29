@@ -11,7 +11,7 @@
     <title>Dashboard Geral - Cocoa</title>
 </head>
 
-<body onload="obterDadosGrafico() , obterquantidadeusuario()">
+<body onload="obterDadosGrafico(),obterquantidadeusuario(),obterquantidadeplantacoes()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -62,7 +62,8 @@
                 </div>
                 <div class="div-info-row">
                     <div class="info-row">
-                        <div><span>4</span>
+                        <div>
+                            <div id="numero_de_plantacoes"></div>
                             <h4>Plantações Cadastradas</h4>
                         </div>
                         <img src="../assets/img/icones/folha.png" alt="Folha">
@@ -74,7 +75,8 @@
                         <img src="../assets/img/icones/danger-alt.png" alt="Atenção">
                     </div>
                     <div class="info-row">
-                        <div><span>5</span>
+                        <div>
+                            <div id="numero_de_usuarios"></div>
                             <h4>Usuários Cadastrados</h4>
                         </div>
                         <img src="../assets/img/icones/user.png" alt="Usuário">
@@ -384,33 +386,34 @@
 
     // }
 
-
-
-
-function obterquantidadeusuario(idAquario) {
-
-
-
-if (proximaAtualizacao != undefined) {
-    clearTimeout(proximaAtualizacao);
-}
-
-fetch(`/medidas/obter_quantidade_usuario/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta_usuario) {
-            console.log(`Dados da quantidade de usuario: ${JSON.stringify(resposta_usuario)}`);
-
-
-           
-
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
+    function obterquantidadeusuario(idAquario) {
+        fetch("/usuarios/obter_quantidade_usuario", {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((json) => {
+                    console.log(json)
+                    numero_de_usuarios.innerHTML = `${json[0].qtdUsu}`
+                })
+            }
+        })
     }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
+
+
+    function obterquantidadeplantacoes(idAquario) {
+        fetch("/usuarios/obter_quantidade_plantacao", {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((json) => {
+                    console.log(json)
+                    numero_de_plantacoes.innerHTML = `${json[0].qtdPlantacao}`
+                })
+            }
+        })
+    }
+
+
+
 
 </script>

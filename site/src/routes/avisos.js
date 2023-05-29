@@ -23,6 +23,12 @@ router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });
 
+
+router.get("/listarPorPlantacao/:idUsuario", function (req, res) {
+    avisoController.listarPorPlantacao(req, res);
+});
+
+
 router.get("/pesquisar/:descricao", function (req, res) {
     avisoController.pesquisarDescricao(req, res);
 });

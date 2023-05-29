@@ -34,4 +34,9 @@ router.get("/obterquantidadeusuario/:idAquario", function (req, res) {
     medidaController.obterquantidadeusuario(req, res);
 })
 
+router.get("/obterquantidadeplantacoes/:idAquario", function (req, res) {
+    medidaController.obterquantidadeplantacoes(req, res);
+})
+
+
 module.exports = router;
