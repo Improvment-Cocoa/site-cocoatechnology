@@ -164,6 +164,13 @@ Cocoa Technology`,
                 if (resposta.ok) {
                     swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
 
+
+                    Swal.fire({
+                title: 'Você tem certeza que deseja deletar?',
+             text:'Cadastro realizado com sucesso',
+              icon:'sucess'
+            })
+
                     limparFormulario();
 
                 } else if (resposta.status == 404) {
@@ -183,7 +190,7 @@ Cocoa Technology`,
         }
     }
 
-    function mostrar(idAviso) {
+    function mostrar_dados(idAviso) {
 
         //aguardar();
         fetch(`/avisos/mostrar_dados/${idAviso}`).then(function (resposta_dados_usuario) {
@@ -327,9 +334,9 @@ Cocoa Technology`,
                         console.log("O id é " + id_usuario)
                         tdNome.innerHTML = publicacao.nome;
                         tdButtons.innerHTML = `
-                            <button class="btn-crud red" id="btn_delete${i}" >Deletar</button>
+                            <button class="btn-crud red" id="btn_delete${i}" onclick="deletar(${publicacao.idusuario})">Deletar</button>
                             <button class="btn-crud green" id="btn_update${i}">Alterar</button>
-                            <button class="btn-crud blue" id="btn_get${i}" onclick="mostrar_dados()">Informações</button>
+                            <button class="btn-crud blue" id="btn_get${i}" onclick="mostrar_dados(${publicacao.idusuario})">Informações</button>
                         `
                         // btnDeletar.innerHTML = "Deletar";
                         // btnAlterar.innerHTML = "Alterar";
