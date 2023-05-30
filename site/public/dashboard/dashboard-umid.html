@@ -112,7 +112,6 @@
             });
     }
 
-
     function plotarGrafico(resposta, idAquario) {
 
         console.log('iniciando plotagem do gráfico...');
@@ -125,9 +124,10 @@
             labels: labels,
             datasets: [{
                 label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                 data: [],
+                borderWidth: 1,
                 fill: false,
 
                 tension: 0.1
@@ -160,10 +160,6 @@
                 dados.datasets[0].borderColor = '#FF0000';
             }
         }
-
-
-
-
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -206,8 +202,8 @@
                 datasets: [
                     {
                         label: '',
-                        backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                        backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                        borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                         data: dados_grafico2,
 
                     },
@@ -257,8 +253,8 @@
                 datasets: [
                     {
                         label: '',
-                        backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                        backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                        borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                         data: dados_grafico3,
 
                     },
@@ -300,8 +296,8 @@
                         label: 'Temperatura da plantação dentre o período do meio dia às cinco da tarde',
                         data: dados_grafico4,
                         fill: false,
-                        backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                        backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                        borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                         tension: 0.1
 
                     },
@@ -353,48 +349,48 @@
                 response.json().then(function (novoRegistro) {
 
                     obterDadosGrafico(idAquario)
-                
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+                    // tirando e colocando valores no gráfico
+                    dados.labels.shift(); // apagar o primeiro
+                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de temperatura
+                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                    dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
 
-                        myChart.update();
+                    dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de temperatura
 
-
+                    myChart.update();
 
 
-                        myChart2.data.labels.shift();
-                        myChart2.data.labels.push(novoRegistro[0].momento_grafico);
 
-                        myChart2.data.datasets[0].data.shift();
-                        myChart2.data.datasets[0].data.push(novoRegistro[0].umidade * 0.50);
 
-                        myChart2.update();
+                    myChart2.data.labels.shift();
+                    myChart2.data.labels.push(novoRegistro[0].momento_grafico);
 
-                        myChart3.data.labels.shift();
-                        myChart3.data.labels.push(novoRegistro[0].momento_grafico);
+                    myChart2.data.datasets[0].data.shift();
+                    myChart2.data.datasets[0].data.push(novoRegistro[0].umidade * 0.50);
 
-                        myChart3.data.datasets[0].data.shift();
-                        myChart3.data.datasets[0].data.push(novoRegistro[0].umidade * 0.45);
+                    myChart2.update();
 
-                        myChart3.update();
+                    myChart3.data.labels.shift();
+                    myChart3.data.labels.push(novoRegistro[0].momento_grafico);
 
-                        myChart4.data.labels.shift();
-                        myChart4.data.labels.push(novoRegistro[0].momento_grafico);
+                    myChart3.data.datasets[0].data.shift();
+                    myChart3.data.datasets[0].data.push(novoRegistro[0].umidade * 0.45);
 
-                        myChart4.data.datasets[0].data.shift();
-                        myChart4.data.datasets[0].data.push(novoRegistro[0].umidade * 0.90);
+                    myChart3.update();
 
-                        myChart4.update();
+                    myChart4.data.labels.shift();
+                    myChart4.data.labels.push(novoRegistro[0].momento_grafico);
 
-                      
-                    
+                    myChart4.data.datasets[0].data.shift();
+                    myChart4.data.datasets[0].data.push(novoRegistro[0].umidade * 0.90);
+
+                    myChart4.update();
+
+
+
 
 
                     proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart, myChart2, myChart3, myChart4), 2000);

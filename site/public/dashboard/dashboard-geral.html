@@ -11,7 +11,8 @@
     <title>Dashboard Geral - Cocoa</title>
 </head>
 
-<body onload="obterDadosGrafico(),obterTemperaturaAtual() , obterquantidadeusuario(),obterquantidadeplantacoes() , obterstatusplantacoes()">
+<body
+    onload="obterDadosGrafico(),obterTemperaturaAtual() , obterquantidadeusuario(),obterquantidadeplantacoes() , obterstatusplantacoes()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -63,20 +64,20 @@
                 <div class="div-info-row">
                     <div class="info-row">
                         <div>
-                            <div id="numero_de_plantacoes">0</div>
+                            <span id="numero_de_plantacoes">0</span>
                             <h4>Plantações Cadastradas</h4>
                         </div>
                         <img src="../assets/img/icones/folha.png" alt="Folha">
                     </div>
                     <div class="info-row">
-                        <div><span>2</span>
+                        <div><span id="numero_de_alertas">0</span>
                             <h4>Plantações em alerta</h4>
                         </div>
                         <img src="../assets/img/icones/danger-alt.png" alt="Atenção">
                     </div>
                     <div class="info-row">
                         <div>
-                            <div id="numero_de_usuarios">0</div>
+                            <span id="numero_de_usuarios">0</span>
                             <h4>Usuários Cadastrados</h4>
                         </div>
                         <img src="../assets/img/icones/user.png" alt="Usuário">
@@ -99,7 +100,8 @@
                 <div class="alert-div">
                     <input type="text" placeholder="Pesquisar">
                     <div class="alert-row">
-                        <div class="bloco" id="bloco1"><img src="../assets/img/icones/danger.png" alt="Perigo"><span>Serra das
+                        <div class="bloco" id="bloco1"><img src="../assets/img/icones/danger.png"
+                                alt="Perigo"><span>Serra das
                                 araras</span>
                         </div>
                         <div class="bloco"><img src="../assets/img/icones/orange-alert.png" alt="Cuidado"><span>Rua
@@ -152,7 +154,6 @@
 </body>
 
 </html>
-<script src="./js/dashboard.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
@@ -166,8 +167,6 @@
         interactive: true,
         allowHTML: true,
     });
-
-
 
     const imgInfo = document.getElementById('info_img');
     setInterval(function () {
@@ -192,23 +191,55 @@
 
     function obterDadosGraficos() {
         obterDadosGrafico(1),
-            obterTemperaturaAtual(),
-            obterquantidadeusuario(),
-            obterstatusplantacoes()
+        obterTemperaturaAtual(),
+        
+        fetch(`/medidas/obterquantidadeusuario/${sessionStorage.ID_USUARIO}`, {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((jsonQtdUser) => {
+                    console.log(jsonQtdUser)
+                    numero_de_usuarios.innerHTML = `${jsonQtdUser[0].qtdUsu}`
+                })
+            }
+        }),
+
+        fetch(`/medidas/obterquantidadeplantacoes/${sessionStorage.ID_USUARIO}`, {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((jsonQtdPlantacao) => {
+                    console.log(jsonQtdPlantacao)
+                    numero_de_plantacoes.innerHTML = `${jsonQtdPlantacao[0].qtdPlantacao}`
+                })
+            }
+        }),
+
+        fetch(`/medidas/obterplantacoesemalerta/${sessionStorage.ID_USUARIO}`, {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((jsonQtdPlantacaoAlerta) => {
+                    console.log(jsonQtdPlantacaoAlerta)
+                    numero_de_alertas.innerHTML = `${jsonQtdPlantacaoAlerta[0].alertaPerigo}`
+                })
+            }
+        });
     }
 
-    function obterDadosGrafico(idAquario) {
+    function obterDadosGrafico(idCliente) {
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
-
-        fetch(`/medidas/temperatura_contante/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/temperatura_contante/${sessionStorage.ID_USUARIO}`, {
+            cache: 'no-store'
+        }, {
+            method: "get"
+        }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-
-                    plotarGrafico(resposta, idAquario);
+                    plotarGrafico(resposta, idCliente);
 
                 });
             } else {
@@ -219,32 +250,27 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
-
-    function plotarGrafico(resposta, idAquario) {
-
+    function plotarGrafico(resposta, idCliente) {
         console.log('iniciando plotagem do gráfico...');
-
         // Criando estrutura para plotar gráfico - labels
         let labels = [];
-
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
             datasets: [{
                 label: 'Umidade constante captura das plantações',
                 data: [],
-                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                 fill: false,
-
                 tension: 0.1
             },
             {
                 label: 'Temperatura constante captura das plantações',
                 data: [],
                 fill: false,
-                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                 tension: 0.1
             }]
         };
@@ -257,12 +283,11 @@
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.nome);
-            dados.datasets[0].data.push(registro.umidade);
-            dados.datasets[1].data.push(registro.temperatura);
+            dados.datasets[0].data.push(registro.temperatura);
+            dados.datasets[1].data.push(registro.umidade);
             console.log(registro)
 
         }
-
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
@@ -282,28 +307,21 @@
             document.getElementById(`myChart1`),
             config
         );
-
-
     }
 
-
-
-
-
     function obterTemperaturaAtual(idAquario) {
-
-
-
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/temperatura_atual/${sessionStorage.ID_USUARIO}`, {
+            cache: 'no-store'
+        }, {
+            method: "get"
+        }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta_temperatura) {
                     console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
-
-
                     plotarGrafico2(resposta_temperatura, idAquario);
 
                 });
@@ -316,11 +334,7 @@
             });
     }
 
-
-
-
     function plotarGrafico2(resposta_temperatura, idAquario) {
-
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -332,8 +346,8 @@
             datasets: [{
                 label: 'Temperatura',
                 data: [],
-                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                 fill: false,
 
                 tension: 0.1
@@ -359,9 +373,6 @@
             dados.datasets[0].data.push(registro.temperatura);
             dados.datasets[1].data.push(registro.umidade);
             console.log(registro)
-
-
-
         }
 
         console.log('----------------------------------------------')
@@ -387,133 +398,92 @@
 
     }
 
-
-
-    
     function obterstatusplantacoes(idAquario) {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/status_plantacoes/${idAquario}`, {
+            cache: 'no-store'
+        }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta_plantacoes) {
+                    console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_plantacoes)}`);
 
 
+                    plotarGrafico3(resposta_plantacoes, idAquario);
 
-if (proximaAtualizacao != undefined) {
-    clearTimeout(proximaAtualizacao);
-}
-
-fetch(`/medidas/status_plantacoes/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta_plantacoes) {
-            console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_plantacoes)}`);
-
-
-            plotarGrafico3(resposta_plantacoes, idAquario);
-
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
-
-function plotarGrafico3(resposta_plantacoes, idAquario) {
-
-console.log('iniciando plotagem do gráfico...');
-
-// Criando estrutura para plotar gráfico - labels
-let labels = [];
-
-// Criando estrutura para plotar gráfico - dados
-let dados = {
-    labels: labels,
-    datasets: [{
-        label: 'Temperatura',
-        data: [],
-        backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
-        borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
-        fill: false,
-
-        tension: 0.1
-    },
-    {
-        label: 'Umidade',
-        data: [],
-        fill: false,
-        backgroundColor: ['#4fb37c'],
-        borderColor: '#4fb37c',
-        tension: 0.1
-    }]
-};
-
-console.log('----------------------------------------------')
-console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-console.log(resposta_plantacoes)
-
-// Inserindo valores recebidos em estrutura para plotar o gráfico
-for (i = 0; i < resposta_plantacoes.length; i++) {
-    var registro = resposta_plantacoes[i];
-    labels.push(registro.qtdPlantacaoPerigo);
-    dados.datasets[0].data.push(registro.qtdPlantacaoPerigo);
-    console.log(registro)
-
-
-
-}
-
-console.log('----------------------------------------------')
-console.log('O gráfico será plotado com os respectivos valores:')
-console.log('Labels:')
-console.log(labels)
-console.log('Dados:')
-console.log(dados.datasets)
-console.log('----------------------------------------------')
-
-// Criando estrutura para plotar gráfico - config
-const config = {
-    type: 'doughnut',
-    data: dados,
-};
-
-// Adicionando gráfico criado em div na tela
-let myChart = new Chart(
-    document.getElementById(`myChart2`),
-    config
-);
-
-
-}
-
-
-
-
-    function obterquantidadeusuario(idAquario) {
-        fetch("/usuarios/obter_quantidade_usuario", {
-            method: "get"
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then((json) => {
-                    console.log(json)
-                    numero_de_usuarios.innerHTML = `${json[0].qtdUsu}`
-                })
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
             }
         })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
+    function plotarGrafico3(resposta_plantacoes, idAquario) {
 
-    function obterquantidadeplantacoes(idAquario) {
-        fetch("/usuarios/obter_quantidade_plantacao", {
-            method: "get"
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then((json) => {
-                    console.log(json)
-                    numero_de_plantacoes.innerHTML = `${json[0].qtdPlantacao}`
-                })
-            }
-        })
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Temperatura',
+                data: [],
+                backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
+                fill: false,
+
+                tension: 0.1
+            },
+            {
+                label: 'Umidade',
+                data: [],
+                fill: false,
+                backgroundColor: ['#4fb37c'],
+                borderColor: '#4fb37c',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta_plantacoes)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta_plantacoes.length; i++) {
+            var registro = resposta_plantacoes[i];
+            labels.push(registro.qtdPlantacaoPerigo);
+            dados.datasets[0].data.push(registro.qtdPlantacaoPerigo);
+            console.log(registro)
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'doughnut',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart2`),
+            config
+        );
+
+
     }
-
-
-
-
 </script>

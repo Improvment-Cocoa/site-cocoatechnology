@@ -26,7 +26,7 @@ function entrar(email, senha) {
 }
 
 function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, numero, complemento) {
-  console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor do seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, cpf , cnpj);
+  console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor do seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, cpf, cnpj);
 
   var instrucao = `
     INSERT INTO cliente (nome, email, senha, cpf, cnpj) VALUES ('${nome}', '${email}', '${senha}', '${cpf}', '${cnpj}');
@@ -35,13 +35,12 @@ function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, n
   var instrucaoEndereco = `
     INSERT INTO endereco (cep, estado, cidade, bairro, numero, complemento) VALUES ('${cep}', '${estado}', '${cidade}', '${bairro}', '${numero}', '${complemento}');
   `;
-  console.log("Executando a instrução SQL: \n" + instrucao , instrucaoEndereco);
+  console.log("Executando a instrução SQL: \n" + instrucao, instrucaoEndereco);
 
   return new Promise((resolve, reject) => {
     database.executar(instrucao)
       .then((resultado) => {
         var idUsuario = resultado.insertId;
-      
 
         console.log("Executando a instrução SQL para cadastrar endereço: \n" + instrucaoEndereco);
 
@@ -51,14 +50,9 @@ function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, n
 
             var instrucaoAtualizacao = `
             UPDATE cliente SET fkEndereco_cliente = '${idEndereco}' WHERE idcliente = '${idUsuario}';`;
-            
-
             console.log("Executando a instrução SQL para atualizar cliente com o id de endereço: \n" + instrucaoAtualizacao);
-
             database.executar(instrucaoAtualizacao)
 
-
-            
               .then(() => {
                 resolve(resultado);
               })
@@ -76,45 +70,36 @@ function cadastrar(nome, email, senha, cpf, cnpj, cep, estado, cidade, bairro, n
   });
 }
 
-
-
-function cadastrar_plantacoes_usuario(nome , temp_maxima , umidade_maxima , cep , cidade , numero , tamanho_plantacao ,
-  temperatura_minima , umidade_minima , estado , bairro , complemento , id) {
-  console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_plantacoes(): ", nome , temp_maxima , umidade_maxima , cep , cidade , numero , tamanho_plantacao ,
-  temperatura_minima , umidade_minima , estado , bairro , complemento);
-
+function cadastrar_plantacoes_usuario(nome, temp_maxima, umidade_maxima, cep, cidade, numero, tamanho_plantacao,
+  temperatura_minima, umidade_minima, estado, bairro, complemento, id) {
+  console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_plantacoes(): ", nome, temp_maxima, umidade_maxima, cep, cidade, numero, tamanho_plantacao,
+    temperatura_minima, umidade_minima, estado, bairro, complemento);
 
   var instrucao_plantacao = `
     INSERT INTO plantacao (nome, tamanho , fkPlantacao_cliente) VALUES ('${nome}', '${tamanho_plantacao}', '${id}');
 `;
 
-var instrucao_parametro = `
+  var instrucao_parametro = `
     INSERT INTO plantacao_param (temp_min, temp_max, umid_min, umid_max) VALUES ('${temperatura_minima}', '${temp_maxima}', '${umidade_minima}', '${umidade_maxima}');
 `;
 
-var instrucao_endereco = `
+  var instrucao_endereco = `
     INSERT INTO endereco (cep, estado, bairro, numero, complemento , cidade) VALUES ('${cep}', '${estado}', '${bairro}', '${numero}', '${complemento}' , '${cidade}');
 `;
 
-return database.executar(instrucao_plantacao)
-.then(() => {
-  return database.executar(instrucao_parametro);
-})
-.then(() => {
-  return database.executar(instrucao_endereco);
-})
-.catch((erro) => {
-  console.log("Deu erro aqui", erro);
-  throw erro;
-})
+  return database.executar(instrucao_plantacao)
+    .then(() => {
+      return database.executar(instrucao_parametro);
+    })
+    .then(() => {
+      return database.executar(instrucao_endereco);
+    })
+    .catch((erro) => {
+      console.log("Deu erro aqui", erro);
+      throw erro;
+    })
 
 }
-
-
-
-
-
-
 
 module.exports = {
   entrar,
