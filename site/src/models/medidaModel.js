@@ -184,6 +184,73 @@ function temperatura_atual(idsensor, limite_linhas) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+
+function obterquantidadeusuario(idAquario) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT COUNT(idusuario) AS qtdUsu FROM usuario; = ${idAquario};`;
+    } 
+    else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `SELECT COUNT(idusuario) AS qtdUsu FROM usuario;= ${idAquario};
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function obterquantidadeplantacoes(idAquario) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT COUNT(idplantacao) AS qtdPlantacao FROM plantacao; = ${idAquario};`;
+    } 
+    else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `SELECT COUNT(idplantacao) AS qtdPlantacao FROM plantacao; = ${idAquario};
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function status_plantacoes(idAquario) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select count(idplantacao) as qtdPlantacaoPerigo from plantacao join cliente on fkPlantacao_cliente = idcliente 
+	join sensor on fkSensor_plantacao = idplantacao
+    join leitura on fkLeitura_sensor = idsensor
+		where idcliente = 1 AND ( (retorno_temp > 26 OR retorno_temp < 20) OR (retorno_umidd > 85 OR retorno_umidd < 75) );`;
+    } 
+    else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `select count(idplantacao) as qtdPlantacaoPerigo from plantacao join cliente on fkPlantacao_cliente = idcliente 
+	join sensor on fkSensor_plantacao = idplantacao
+    join leitura on fkLeitura_sensor = idsensor
+		where idcliente = 1 AND ( (retorno_temp > 26 OR retorno_temp < 20) OR (retorno_umidd > 85 OR retorno_umidd < 75) );
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal, 
@@ -192,5 +259,8 @@ module.exports = {
     dados_umidade,
     medidas_umidade_ultimas,
     temperatura_contante,
-    temperatura_atual
+    temperatura_atual,
+    obterquantidadeplantacoes,
+    obterquantidadeusuario,
+    status_plantacoes
 }

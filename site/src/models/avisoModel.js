@@ -10,6 +10,16 @@ function listar(idUsuario) {
     return database.executar(instrucao);
 }
 
+function listarPlantacao(idUsuario) {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+    select plantacao.idplantacao , plantacao.nome
+    from plantacao join cliente on idcliente = fkplantacao_cliente where idcliente = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function pesquisarDescricao(texto) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
     var instrucao = `
@@ -66,22 +76,18 @@ function mostrar_dados(idAviso) {
     return database.executar(instrucao);
 }
 
-
-
-
-
 function plantacoes(nome_plantacao , temp_max , umid_max , cep , cidade , numero , tamanho_plantacao , temp_min , umid_min , estado , bairro , complemento , idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_plantacoes(): ", nome_plantacao , temp_max , umid_max , cep , cidade , numero , tamanho_plantacao , temp_min , umid_min , estado , bairro , complemento);
     var instrucao_plantacao = `
-        INSERT INTO plantacao (nome, tamanho_plantacao , fkPlantacao_cliente) VALUES ('${nome_plantacao}', '${tamanho_plantacao}' , '${idUsuario}');
+        INSERT INTO plantacao (nome, tamanho , fkPlantacao_cliente) VALUES ('${nome_plantacao}', '${tamanho_plantacao}' , '${idUsuario}');
     `;
 
-    var instucao_paramentro = `INSERT INTO plantacao_param(temp_min , temp_max ,  umid_min , umid_max) VALUES ('${temp_min}' , '${temp_max}' , '${umid_min}' , '${umid_max}')`;
-    console.log("Executando a instrução SQL: \n" + instrucao);
+    var instrucao_paramentro = `INSERT INTO plantacao_param(temp_min , temp_max ,  umid_min , umid_max) VALUES ('${temp_min}' , '${temp_max}' , '${umid_min}' , '${umid_max}')`;
+    console.log("Executando a instrução SQL: \n" + instrucao_paramentro);
 
 
-    var instucao_endereco = `INSERT INTO endereco(cep , estado , bairro , numero , complemento) VALUES ('${cep}' , '${estado} , '${bairro}' , '${numero} , '${complemento}');`
-    return database.executar(instrucao_plantacao , instucao_paramentro , instucao_endereco);
+    var instrucao_endereco = `INSERT INTO endereco(cep , estado , cidade, bairro , numero , complemento) VALUES ('${cep}' , '${estado}' , '${estado}', '${bairro}' , '${numero}' , '${complemento}');`
+    return database.executar(instrucao_plantacao , instrucao_paramentro , instrucao_endereco);
 }
 
 
@@ -97,6 +103,7 @@ function mostrar_dados_plantacao(idUsuario) {
 }
 module.exports = {
     listar,
+    listarPlantacao,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,

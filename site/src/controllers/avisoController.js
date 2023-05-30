@@ -20,6 +20,21 @@ function listar(req, res) {
     });
 }
 
+function listarPlantacao(req, res) {
+    var idUsuario = req.params.idUsuario;
+    avisoModel.listarPlantacao(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -44,6 +59,8 @@ function listarPorUsuario(req, res) {
             }
         );
 }
+
+
 
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
@@ -261,6 +278,7 @@ function mostrar_dados_plantacao(req, res) {
 module.exports = {
     testar,
     listar,
+    listarPlantacao,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,

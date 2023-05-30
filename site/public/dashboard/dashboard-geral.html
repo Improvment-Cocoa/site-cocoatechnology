@@ -11,7 +11,7 @@
     <title>Dashboard Geral - Cocoa</title>
 </head>
 
-<body onload="obterDadosGrafico() , obterTemperaturaAtual()">
+<body onload="obterDadosGrafico(),obterTemperaturaAtual() , obterquantidadeusuario(),obterquantidadeplantacoes() , obterstatusplantacoes()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -52,7 +52,9 @@
         </nav>
         <div id="content">
             <div class="first-div-container">
-                <div class="chart-container-grande">
+                <div style="position: relative;" class="chart-container-grande">
+                    <img class="info-img select-disable" src="../assets/img/icones/Info.png" alt="info" id="info_img"
+                        onclick="openModal()">
                     <h2>Temperatura constante das plantações (5 dias)</h2>
                     <div class="div-chart-grande">
                         <canvas id="myChart1"></canvas>
@@ -60,7 +62,8 @@
                 </div>
                 <div class="div-info-row">
                     <div class="info-row">
-                        <div><span>4</span>
+                        <div>
+                            <div id="numero_de_plantacoes">0</div>
                             <h4>Plantações Cadastradas</h4>
                         </div>
                         <img src="../assets/img/icones/folha.png" alt="Folha">
@@ -72,7 +75,8 @@
                         <img src="../assets/img/icones/danger-alt.png" alt="Atenção">
                     </div>
                     <div class="info-row">
-                        <div><span>5</span>
+                        <div>
+                            <div id="numero_de_usuarios">0</div>
                             <h4>Usuários Cadastrados</h4>
                         </div>
                         <img src="../assets/img/icones/user.png" alt="Usuário">
@@ -95,24 +99,91 @@
                 <div class="alert-div">
                     <input type="text" placeholder="Pesquisar">
                     <div class="alert-row">
-                        <div><img src="../assets/img/icones/danger.png" alt="Perigo"><span>Serra das araras</span></div>
-                        <div><img src="../assets/img/icones/orange-alert.png" alt="Perigo"><span>Rua Augusta</span>
+                        <div class="bloco" id="bloco1"><img src="../assets/img/icones/danger.png" alt="Perigo"><span>Serra das
+                                araras</span>
                         </div>
-                        <div><img src="../assets/img/icones/warning.png" alt="Atenção"><span>Tingoassuiba</span></div>
-                        <div><img src="../assets/img/icones/fine.png" alt="Ok"><span>Haddock Lobo</span></div>
-                        <div><img src="../assets/img/icones/fine.png" alt="Ok"><span>Domingos lobos</span></div>
+                        <div class="bloco"><img src="../assets/img/icones/orange-alert.png" alt="Cuidado"><span>Rua
+                                Augusta</span>
+                        </div>
+                        <div class="bloco"><img src="../assets/img/icones/warning.png"
+                                alt="Atenção"><span>Tingoassuiba</span></div>
+                        <div class="bloco"><img src="../assets/img/icones/fine.png" alt="Ok"><span>Haddock Lobo</span>
+                        </div>
+                        <div class="bloco"><img src="../assets/img/icones/fine.png" alt="Ok"><span>Domingos lobos</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script type="text/javascript">var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"ba8e3b9f72f9d967ced760ef8825597bd6b90724b968693c3a315187b52e89df2ea958997ca1cc1300b0af5632367fc7", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");</script>
+
+        <div class="modal" id="modal">
+            <div class="box-modal">
+                <img src="../assets/img/icones/XCircle.png" alt="botão de fechar modal" onclick="closeModal()">
+                <h2>SISTEMAS DE ALERTA!</h2>
+                <p>Para uma melhor visualização do que está ocorrendo com sua plantação, a plantação terá quatro
+                    indicadores de estado, sendo eles respectivamente: <text class="green">Tranquilo,</text><text
+                        class="yellow"> Atenção,</text><text class="orange"> Cuidado,</text><text class="red">
+                        Atenção.</text>
+                </p>
+                <div class="state-box">
+                    <h3>Temperatura:</h3>
+                    <div class="states">
+                        <div style="background-color: #FF5555;">
+                            < 17°C</div>
+                                <div style="background-color: #FF9900;">17°C <br>a<br> 19°C</div>
+                                <div style="background-color: #74C365;">20°C <br>a<br> 24°C</div>
+                                <div style="background-color: #FFCC00;">25°C <br>a<br> 26°C</div>
+                                <div style="background-color: #FF9900;">27°C <br>a<br> 28°C</div>
+                                <div style="background-color: #FF5555;">29°C < </div>
+                                </div>
+                                <div class="state-box">
+                                    <h3>Umidade:</h3>
+                                    <div class="states">
+                                        <div style="background-color: #FF5555;">
+                                            < 75%</div>
+                                                <div style="background-color: #74C365;"> 75% <br>a<br> 85%</div>
+                                                <div style="background-color: #FF5555;"> 85% < </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script
+                                    type="text/javascript">var $zoho = $zoho || {}; $zoho.salesiq = $zoho.salesiq || { widgetcode: "ba8e3b9f72f9d967ced760ef8825597bd6b90724b968693c3a315187b52e89df2ea958997ca1cc1300b0af5632367fc7", values: {}, ready: function () { } }; var d = document; s = d.createElement("script"); s.type = "text/javascript"; s.id = "zsiqscript"; s.defer = true; s.src = "https://salesiq.zoho.com/widget"; t = d.getElementsByTagName("script")[0]; t.parentNode.insertBefore(s, t); d.write("<div id='zsiqwidget'></div>");</script>
 </body>
 
 </html>
 <script src="./js/dashboard.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
 <script>
+    tippy('#bloco1', {
+        content: '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura: <span style="color: #FF5555">30°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade: <span style="color: #74C365">81%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>',
+        placement: 'top',
+        arrow: true,
+        animation: 'fade',
+        interactive: true,
+        allowHTML: true,
+    });
+
+
+
+    const imgInfo = document.getElementById('info_img');
+    setInterval(function () {
+        imgInfo.classList.toggle('paused');
+    }, 2000);
+
+    const modal = document.getElementById(`modal`);
+    function openModal() {
+        modal.style.display = 'flex';
+        setTimeout(() => { modal.classList.toggle(`show`) }, 401);
+    }
+    function closeModal() {
+        modal.classList.toggle(`show`)
+        setTimeout(() => { modal.style.display = 'none'; }, 401);
+    }
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
@@ -121,18 +192,12 @@
 
     function obterDadosGraficos() {
         obterDadosGrafico(1),
-        obterTemperaturaAtual()
-       
+            obterTemperaturaAtual(),
+            obterquantidadeusuario(),
+            obterstatusplantacoes()
     }
 
-  
-
-
-   
     function obterDadosGrafico(idAquario) {
-
-    
-
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
@@ -141,10 +206,10 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-             
+
 
                     plotarGrafico(resposta, idAquario);
-                    
+
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -168,18 +233,18 @@
             datasets: [{
                 label: 'Umidade constante captura das plantações',
                 data: [],
-                backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-                borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
+                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
                 fill: false,
-               
+
                 tension: 0.1
             },
             {
                 label: 'Temperatura constante captura das plantações',
                 data: [],
                 fill: false,
-                backgroundColor: ['#4fb37c'],
-                borderColor: '#4fb37c',
+                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
+                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
                 tension: 0.1
             }]
         };
@@ -195,7 +260,7 @@
             dados.datasets[0].data.push(registro.umidade);
             dados.datasets[1].data.push(registro.temperatura);
             console.log(registro)
-            
+
         }
 
         console.log('----------------------------------------------')
@@ -218,7 +283,7 @@
             config
         );
 
-    
+
     }
 
 
@@ -227,20 +292,120 @@
 
     function obterTemperaturaAtual(idAquario) {
 
+
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta_temperatura) {
+                    console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
+
+
+                    plotarGrafico2(resposta_temperatura, idAquario);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+
+
+    function plotarGrafico2(resposta_temperatura, idAquario) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Temperatura',
+                data: [],
+                backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
+                borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
+                fill: false,
+
+                tension: 0.1
+            },
+            {
+                label: 'Umidade',
+                data: [],
+                fill: false,
+                backgroundColor: ['#4fb37c'],
+                borderColor: '#4fb37c',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta_temperatura)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta_temperatura.length; i++) {
+            var registro = resposta_temperatura[i];
+            labels.push(registro.nome);
+            dados.datasets[0].data.push(registro.temperatura);
+            dados.datasets[1].data.push(registro.umidade);
+            console.log(registro)
+
+
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart3`),
+            config
+        );
+
+
+    }
+
+
+
     
+    function obterstatusplantacoes(idAquario) {
+
+
 
 if (proximaAtualizacao != undefined) {
     clearTimeout(proximaAtualizacao);
 }
 
-fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+fetch(`/medidas/status_plantacoes/${idAquario}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
-        response.json().then(function (resposta_temperatura) {
-            console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
-     
+        response.json().then(function (resposta_plantacoes) {
+            console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_plantacoes)}`);
 
-            plotarGrafico2(resposta_temperatura, idAquario);
-            
+
+            plotarGrafico3(resposta_plantacoes, idAquario);
+
         });
     } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -251,10 +416,7 @@ fetch(`/medidas/temperatura_atual/${idAquario}`, { cache: 'no-store' }).then(fun
     });
 }
 
-
-
-
-function plotarGrafico2(resposta_temperatura, idAquario) {
+function plotarGrafico3(resposta_plantacoes, idAquario) {
 
 console.log('iniciando plotagem do gráfico...');
 
@@ -267,10 +429,10 @@ let dados = {
     datasets: [{
         label: 'Temperatura',
         data: [],
-        backgroundColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
-        borderColor: ['crimson', '#E25822', '#DAA520', '#99CC33', '#99CC33'],
+        backgroundColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555' ],
+        borderColor: ['#FF9900' , '#74C365' , '#FFCC00' , 'FF5555'],
         fill: false,
-       
+
         tension: 0.1
     },
     {
@@ -285,18 +447,17 @@ let dados = {
 
 console.log('----------------------------------------------')
 console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-console.log(resposta_temperatura)
+console.log(resposta_plantacoes)
 
 // Inserindo valores recebidos em estrutura para plotar o gráfico
-for (i = 0; i < resposta_temperatura.length; i++) {
-    var registro = resposta_temperatura[i];
-    labels.push(registro.nome);
-    dados.datasets[0].data.push(registro.temperatura);
-    dados.datasets[1].data.push(registro.umidade);
+for (i = 0; i < resposta_plantacoes.length; i++) {
+    var registro = resposta_plantacoes[i];
+    labels.push(registro.qtdPlantacaoPerigo);
+    dados.datasets[0].data.push(registro.qtdPlantacaoPerigo);
     console.log(registro)
-    
 
-  
+
+
 }
 
 console.log('----------------------------------------------')
@@ -309,18 +470,49 @@ console.log('----------------------------------------------')
 
 // Criando estrutura para plotar gráfico - config
 const config = {
-    type: 'line',
+    type: 'doughnut',
     data: dados,
 };
 
 // Adicionando gráfico criado em div na tela
 let myChart = new Chart(
-    document.getElementById(`myChart3`),
+    document.getElementById(`myChart2`),
     config
 );
 
 
 }
+
+
+
+
+    function obterquantidadeusuario(idAquario) {
+        fetch("/usuarios/obter_quantidade_usuario", {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((json) => {
+                    console.log(json)
+                    numero_de_usuarios.innerHTML = `${json[0].qtdUsu}`
+                })
+            }
+        })
+    }
+
+
+    function obterquantidadeplantacoes(idAquario) {
+        fetch("/usuarios/obter_quantidade_plantacao", {
+            method: "get"
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then((json) => {
+                    console.log(json)
+                    numero_de_plantacoes.innerHTML = `${json[0].qtdPlantacao}`
+                })
+            }
+        })
+    }
+
 
 
 

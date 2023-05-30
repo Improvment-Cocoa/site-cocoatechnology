@@ -29,5 +29,17 @@ router.get("/dados_temperatura/:idsensor", function (req, res) {
 router.get("/dados_umidade/:idsensor", function (req, res) {
     medidaController.dados_umidade(req, res);
 })
+router.get("/status_plantacoes/:idsensor", function (req, res) {
+    medidaController.status_plantacoes(req, res);
+})
+
+router.get("/obterquantidadeusuario/:idAquario", function (req, res) {
+    medidaController.obterquantidadeusuario(req, res);
+})
+
+router.get("/obterquantidadeplantacoes/:idAquario", function (req, res) {
+    medidaController.obterquantidadeplantacoes(req, res);
+})
+
 
 module.exports = router;
