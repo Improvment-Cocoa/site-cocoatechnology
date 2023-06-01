@@ -97,7 +97,8 @@ body {
   width: 100%;
   gap: 2vh;
 }
-.div_endereco{
+
+.div_endereco {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,6 +146,7 @@ body {
   font-family: 'Mulish';
   display: flex;
 }
+
 .div_equerda_endereco input {
   padding: 5px;
   width: 20vw;
@@ -154,42 +156,48 @@ body {
   font-family: 'Mulish';
   display: flex;
 }
-.div_equerda_endereco p{
- margin-left: -1vh;
+
+.div_equerda_endereco p {
+  margin-left: -1vh;
   display: flex;
 }
-.div_equerda_endereco{
+
+.div_equerda_endereco {
   display: flex;
   flex-direction: column;
   top: 31vh;
   width: 50%;
 }
+
 .div_equerda_endereco input:hover {
   border-radius: 15px;
-    transition: 0.5s;
+  transition: 0.5s;
 }
 
-.div_equerda_endereco input:focus{
+.div_equerda_endereco input:focus {
   outline: none;
   border-bottom: 2px solid #DAA250;
 }
-.div_equerda_endereco input{
+
+.div_equerda_endereco input {
   margin-bottom: 25px;
 }
-.div_equerda_endereco input{
+
+.div_equerda_endereco input {
   margin-bottom: 25px;
 }
+
 input:hover {
   border-radius: 15px;
-    transition: 0.5s;
+  transition: 0.5s;
 }
 
-.form input:focus{
+.form input:focus {
   outline: none;
   border-bottom: 2px solid #DAA250;
 }
 
-.form-esquerda{
+.form-esquerda {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -198,7 +206,7 @@ input:hover {
   width: 50%;
 }
 
-.form-esquerda input{
+.form-esquerda input {
   margin-bottom: 25px;
 }
 
@@ -215,67 +223,53 @@ input:hover {
   margin-bottom: 25px;
 }
 
-.form-centro{
+.form-centro {
   display: flex;
   flex-direction: column;
 }
 
-
-.div_equerda_direita{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
+#span_validar_cep_usuario {
   position: absolute;
-  top: 165px;
-  margin: 12px;
-  left: 392px;
-  display: inline-block;
-}
-#span_validar_cep_usuario{
-  position: absolute;
-  top: 280px;
-  left: 60px;
+  top: 41.5vh;
+  left: 76px;
 }
 
-#span_validar_estado{
+#span_validar_estado {
   position: absolute;
-  top: 375px;
-  left: 60px;
+  top: 57vh;
+  left: 76px;
 }
-#span_validar_cidade{
+
+#span_validar_cidade {
   position: absolute;
-  top: 470px;
-  left: 60px;
+  top: 72.5vh;
+  left: 75px;
 }
-#span_validar_bairro{
+
+#span_validar_bairro {
   position: absolute;
-  top: 80px;
-  right: 180px;
+  top: 38vh;
+  right: 11vw;
 }
-#span_validar_numero{
+
+#span_validar_numero {
   position: absolute;
-  top: 180px;
-  right: 180px;
+  top: 54vh;
+  right: 9vw;
 }
-#span_validar_complemento{
+
+#span_validar_complemento {
   position: absolute;
-  top: 275px;
-  right: 180px;
+  top: 69.5vh;
+  right: 9vw;
 }
-#span_validar_cpf{
+
+#span_validar_cpf {
   position: absolute;
-  top: 360px;
+  top: 55.5vh;
   right: 80px;
 }
-.div_equerda_direita input {
-  margin-bottom: 25px;
-}
-.div_equerda_direita p {
-   display: flex;
-  margin-left: -1vw;
-}
+
 .botao {
   padding: 10px;
   width: 150px;
@@ -325,15 +319,28 @@ input:hover {
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(10px); }
-  50% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
-  100% { transform: translateX(0); }
-}
-
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
+  0% {
+    transform: translateX(0);
   }
 
+  25% {
+    transform: translateX(10px);
+  }
+
+  50% {
+    transform: translateX(-10px);
+  }
+
+  75% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}

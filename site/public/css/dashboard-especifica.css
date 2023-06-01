@@ -260,6 +260,56 @@ input:focus {
     border-radius: 6px;
 }
 
+.slide:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    height: 30vh;
+    padding: 10px;
+}
+
+.infos-graficos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1vh;
+}
+
+.slide:nth-of-type(2) .infos-graficos .status{
+    align-self: center;
+    font-weight: 700;
+    font-size: 23px;
+    letter-spacing: 2px;
+}
+
+.slide:nth-of-type(2) .infos-graficos div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    gap: 1vw;
+}
+
+.slide:nth-of-type(2) .infos-graficos div div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    color: #FFF;
+    font-size: 22px;
+    gap: 3vh;
+}
+
+.slide:nth-of-type(2) .infos-graficos div div span:last-child{
+    font-weight: 700;
+    font-size: 22px;
+    color: #74C365;
+}
+
 canvas {
     height: auto;
     width: 40vw;

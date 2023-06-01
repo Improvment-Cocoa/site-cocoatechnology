@@ -36,6 +36,117 @@ function exibirLeituraPlantacoes(req, res) {
     });
 }
 
+function temperatura_contante(req, res) {
+    var idCliente = req.params.idCliente;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.temperatura_contante(idCliente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function obterquantidadeusuario(req, res) {
+    var idCliente = req.params.idCliente;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.obterquantidadeusuario(idCliente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function obterplantacoesemalerta(req, res) {
+    var idCliente = req.params.idCliente;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.obterplantacoesemalerta(idCliente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function obterquantidadeplantacoes(req, res) {
+    var idCliente = req.params.idCliente;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.obterquantidadeplantacoes(idCliente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tabelaDash(req, res) {
+    var idCliente = req.params.idCliente;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.tabelaDash(idCliente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function dados_temperatura(req, res) {
+    var idCliente = req.params.idCliente;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.dados_temperatura(idCliente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+
+
 
 function buscarUltimasMedidas(req, res) {
     const limite_linhas = 7;
@@ -63,24 +174,6 @@ function buscarMedidasEmTempoReal(req, res) {
     console.log(`Recuperando medidas em tempo real`);
 
     medidaModel.buscarMedidasEmTempoReal(idsensor).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function dados_temperatura(req, res) {
-    var idsensor = req.params.idsensor;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.dados_temperatura(idsensor).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -149,85 +242,12 @@ function medidas_umidade_ultimas(req, res) {
     });
 }
 
-function temperatura_contante(req, res) {
-    var idCliente = req.params.idCliente;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.temperatura_contante(idCliente).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-
 function temperatura_atual(req, res) {
     var idCliente = req.params.idCliente;
 
     console.log(`Recuperando medidas em tempo real`);
 
     medidaModel.temperatura_atual(idCliente).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function obterquantidadeusuario(req, res) {
-    var idCliente = req.params.idCliente;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.obterquantidadeusuario(idCliente).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function obterplantacoesemalerta(req, res) {
-    var idCliente = req.params.idCliente;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.obterplantacoesemalerta(idCliente).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function obterquantidadeplantacoes(req, res) {
-    var idCliente = req.params.idCliente;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.obterquantidadeplantacoes(idCliente).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -275,5 +295,6 @@ module.exports = {
     obterplantacoesemalerta,
     obterquantidadeusuario,
     status_plantacoes,
-    exibirLeituraPlantacoes
+    exibirLeituraPlantacoes,
+    tabelaDash,
 }

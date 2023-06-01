@@ -51,9 +51,8 @@
                     <span id="span_validar_cnpj"></span>
                 </div>
             </div>
-            <div class="div_endereco" style="display: none;" id="cadastro_final">
-
-                <div class="div_equerda_endereco">
+            <div class="form" style="display: none;" id="cadastro_final">
+                <div class="form-esquerda">
                     <p class="select-disable">CEP</p>
                     <input data-aos="fade-up" data-aos-duration="700" type="number" placeholder="Insira seu cep"
                         id="input_cep_usuario" onkeyup="carregar_cep()" required>
@@ -68,7 +67,7 @@
                     <span id="span_validar_cidade"></span>
 
                 </div>
-                <div class="div_equerda_direita">
+                <div class="form-direita">
                     <p class="select-disable">Bairro</p>
                     <input data-aos="fade-up" data-aos-duration="700" type="text" placeholder="Insira seu bairro"
                         id="input_bairro" onkeyup="validar_bairro()" required>
@@ -544,7 +543,7 @@
                 limparFormulario();
                 finalizarAguardar();
             } else {
-                swal ( "Ops" ,  "Houve um erro ao fazer o cadastro" ,  "error" )
+                swal("Ops", "Houve um erro ao fazer o cadastro", "error")
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

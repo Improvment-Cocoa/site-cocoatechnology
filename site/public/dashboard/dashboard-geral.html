@@ -99,8 +99,8 @@
                 </div>
                 <div class="alert-div">
                     <input type="text" placeholder="Pesquisar">
-                    <div class="alert-row">
-                        <div class="bloco" id="bloco1"><img src="../assets/img/icones/danger.png"
+                    <div class="alert-row" id="alert_container">
+                        <!-- <div class="bloco" id="bloco1"><img src="../assets/img/icones/danger.png"
                                 alt="Perigo"><span>Serra das
                                 araras</span>
                         </div>
@@ -112,7 +112,7 @@
                         <div class="bloco"><img src="../assets/img/icones/fine.png" alt="Ok"><span>Haddock Lobo</span>
                         </div>
                         <div class="bloco"><img src="../assets/img/icones/fine.png" alt="Ok"><span>Domingos lobos</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -159,14 +159,6 @@
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
 <script>
-    tippy('#bloco1', {
-        content: '<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura: <span style="color: #FF5555">30°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade: <span style="color: #74C365">81%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>',
-        placement: 'top',
-        arrow: true,
-        animation: 'fade',
-        interactive: true,
-        allowHTML: true,
-    });
 
     const imgInfo = document.getElementById('info_img');
     setInterval(function () {
@@ -191,37 +183,110 @@
 
     function obterDadosGraficos() {
         obterDadosGrafico(1),
-        obterTemperaturaAtual(),
-        
-        fetch(`/medidas/obterquantidadeusuario/${sessionStorage.ID_USUARIO}`, {
-            method: "get"
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then((jsonQtdUser) => {
-                    console.log(jsonQtdUser)
-                    numero_de_usuarios.innerHTML = `${jsonQtdUser[0].qtdUsu}`
-                })
-            }
-        }),
+            obterTemperaturaAtual(),
 
-        fetch(`/medidas/obterquantidadeplantacoes/${sessionStorage.ID_USUARIO}`, {
-            method: "get"
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then((jsonQtdPlantacao) => {
-                    console.log(jsonQtdPlantacao)
-                    numero_de_plantacoes.innerHTML = `${jsonQtdPlantacao[0].qtdPlantacao}`
-                })
-            }
-        }),
+            fetch(`/medidas/obterquantidadeusuario/${sessionStorage.ID_USUARIO}`, {
+                method: "get"
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then((jsonQtdUser) => {
+                        console.log(jsonQtdUser)
+                        numero_de_usuarios.innerHTML = `${jsonQtdUser[0].qtdUsu}`
+                    })
+                }
+            }),
 
-        fetch(`/medidas/obterplantacoesemalerta/${sessionStorage.ID_USUARIO}`, {
+            fetch(`/medidas/obterquantidadeplantacoes/${sessionStorage.ID_USUARIO}`, {
+                method: "get"
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then((jsonQtdPlantacao) => {
+                        console.log(jsonQtdPlantacao)
+                        numero_de_plantacoes.innerHTML = `${jsonQtdPlantacao[0].qtdPlantacao}`
+                    })
+                }
+            }),
+
+            fetch(`/medidas/obterplantacoesemalerta/${sessionStorage.ID_USUARIO}`, {
+                method: "get"
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then((jsonQtdPlantacaoAlerta) => {
+                        console.log(jsonQtdPlantacaoAlerta)
+                        numero_de_alertas.innerHTML = `${jsonQtdPlantacaoAlerta[0].alertaPerigo}`
+                    })
+                }
+            });
+
+        fetch(`/medidas/tabelaDash/${sessionStorage.ID_USUARIO}`, {
             method: "get"
         }).then(function (resposta) {
             if (resposta.ok) {
-                resposta.json().then((jsonQtdPlantacaoAlerta) => {
-                    console.log(jsonQtdPlantacaoAlerta)
-                    numero_de_alertas.innerHTML = `${jsonQtdPlantacaoAlerta[0].alertaPerigo}`
+                resposta.json().then((jsonTabela) => {
+                    i = 0;
+                    console.log(jsonTabela[i])
+                    if ((jsonTabela[i].temperatura > 29 || jsonTabela[i].temperatura < 17) || (jsonTabela[i].umidade > 85 || jsonTabela[i].umidade < 75)) {
+                        alert_container.innerHTML += `
+                            <div class="bloco" id="bloco${jsonTabela[i].idplantacao}"><img src="../assets/img/icones/danger.png"
+                                alt="Perigo"><span>${jsonTabela[i].nome}</span>
+                            </div>
+                            `
+                    } else if (((jsonTabela[i].temperatura >= 27 && jsonTabela[i].temperatura <= 28) || (jsonTabela[i].temperatura >= 17 && jsonTabela[i].temperatura <= 19)) && (jsonTabela[i].umidade <= 85 && jsonTabela[i].umidade >= 75)) {
+                        alert_container.innerHTML += `
+                            <div class="bloco" id="bloco${jsonTabela[i].idplantacao}"><img src="../assets/img/icones/orange-alert.png" alt="Cuidado"><span>${jsonTabela[i].nome}</span>
+                            </div>
+                            `
+                    } else if ((jsonTabela[i].temperatura >= 25 && jsonTabela[i].temperatura <= 26) && (jsonTabela[i].umidade <= 85 && jsonTabela[i].umidade >= 75)) {
+                        alert_container.innerHTML += `
+                            <div class="bloco" id="bloco${jsonTabela[i].idplantacao}"><img src="../assets/img/icones/warning.png" alt="Atenção"><span>${jsonTabela[i].nome}</span>
+                            </div>
+                            `
+                    } else {
+                        alert_container.innerHTML += `
+                            <div class="bloco" id="bloco${jsonTabela[i].idplantacao}"><img src="../assets/img/icones/fine.png" alt="ok"><span>${jsonTabela[i].nome}</span>
+                            </div>
+                            `
+                    }
+
+                    if ((jsonTabela[i].temperatura > 29 || jsonTabela[i].temperatura < 17) || (jsonTabela[i].umidade > 85 || jsonTabela[i].umidade < 75)) {
+                        tippy(`#bloco${jsonTabela[i].idplantacao}`, {
+                            content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF5555">${jsonTabela[i].temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #FF5555">${jsonTabela[i].umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
+                            placement: 'top',
+                            arrow: true,
+                            animation: 'fade',
+                            interactive: true,
+                            allowHTML: true,
+                        });
+                    } else if (((jsonTabela[i].temperatura >= 27 && jsonTabela[i].temperatura <= 28) || (jsonTabela[i].temperatura >= 17 && jsonTabela[i].temperatura <= 19)) && (jsonTabela[i].umidade <= 85 && jsonTabela[i].umidade >= 75)) {
+                        tippy(`#bloco${jsonTabela[i].idplantacao}`, {
+                        content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF9900">${jsonTabela[i].temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${jsonTabela[i].umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
+                        placement: 'top',
+                        arrow: true,
+                        animation: 'fade',
+                        interactive: true,
+                        allowHTML: true,
+                    });
+                    } else if ((jsonTabela[i].temperatura >= 25 && jsonTabela[i].temperatura <= 26) && (jsonTabela[i].umidade <= 85 && jsonTabela[i].umidade >= 75)) {
+                        tippy(`#bloco${jsonTabela[i].idplantacao}`, {
+                        content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FFCC00">${jsonTabela[i].temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${jsonTabela[i].umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
+                        placement: 'top',
+                        arrow: true,
+                        animation: 'fade',
+                        interactive: true,
+                        allowHTML: true,
+                    });
+                    } else {
+                        tippy(`#bloco${jsonTabela[i].idplantacao}`, {
+                        content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #74C365">${jsonTabela[i].temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${jsonTabela[i].umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
+                        placement: 'top',
+                        arrow: true,
+                        animation: 'fade',
+                        interactive: true,
+                        allowHTML: true,
+                    });
+                    }
+
+                    i++
                 })
             }
         });
@@ -258,7 +323,7 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Umidade constante captura das plantações',
+                label: 'Temperatura constante captura das plantações',
                 data: [],
                 backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
                 borderColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
@@ -266,7 +331,7 @@
                 tension: 0.1
             },
             {
-                label: 'Temperatura constante captura das plantações',
+                label: 'Umidade constante captura das plantações',
                 data: [],
                 fill: false,
                 backgroundColor: ['#FF9900', '#74C365', '#FFCC00', 'FF5555'],
@@ -394,8 +459,6 @@
             document.getElementById(`myChart3`),
             config
         );
-
-
     }
 
     function obterstatusplantacoes(idAquario) {
@@ -424,7 +487,6 @@
     }
 
     function plotarGrafico3(resposta_plantacoes, idAquario) {
-
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -483,7 +545,5 @@
             document.getElementById(`myChart2`),
             config
         );
-
-
     }
 </script>
