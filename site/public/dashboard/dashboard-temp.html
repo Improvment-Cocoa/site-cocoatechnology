@@ -78,112 +78,125 @@
 
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     var plantacoes = [];
     var dataLeitura = [];
-    var firstPlot = true;
     var temperaturaConstante = [];
     var cores = [];
 
-    fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
-        method: "GET"
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then((jsonTemp) => {
-                console.log(jsonTemp)
-                jsonTemp.forEach(linha => {
-                    document.getElementById("plantacoes").innerHTML += `
-                        <div class="slide-show select-disable">
-                            <h2>Plantação - ${linha.nome}</h2>
-                            <ul class="slides-list">
-                                <li class="slide">
-                                    <canvas id="myChart${linha.idplantacao}"></canvas>
-                                </li>
-                                <li class="slide" id="info${linha.idplantacao}"></li>
-                            </ul>
+    function criarGrafico(plantacao) {
+        var canvasId = `myChart${plantacao.id}`;
+        var infoId = `info${plantacao.id}`;
+
+        document.getElementById("plantacoes").innerHTML += `
+            <div class="slide-show select-disable">
+                <h2>Plantação - ${plantacao.nome}</h2>
+                <ul class="slides-list">
+                    <li class="slide">
+                        <canvas id="${canvasId}"></canvas>
+                    </li>
+                    <li class="slide" id="${infoId}"></li>
+                </ul>
+            </div>
+        `;
+
+        var canvas = document.getElementById(canvasId);
+        var info = document.getElementById(infoId);
+
+        if (plantacao.temp > 29 || plantacao.temp < 17) {
+            info.innerHTML = `
+                <div class="infos-graficos">
+                    <h2>Status da plantação:</h2>
+                    <span style="color: #FF5555;" class="status">PERIGO</span>
+                    <div>
+                        <div>
+                            <span>Temperatura atual:</span>
+                            <span style="color: #FF5555;">${plantacao.temp}°C</span>
                         </div>
-                    `
-                    plantacoes.push({ id: linha.idplantacao, nome: linha.nome, temp: linha.temperatura })
-                    dataLeitura.push(linha.momento_grafico);
-                });
-            })
+                        <div>
+                            <span>Temperatura ideal:</span>
+                            <span>10°C a 23°C</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if ((plantacao.temp >= 27 && plantacao.temp <= 28) || (plantacao.temp >= 17 && plantacao.temp <= 19)) {
+            info.innerHTML = `
+                <div class="infos-graficos">
+                    <h2>Status da plantação:</h2>
+                    <span style="color: #FF9900;" class="status">ATENÇÃO</span>
+                    <div>
+                        <div>
+                            <span>Temperatura atual:</span>
+                            <span style="color: #FF9900;">${plantacao.temp}°C</span>
+                        </div>
+                        <div>
+                            <span>Temperatura ideal:</span>
+                            <span>10°C a 23°C</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (plantacao.temp >= 25 && plantacao.temp <= 26) {
+            info.innerHTML = `
+                <div class="infos-graficos">
+                    <h2>Status da plantação:</h2>
+                    <span style="color: #FFCC00;" class="status">CUIDADO</span>
+                    <div>
+                        <div>
+                            <span>Temperatura atual:</span>
+                            <span style="color: #FFCC00;">${plantacao.temp}°C</span>
+                        </div>
+                        <div>
+                            <span>Temperatura ideal:</span>
+                            <span>10°C a 23°C</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            info.innerHTML = `
+                <div class="infos-graficos">
+                    <h2>Status da plantação:</h2>
+                    <span style="color: #74C365;" class="status">TRANQUILA</span>
+                    <div>
+                        <div>
+                            <span>Temperatura atual:</span>
+                            <span style="color: #74C365;">${plantacao.temp}°C</span>
+                        </div>
+                        <div>
+                            <span>Temperatura ideal:</span>
+                            <span>10°C a 23°C</span>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
-    }).then(() => {
-        for (i = 0; i < plantacoes.length; i++) {
-            if (plantacoes[i].temp > 29 || plantacoes[i].temp < 17) {
-                document.getElementById(`info${plantacoes[i].id}`).innerHTML = `
-                    <div class="infos-graficos">
-                        <h2>Status da plantação:</h2>
-                        <span style="color: #FF5555;" class="status">PERIGO</span>
-                        <div>
-                            <div>
-                                <span>Temperatura atual:</span>
-                                <span style="color: #FF5555;">${plantacoes[i].temp}°C</span>
-                            </div>
-                            <div>
-                                <span>Temperatura ideal:</span>
-                                <span>10°C a 23°C</span>
-                            </div>
-                        </div>
-                    </div>
-                `
-            } else if ((plantacoes[i].temp >= 27 && plantacoes[i].temp <= 28) || (plantacoes[i].temp >= 17 && plantacoes[i].temp <= 19)) {
-                document.getElementById(`info${plantacoes[i].id}`).innerHTML = `
-                    <div class="infos-graficos">
-                        <h2>Status da plantação:</h2>
-                        <span style="color: #FF9900;" class="status">ATENÇÃO</span>
-                        <div>
-                            <div>
-                                <span>Temperatura atual:</span>
-                                <span style="color: #FF9900;">${plantacoes[i].temp}°C</span>
-                            </div>
-                            <div>
-                                <span>Temperatura ideal:</span>
-                                <span>10°C a 23°C</span>
-                            </div>
-                        </div>
-                    </div>
-                `
-            } else if (plantacoes[i].temp >= 25 && plantacoes[i].temp <= 26) {
-                document.getElementById(`info${plantacoes[i].id}`).innerHTML = `
-                    <div class="infos-graficos">
-                        <h2>Status da plantação:</h2>
-                        <span style="color: #FFCC00;" class="status">CUIDADO</span>
-                        <div>
-                            <div>
-                                <span>Temperatura atual:</span>
-                                <span style="color: #FFCC00;">${plantacoes[i].temp}°C</span>
-                            </div>
-                            <div>
-                                <span>Temperatura ideal:</span>
-                                <span>10°C a 23°C</span>
-                            </div>
-                        </div>
-                    </div>
-                `
-            } else {
-                document.getElementById(`info${plantacoes[i].id}`).innerHTML = `
-                    <div class="infos-graficos">
-                        <h2>Status da plantação:</h2>
-                        <span style="color: #74C365;" class="status">TRANQUILA</span>
-                        <div>
-                            <div>
-                                <span>Temperatura atual:</span>
-                                <span style="color: #74C365;">${plantacoes[i].temp}°C</span>
-                            </div>
-                            <div>
-                                <span>Temperatura ideal:</span>
-                                <span>10°C a 23°C</span>
-                            </div>
-                        </div>
-                    </div>
-                `
+
+        var graficoTemp = new Chart(canvas, {
+            type: 'line',
+            data: {
+                labels: dataLeitura,
+                datasets: [{
+                    label: 'Temperatura da plantação dentre o período do meio dia às cinco da tarde',
+                    backgroundColor: ['crimson'],
+                    data: temperaturaConstante,
+                    borderColor: ['rgba(255, 99, 132, 1)'],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-        }
-    });
+        });
+    }
 
     function buscarLeitura() {
         fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
@@ -195,80 +208,29 @@
             if (resposta.ok) {
                 resposta.json().then(json => {
                     if (temperaturaConstante.length < 6) {
-                        temperaturaConstante.push(json[0].temperatura)
-                        dataLeitura.push(json[0].momento_grafico)
+                        temperaturaConstante.push(json[0].temperatura);
+                        dataLeitura.push(json[0].momento_grafico);
                     } else {
-                        temperaturaConstante.shift()
-                        dataLeitura.shift()
+                        temperaturaConstante.shift();
+                        dataLeitura.shift();
 
-                        temperaturaConstante.push(json[0].temperatura)
-                        dataLeitura.push(json[0].momento_grafico)
+                        temperaturaConstante.push(json[0].temperatura);
+                        dataLeitura.push(json[0].momento_grafico);
                     }
-                })
-            }
-        })
-        setTimeout(() => {
-            loadCharts()
-        }, 1000);
-    }
 
-    let graficoTemp;
-    function loadCharts() {
-        temperaturaConstante.forEach((temperatura, index) => {
-            if (temperatura > 29 || temperatura < 17) {
-                cores[index] = '#FF5555'
-            } else if ((temperatura >= 27 && temperatura <= 28) || (temperatura >= 17 && temperatura <= 19)) {
-                cores[index] = '#FF9900'
-            } else if (temperatura >= 25 && temperatura <= 26) {
-                cores[index] = '#FFCC00'
-            } else {
-                cores[index] = '#74C365'
+                    loadCharts();
+                });
             }
         });
+    }
 
-        if (!firstPlot) {
-            atualizarGraficos();
-        } else {
-            fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then((resposta) => {
-                if (resposta.ok) {
-                    resposta.json().then(json => {
-                        for (i = 0; i < plantacoes.length; i++) {
-                            graficoTemp = new Chart(document.getElementById(`myChart${plantacoes[i].id}`), {
-                                type: 'line',
-                                data: {
-                                    labels: [dataLeitura[0], dataLeitura[1], dataLeitura[2], dataLeitura[3], dataLeitura[4], dataLeitura[5]],
-                                    datasets: [{
-                                        label: 'Temperatura da plantação dentre o período do meio dia ás cinco da tarde',
-                                        backgroundColor: [
-                                            'crimson'
-                                        ],
-                                        data: [temperaturaConstante[0], temperaturaConstante[1], temperaturaConstante[2], temperaturaConstante[3], temperaturaConstante[4], temperaturaConstante[5]],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)'
-                                        ],
-                                        borderWidth: 3
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    })
-                }
-            })
-            firstPlot = false;
-        }
+    function loadCharts() {
+        var plantacoesContainer = document.getElementById("plantacoes");
+        plantacoesContainer.innerHTML = "";
+
+        plantacoes.forEach(plantacao => {
+            criarGrafico(plantacao);
+        });
     }
 
     function atualizarGraficos() {
@@ -281,6 +243,7 @@
             }).then((resposta) => {
                 if (resposta.ok) {
                     resposta.json().then(json => {
+                        var graficoTemp = Chart.instances[i];
                         graficoTemp.data.labels.shift();
                         graficoTemp.data.labels.push(json[0].momento_grafico);
 
@@ -291,11 +254,25 @@
                         });
 
                         graficoTemp.update();
-                    })
+                    });
                 }
-            })
+            });
         }
     }
+
+    fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
+        method: "GET"
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then((jsonTemp) => {
+                jsonTemp.forEach(linha => {
+                    plantacoes.push({ id: linha.idplantacao, nome: linha.nome, temp: linha.temperatura });
+                    dataLeitura.push(linha.momento_grafico);
+                });
+                loadCharts();
+            });
+        }
+    });
 
     setInterval(buscarLeitura, 10000);
 </script>
