@@ -36,12 +36,12 @@ function exibirLeituraPlantacoes(req, res) {
     });
 }
 
-function temperatura_contante(req, res) {
+function ultimosDadosPlantacao(req, res) {
     var idCliente = req.params.idCliente;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.temperatura_contante(idCliente).then(function (resultado) {
+    medidaModel.ultimosDadosPlantacao(idCliente).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -96,42 +96,6 @@ function obterquantidadeplantacoes(req, res) {
     console.log(`Recuperando medidas em tempo real`);
 
     medidaModel.obterquantidadeplantacoes(idCliente).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function tabelaDash(req, res) {
-    var idCliente = req.params.idCliente;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.tabelaDash(idCliente).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function dados_temperatura(req, res) {
-    var idCliente = req.params.idCliente;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    medidaModel.dados_temperatura(idCliente).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -262,11 +226,11 @@ function temperatura_atual(req, res) {
 
 function status_plantacoes(req, res) {
 
-    var idAquario = req.params.idsensor;
+    var idCliente = req.params.idCliente;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.status_plantacoes(idAquario).then(function (resultado) {
+    medidaModel.status_plantacoes(idCliente).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -285,16 +249,14 @@ module.exports = {
     exibirPlantacoes,
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    dados_temperatura,
     medidas_temperatura_ultimas,
     dados_umidade,
     medidas_umidade_ultimas,
-    temperatura_contante,
+    ultimosDadosPlantacao,
     temperatura_atual,
     obterquantidadeplantacoes,
     obterplantacoesemalerta,
     obterquantidadeusuario,
     status_plantacoes,
     exibirLeituraPlantacoes,
-    tabelaDash,
 }

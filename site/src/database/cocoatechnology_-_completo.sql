@@ -138,9 +138,16 @@ insert into plantacao values
 (null,'Show de cacau',700,3,3,2),
 (null,'Bahianos do cacau',900,4,4,4);
 
+insert into plantacao values
+(null,'Cacauzinha',100,2,2,5),
+(null,'Chocolatinha INC',300,2,2,5),
+(null,'Doce Amor',300,2,2,5),
+(null,'Fabrica de chocolate Benta',1000,2,2,5);
+
 insert into tipo_sensor values
 (null,'Temperatura','ºC'),
 (null , 'Umidade' , '%');
+
 
 insert into sensor values
 (null , 'Higrômetro' , 'Ativo' , 2 , 1),
@@ -148,11 +155,33 @@ insert into sensor values
 (null , 'DHT11' , 'Ativo' , 1 , 1),
 (null , 'DHT11' , 'Desativado' , 4 , 1);
 
+insert into sensor values
+(null , 'DHT11' , 'Ativo' , 5 , 1),
+(null , 'DHT11' , 'Ativo' , 6 , 1),
+(null , 'DHT11' , 'Ativo' , 7 , 1),
+(null , 'DHT11' , 'Ativo' , 8 , 1);
+
 insert into leitura values
 (null,'2018-12-03 12:20:25',27.30,83.40,2),
 (null,'2020-11-27 13:45:10',25.10,93.20,3),
 (null,'2022-01-28 16:15:45',39.40,95.20,4);
 
+insert into leitura values
+(null,'2020-11-27 13:45:10',21.70,85.20,3),
+(null,'2020-11-27 13:46:10',21.10,80.20,3),
+(null,'2023-05-05 12:20:25',30.30,90.40,5),
+(null,'2023-05-05 12:20:25',27.30,80.40,6),
+(null,'2023-05-05 12:20:25',23.30,83.40,7),
+(null,'2020-11-27 13:47:10',29.90,93.20,3);
+
+insert into leitura values
+(null,'2023-05-05 12:20:25',17.30,80.40,8);
+
+insert into leitura values
+(null,'2023-05-05 12:10:25',23.30,77.40,5),
+(null,'2023-05-05 12:11:25',28.30,80.90,5),
+(null,'2023-05-05 12:12:25',24.30,83.00,5),
+(null,'2023-05-05 12:13:25',25.30,40.40,5);
 
 -- Cliente + tipo_cliente + endereço
 SELECT * FROM cliente JOIN tipo_cliente ON idTipo_cliente = fkTipo_cliente JOIN
@@ -176,4 +205,88 @@ JOIN leitura ON fkLeitura_sensor = idtipo_sensor;
  SELECT * FROM cliente JOIN telefone ON fkTel_cliente=idcliente;
  
 -- Cliente + usuario 
-SELECT * FROM cliente JOIN usuario ON fkTipo_cliente = idusuario
+SELECT * FROM cliente JOIN usuario ON fkTipo_cliente = idusuario;
+
+-- Retornando plantações de um determinado cliente
+select plantacao.* from plantacao join cliente on fkPlantacao_cliente = idcliente
+	where idcliente = 2;
+    
+-- Retornando a quantidade de plantações em alerta, cuidado, atenção e tranquilo
+select * from leitura order by dataLeitura_hora DESC;
+select * from sensor;
+select * from plantacao;
+
+-- select da contagem de plantacões em perigo
+select count(distinct idleitura) as alertaPerigo from plantacao join sensor on fkSensor_plantacao = idsensor
+	join leitura on fkLeitura_sensor = idsensor join cliente on fkPlantacao_cliente = idcliente
+		where (retorno_temp > 27 OR retorno_umidd > 85) AND idcliente = 2;
+        
+-- select qtd de usuario por cliente
+SELECT COUNT(idusuario) AS qtdUsu FROM usuario where fkUsuario_cliente = 1;
+
+-- select qtd de plantações od cliente
+SELECT COUNT(idplantacao) AS qtdPlantacao FROM plantacao join cliente on fkPlantacao_cliente = idcliente
+	where idcliente = 1;
+
+-- ultima temperatura
+select plantacao.nome, retorno_temp as temperatura , retorno_umidd as umidade from leitura
+        join sensor on idsensor = fkLeitura_sensor
+        join plantacao on idplantacao = fkSensor_plantacao 
+        join cliente on fkPlantacao_cliente = idcliente
+			where idcliente = 1 group by plantacao.nome, retorno_temp, retorno_umidd;
+            
+-- Select dados constantes dash
+select plantacao.nome, retorno_temp as temperatura, retorno_umidd as umidade, dataLeitura_hora, fkLeitura_sensor from leitura 
+join sensor on fkLeitura_sensor = idsensor
+join plantacao on fkSensor_plantacao = idplantacao
+join cliente on fkPlantacao_cliente = idcliente
+	where idcliente = 2 GROUP BY plantacao.nome, retorno_temp, retorno_umidd, dataLeitura_hora, fkLeitura_sensor ORDER BY dataLeitura_hora DESC;
+    
+-- tabela da dashboard
+SELECT p.idplantacao, p.nome, l.retorno_temp AS temperatura, l.retorno_umidd AS umidade, l.dataLeitura_hora, l.fkLeitura_sensor
+FROM plantacao p
+JOIN cliente c ON p.fkPlantacao_cliente = c.idcliente
+JOIN (
+  SELECT l2.*
+  FROM leitura l2
+  JOIN (
+    SELECT MAX(dataLeitura_hora) AS ultima_data, fkLeitura_sensor
+    FROM leitura
+    GROUP BY fkLeitura_sensor
+  ) l3 ON l2.dataLeitura_hora = l3.ultima_data AND l2.fkLeitura_sensor = l3.fkLeitura_sensor
+) l ON p.idplantacao = l.fkLeitura_sensor
+WHERE c.idcliente = 2 order by temperatura desc;
+    
+-- retornando as leituras de uma plantação específica
+-- usar para pegar e atualizar os dados na plotagem
+select leitura.* from leitura join sensor on fkLeitura_sensor = idsensor
+	join plantacao on fkSensor_plantacao = idplantacao
+		where idplantacao = 1 ORDER BY dataLeitura_hora DESC;
+
+select  plantacao.idplantacao, plantacao.nome,
+        retorno_temp as temperatura ,
+        retorno_umidd as umidade,
+        dataLeitura_hora, 
+        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
+        fkLeitura_sensor, leitura.*
+        from leitura join sensor on idsensor = fkLeitura_sensor
+        join plantacao on idplantacao = fkSensor_plantacao 
+        join cliente on fkPlantacao_cliente = idcliente
+			where idcliente = 2 and idplantacao = 5 and idLeitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor);
+        
+-- retornando ultimos dados dos sensores (sem especificar a plantacao)
+--usar na plotagem da criação de graficos
+select  plantacao.idplantacao, plantacao.nome,
+        retorno_temp as temperatura ,
+        retorno_umidd as umidade,
+        dataLeitura_hora, 
+        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
+        fkLeitura_sensor 
+        from leitura join sensor on idsensor = fkLeitura_sensor
+        join plantacao on idplantacao = fkSensor_plantacao 
+        join cliente on fkPlantacao_cliente = idcliente
+			where idcliente = 2 and idLeitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor);
+            
+            
+insert into leitura values 
+(null,'2020-11-27 20:45:10',25.10,93.20,3);
