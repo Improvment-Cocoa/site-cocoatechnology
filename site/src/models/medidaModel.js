@@ -29,7 +29,7 @@ function exibirLeituraPlantacoes(idPlantacao, limite_linhas) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select leitura.* from leitura join sensor on fkLeitura_sensor = idsensor
 	join plantacao on fkSensor_plantacao = idplantacao
-		where idplantacao = ${idPlantacao};
+		where idplantacao = 5;
 `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -179,6 +179,7 @@ function buscarMedidasEmTempoReal(idsensor) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select retorno_umidd as umidade,
+        retorno_temp as temperatura,
         DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico
         from leitura where fkLeitura_sensor = 2
         order by idleitura desc limit 1;`;
@@ -194,6 +195,7 @@ function buscarMedidasEmTempoReal(idsensor) {
 function medidas_temperatura_ultimas(idAquario, limite_linhas) {
     instrucaoSql = `select   
     retorno_temp as temperatura ,
+
     dataLeitura_hora, 
     DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
     fkLeitura_sensor 
@@ -207,6 +209,7 @@ function medidas_temperatura_ultimas(idAquario, limite_linhas) {
 function medidas_umidade_ultimas(idAquario, limite_linhas) {
     instrucaoSql = `select   
     retorno_umidd as umidade ,
+    retorno_temp as temperatura,
     dataLeitura_hora, 
     DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
     fkLeitura_sensor 
@@ -257,8 +260,18 @@ function temperatura_atual(idCliente, limite_linhas) {
 }
 
 
+function obternomeplantacoes(idUsuario, limite_linhas) {
+    instrucaoSql = `select plantacao.nome as nome from plantacao 
+    join cliente on idcliente = fkPlantacao_cliente where idcliente = ${idUsuario};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     exibirPlantacoes,
+    obternomeplantacoes,
     exibirLeituraPlantacoes,
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,

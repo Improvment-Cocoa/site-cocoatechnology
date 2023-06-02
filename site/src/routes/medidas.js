@@ -27,8 +27,11 @@ router.get("/obterplantacoesemalerta/:idCliente", function (req, res) {
     medidaController.obterplantacoesemalerta(req, res);
 })
 
-router.get("/status_plantacoes/:idCliente", function (req, res) {
+router.get("/status_plantacoes/:idUsuario", function (req, res) {
     medidaController.status_plantacoes(req, res);
+})
+router.get("/obternomeplantacoes/:idCliente", function (req, res) {
+    medidaController.obternomeplantacoes(req, res);
 })
 
 

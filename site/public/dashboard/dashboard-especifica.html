@@ -8,11 +8,12 @@
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3185/3185082.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/dashboard-especifica.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard - Cocoa</title>
 </head>
 <!-- onload="obterDadosGrafico() -->
 
-<body>
+<body onload="obterDadosGraficos()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -44,234 +45,258 @@
             <a href="../login.html"><button>SAIR</button></a>
         </nav>
         <div id="content">
-            <div class="div-search"><input type="text" placeholder="Pesquisar"></div>
+            <div class="div-select">
+                <span>Selecione uma plantação:
+                    <button onclick="">Selecionar plantação</button>
+                </span>
+                <select name="plantacoes_cadastradas" id="slc_plantacao">
+
+                </select>
+            </div>
             <span id="plantacoes">
-                <div class="slide-show select-disable">
+                <div class="plantacao-container select-disable">
                     <h2>Plantação - Rua Haddock Lobo</h2>
-                    <ul class="slides-list">
-                        <li class="slide">
-                            <canvas id="myChart1"></canvas>
-                        </li>
-                        <li class="slide">
-                            <div class="infos-graficos">
-                                <h2>Status da plantação:</h2>
-                                <span style="color: #74C365;" class="status">TRANQUILA</span>
-                                <div>
-                                    <div>
-                                        <span>Temperatura atual:</span>
-                                        <span style="color: #FF5555;">23°C</span>
-                                    </div>
-                                    <div>
-                                        <span>Temperatura ideal:</span>
-                                        <span>10°C a 23°C</span>
+                    <div id="status-box">
+                        <div class="chart-box">
+                            <h3>Temperatura e Umidade em tempo real</h3>
+                            <span id="canvas_container">
+                                <canvas id="canvasChart"></canvas>
+                            </span>
+                        </div>
+                        <div class="chart-box">
+                            <div class="info-plantacao">
+                                <div class="card-info">
+                                    <h3>Status da plantação:</h3>
+                                    <span
+                                        style="color: #FF5555; align-self: center; letter-spacing: 2px; font-size: 22px;">TRANQUILO</span>
+                                    <div id="dados_reais">
+                                        <div>
+
+                                        </div>
+                                        <div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </span>
         </div>
     </div>
 </body>
 
+
+<!-- <div class="infos-graficos">
+    <h2>Status da plantação:</h2>
+    <span style="color: #74C365;" class="status">TRANQUILA</span>
+    <div>
+        <div>
+            <span>Temperatura atual:</span>
+            <span style="color: #FF5555;">23°C</span>
+        </div>
+        <div>
+            <span>Temperatura ideal:</span>
+            <span>10°C a 23°C</span>
+        </div>
+    </div>
+</div> -->
+
 </html>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    var idUsuario = sessionStorage.ID_USUARIO
 
-    var plantacoes = [];
-    var dataLeitura = [];
-    var temperaturaConstante = [];
-    var cores = [];
+    let proximaAtualizacao;
 
-    function criarGrafico(plantacao) {
-        var canvasId = `myChart${plantacao.id}`;
-        var infoId = `info${plantacao.id}`;
 
-        document.getElementById("plantacoes").innerHTML += `
-            <div class="slide-show select-disable">
-                <h2>Plantação - ${plantacao.nome}</h2>
-                <ul class="slides-list">
-                    <li class="slide">
-                        <canvas id="${canvasId}"></canvas>
-                    </li>
-                    <li class="slide" id="${infoId}"></li>
-                </ul>
-            </div>
-        `;
+    function obterDadosGraficos() {
+        obterPlantacoesCliente()
+        obterDadosGrafico(1)
+            
+    }
 
-        var canvas = document.getElementById(canvasId);
-        var info = document.getElementById(infoId);
+    
 
-        if (plantacao.temp > 29 || plantacao.temp < 17) {
-            info.innerHTML = `
-                <div class="infos-graficos">
-                    <h2>Status da plantação:</h2>
-                    <span style="color: #FF5555;" class="status">PERIGO</span>
-                    <div>
-                        <div>
-                            <span>Temperatura atual:</span>
-                            <span style="color: #FF5555;">${plantacao.temp}°C</span>
-                        </div>
-                        <div>
-                            <span>Temperatura ideal:</span>
-                            <span>10°C a 23°C</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        } else if ((plantacao.temp >= 27 && plantacao.temp <= 28) || (plantacao.temp >= 17 && plantacao.temp <= 19)) {
-            info.innerHTML = `
-                <div class="infos-graficos">
-                    <h2>Status da plantação:</h2>
-                    <span style="color: #FF9900;" class="status">ATENÇÃO</span>
-                    <div>
-                        <div>
-                            <span>Temperatura atual:</span>
-                            <span style="color: #FF9900;">${plantacao.temp}°C</span>
-                        </div>
-                        <div>
-                            <span>Temperatura ideal:</span>
-                            <span>10°C a 23°C</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        } else if (plantacao.temp >= 25 && plantacao.temp <= 26) {
-            info.innerHTML = `
-                <div class="infos-graficos">
-                    <h2>Status da plantação:</h2>
-                    <span style="color: #FFCC00;" class="status">CUIDADO</span>
-                    <div>
-                        <div>
-                            <span>Temperatura atual:</span>
-                            <span style="color: #FFCC00;">${plantacao.temp}°C</span>
-                        </div>
-                        <div>
-                            <span>Temperatura ideal:</span>
-                            <span>10°C a 23°C</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        } else {
-            info.innerHTML = `
-                <div class="infos-graficos">
-                    <h2>Status da plantação:</h2>
-                    <span style="color: #74C365;" class="status">TRANQUILA</span>
-                    <div>
-                        <div>
-                            <span>Temperatura atual:</span>
-                            <span style="color: #74C365;">${plantacao.temp}°C</span>
-                        </div>
-                        <div>
-                            <span>Temperatura ideal:</span>
-                            <span>10°C a 23°C</span>
-                        </div>
-                    </div>
-                </div>
-            `;
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico(idPlantacao) {
+
+
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
         }
 
-        var graficoTemp = new Chart(canvas, {
-            type: 'line',
-            data: {
-                labels: dataLeitura,
-                datasets: [{
-                    label: 'Temperatura da plantação dentre o período do meio dia às cinco da tarde',
-                    backgroundColor: ['crimson'],
-                    data: temperaturaConstante,
-                    borderColor: ['rgba(255, 99, 132, 1)'],
-                    borderWidth: 3
-                }]
+        fetch(`/medidas/exibirLeituraPlantacoes/${idPlantacao}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idPlantacao);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterPlantacoesCliente(idCliente) {
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimosDadosPlantacao/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos dos Usuarios: ${JSON.stringify(resposta)}`);
+
+                    for (var i = 0; i < resposta.length; i++) {
+                        slc_plantacao.innerHTML += `<option value="${resposta[i].idplantacao}">${resposta[i].nome}</option>`
+                        console.log("Dados dos clientes" + resposta[i].idplantacao)
+
+                    }
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+    function plotarGrafico(resposta, idPlantacao) {
+        console.log('iniciando plotagem do gráfico...');
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Umidade',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+            {
+                label: 'Temperatura',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            console.log(registro[i])
+            labels.push(registro.retorno_umidd);
+            console.log("Os dados é " + registro[i])
+            dados.datasets[0].data.push(registro.retorno_temp);
+            dados.datasets[1].data.push(registro.retorno_umidd);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`canvasChart`),
+            config
+        );
+        
+
     }
 
-    function buscarLeitura() {
-        fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((resposta) => {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    if (temperaturaConstante.length < 6) {
-                        temperaturaConstante.push(json[0].temperatura);
-                        dataLeitura.push(json[0].momento_grafico);
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idPlantacao, dados, myChart) {
+        fetch(`/medidas/medidas_umidade_ultimas/2`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    obterDadosGrafico(idPlantacao);
+                    // alertar(novoRegistro, idCliente);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    let avisoCaptura = document.getElementById(`avisoCaptura${idCliente}`)
+                    avisoCaptura.innerHTML = ""
+
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
                     } else {
-                        temperaturaConstante.shift();
-                        dataLeitura.shift();
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-                        temperaturaConstante.push(json[0].temperatura);
-                        dataLeitura.push(json[0].momento_grafico);
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+
+                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                        myChart.update();
                     }
 
-                    loadCharts();
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
             }
-        });
-    }
-
-    function loadCharts() {
-        var plantacoesContainer = document.getElementById("plantacoes");
-        plantacoesContainer.innerHTML = "";
-
-        plantacoes.forEach(plantacao => {
-            criarGrafico(plantacao);
-        });
-    }
-
-    function atualizarGraficos() {
-        for (i = 0; i < plantacoes.length; i++) {
-            fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then((resposta) => {
-                if (resposta.ok) {
-                    resposta.json().then(json => {
-                        var graficoTemp = Chart.instances[i];
-                        graficoTemp.data.labels.shift();
-                        graficoTemp.data.labels.push(json[0].momento_grafico);
-
-                        graficoTemp.data.datasets.forEach((dataset) => {
-                            dataset.data.shift();
-                            dataset.data.push(json[0].temperatura);
-                            dataset.borderColor = cores;
-                        });
-
-                        graficoTemp.update();
-                    });
-                }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        }
+
     }
-
-    fetch(`/medidas/dados_temperatura/${sessionStorage.ID_USUARIO}`, {
-        method: "GET"
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then((jsonTemp) => {
-                jsonTemp.forEach(linha => {
-                    plantacoes.push({ id: linha.idplantacao, nome: linha.nome, temp: linha.temperatura });
-                    dataLeitura.push(linha.momento_grafico);
-                });
-                loadCharts();
-            });
-        }
-    });
-
-    setInterval(buscarLeitura, 10000);
 </script>
