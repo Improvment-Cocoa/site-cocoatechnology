@@ -47,10 +47,10 @@ function publicar(nome, email, senha , idUsuario) {
     return database.executar(instrucao);
 }
 
-function editar(novaDescricao, idAviso) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idAviso);
+function editar(nome, email , senha , idAviso) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome , email, senha , idAviso);
     var instrucao = `
-        UPDATE aviso SET descricao = '${novaDescricao}' WHERE id = ${idAviso};
+    UPDATE usuario SET nome = '${nome}' , email = '${email}' , senha = '${senha}' WHERE idusuario = ${idAviso};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -101,6 +101,31 @@ function mostrar_dados_plantacao(idUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+function infoPlantaUsuario(idUsuario){
+var instrucao = `select plantacao.nome as nome_plantacao , plantacao.idplantacao , plantacao.tamanho , endereco.cep , endereco.cidade , endereco.bairro,
+endereco.numero , cliente.nome as responsavel from plantacao join endereco on idendereco = fkplantacao_endereco
+join cliente on idcliente = fkplantacao_cliente where idcliente = ${idUsuario}`
+
+return database.executar(instrucao)
+}
+
+function deletar_plantacao(idAviso) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idAviso);
+    var instrucao = `
+    DELETE FROM plantacao WHERE idplantacao = ${idAviso};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+function editar_plantacao(nome,idAviso) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idAviso);
+    var instrucao = `
+    update plantacao set nome = '${nome}' where idplantacao = '${idAviso}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     listarPlantacao,
@@ -108,8 +133,11 @@ module.exports = {
     pesquisarDescricao,
     publicar,
     editar,
+    deletar_plantacao,
     deletar,
     mostrar_dados,
     plantacoes,
-    mostrar_dados_plantacao
+    mostrar_dados_plantacao,
+    infoPlantaUsuario,
+    editar_plantacao
 }

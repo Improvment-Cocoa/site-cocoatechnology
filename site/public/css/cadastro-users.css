@@ -395,3 +395,36 @@ table thead tr td {
     background: cornflowerblue;
     transition: 0.5s ease-in;
 }
+
+
+  .div_crud_alterar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+   .div_crud_alterar input {
+    color: #FFF;
+    border-radius: 25px;
+    background-color: #151515;
+    border: transparent;
+    border-bottom: 2px solid #E0E0E0;
+    transition: 0.5s ease-in;
+    padding: 12px;
+    outline: none;
+    width: 25vw;
+    margin-top: 21px;
+}
+
+ .div_crud_alterar input:hover {
+    border-radius: 15px;
+    transition: 0.5s ease-in;
+    cursor: pointer;
+}
+
+.div_crud_alterar input.erro {
+    border: 2px solid #FF5555;
+}
+.div_crud_alterar input.correto {
+    border: 2px solid #74C365;
+}

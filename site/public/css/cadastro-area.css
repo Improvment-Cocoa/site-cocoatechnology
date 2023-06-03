@@ -393,3 +393,69 @@ table thead tr td {
     background: cornflowerblue;
     transition: 0.5s ease-in;
 }
+
+.input-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .input-container input {
+    color: #FFF;
+    border-radius: 25px;
+    background-color: #151515;
+    border: transparent;
+    border-bottom: 2px solid #E0E0E0;
+    transition: 0.5s ease-in;
+    padding: 12px;
+    outline: none;
+    width: 15vw;
+  }
+
+  .input-container input:hover {
+    border-radius: 15px;
+    transition: 0.5s ease-in;
+    cursor: pointer;
+  }
+
+  .custom-title {
+    color: #FFF;
+    text-align: center;
+    font-size: 26px;
+    font-family: 'Mulish';
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .div_direita {
+    display: flex;
+flex-direction: column;
+position: absolute;
+right: 10px;
+top: 70px;
+  }
+
+
+  .div_direita input {
+    color: #FFF;
+    border-radius: 25px;
+    background-color: #151515;
+    border: transparent;
+    border-bottom: 2px solid #E0E0E0;
+    transition: 0.5s ease-in;
+    padding: 12px;
+    outline: none;
+    width: 15vw;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+
+  .erro {
+    border: 2px solid #FF5555;
+  }
+
+  .correto {
+    border: 2px solid #74C365;
+  }

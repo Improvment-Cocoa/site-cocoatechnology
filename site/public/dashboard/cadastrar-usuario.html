@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/cadastro-users.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <title>Cadastro da Plantação - Cocoa</title>
+    <title>Cadastro de Usuário - Cocoa</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="atualizarFeed() , listarInfosDeUm()">
     <div id="dashboard-container">
         <nav class="select-disable" id="nav">
             <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
@@ -158,17 +158,19 @@ Cocoa Technology`,
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    swal("Bom trabalho!", "Cadastro realizado com sucesso!", "success");
-
-
                     Swal.fire({
-                        background: '#151515',
-                        color: '#FFF',
-                        title: 'Você tem certeza que deseja deletar?',
-                        text: 'Cadastro realizado com sucesso',
-                        icon: 'sucess'
-                    })
-
+                                icon: 'success',
+                                background: '#151515',
+                                color: '#FFF',
+                                showCancelButton: false,
+                                title: 'Bom trabalho!',
+                                text: 'Usuário Cadastrado com sucesso',
+                               
+                            })
+                            document.getElementById('okButton').addEventListener('click', function() {
+          Swal.close()
+          window.location.reload()
+         });
                     limparFormulario();
 
                 } else if (resposta.status == 404) {
@@ -189,16 +191,17 @@ Cocoa Technology`,
     }
 
     function mostrar_dados(idAviso) {
-
+   
         //aguardar();
         fetch(`/avisos/mostrar_dados/${idAviso}`).then(function (resposta_dados_usuario) {
+          
             if (resposta_dados_usuario.ok) {
                 if (resposta_dados_usuario.status == 204) {
                     alert("ERRO")
                 }
 
                 resposta_dados_usuario.json().then(function (resposta_dados_usuario) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta_dados_usuario));
+                    console.log("Dados recebidos das plantações é : ", JSON.stringify(resposta_dados_usuario));
 
 
                     for (let i = 0; i < resposta_dados_usuario.length; i++) {
@@ -207,6 +210,7 @@ Cocoa Technology`,
                         Swal.fire({
                             background: '#151515',
                             color: '#FFF',
+                            confirmButtonColor: 'cornflowerblue',
                             title: 'Dados do Funcionário',
                             html: `<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                             <span><b>Nome</b>: ${dados.nome}</span>
@@ -269,6 +273,8 @@ Cocoa Technology`,
                 showCancelButton: false,
                 confirmButtonText: 'Deletar',
                 denyButtonText: `Não Deletar`,
+                confirmButtonColor: '#FF5555',
+                denyButtonColor:'#424242',
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch(`/avisos/deletar/${idAviso}`, {
@@ -285,8 +291,12 @@ Cocoa Technology`,
                                 color: '#FFF',
                                 title: 'Bom trabalho!',
                                 text: 'Usuário deletado com sucesso',
-                                timer: 4500
+                              
                             })
+                            document.getElementById('okButton').addEventListener('click', function() {
+          Swal.close();
+          location.reload();
+         });
                             window.location = "cadastrar-usuario.html";
                         } else {
                             Swal.fire('Falha ao deletar o usuário', '', 'error')
@@ -295,7 +305,15 @@ Cocoa Technology`,
                         console.log(resposta);
                     });
                 } else if (result.isDenied) {
-                    Swal.fire('Usuário não deletado', '', 'warning')
+                    Swal.fire({
+                                icon: 'warning',
+                                background: '#151515',
+                                color: '#FFF',
+                                title: 'Bom trabalho!',
+                                text: 'Usuário não deletado',
+                                confirmButtonColor: '#4CAF50'
+                            })
+                
                 }
             });
         }
@@ -306,6 +324,7 @@ Cocoa Technology`,
         //aguardar();
         fetch(`/avisos/listar/${idUsuario}`).then(function (resposta) {
             if (resposta.ok) {
+              
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
                     var mensagem = document.createElement("span");
@@ -338,7 +357,7 @@ Cocoa Technology`,
                         tdNome.innerHTML = publicacao.nome;
                         tdButtons.innerHTML = `
                             <button class="btn-crud red" id="btn_delete${i}" onclick="deletar(${publicacao.idusuario})">Deletar</button>
-                            <button class="btn-crud green" id="btn_update${i}">Alterar</button>
+                            <button class="btn-crud green" id="btn_update${i}" onclick="alterar(${publicacao.idusuario})">Alterar</button>
                             <button class="btn-crud blue" id="btn_get${i}" onclick="mostrar_dados(${publicacao.idusuario})">Informações</button>
                         `
                         // btnDeletar.innerHTML = "Deletar";
@@ -395,6 +414,168 @@ Cocoa Technology`,
 
 
         return false;
+    }
+
+  
+
+
+
+        function alterar(idAviso) {
+           
+      Swal.fire({
+        background: '#151515',
+        color: '#FFF',
+        title: '<span class="titulo">Editar Usuário</span>',
+        html: `
+          <div class="div_crud_alterar">
+            
+            <input type="text" id="input_nome" onkeyup="validar_nome()" placeholder="Nome de no minimo 3 caracteres" />
+          </div>
+          <div class="div_crud_alterar">
+            <input type="email" id="emailInput" onkeyup="validar_email()" placeholder="Insira um email válido" />
+          </div>
+          <div class="div_crud_alterar">
+            <input type="text" id="senhaInput" onkeyup="validar_senha()" placeholder="Senha de no mínimo 8 caracteres" />
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Alterar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#74C365',
+        cancelButtonColor:'#FF5555',
+        preConfirm: () => {
+          var nome = document.getElementById('input_nome').value;
+          var email = document.getElementById('emailInput').value;
+          var senha = document.getElementById('senhaInput').value;
+
+          alterarUsuario(idAviso);
+        }
+      });
+    }
+
+    function validar_nome(){
+      var input = document.getElementById('input_nome');
+      var nome = input.value;
+      if(nome == ""){
+      
+        input.classList.remove('correto');
+       input.classList.add('erro');
+       input.placeholder = 'Campo vazio';
+      }
+      else if(nome.length < 3){
+        input.classList.remove('correto');
+       input.classList.add('erro');
+       input.placeholder = 'Nome muito curto';
+      }
+      else{
+        input.classList.add('correto');
+        input.placeholder = 'Nome';
+        
+      }
+    }
+
+
+    function validar_email(){
+      var input = document.getElementById('emailInput');
+      var email = input.value;
+
+      if(email == ''){
+        input.classList.remove('correto');
+       input.classList.add('erro');
+       input.placeholder = 'Campo vazio';
+      }
+      else if(email.indexOf("@") == -1 || email.indexOf(".com") == -1 || email.length < 7){
+        input.classList.remove('correto');
+       input.classList.add('erro');
+       input.placeholder = 'Email incorreto';
+      }
+      else{
+        input.classList.add('correto');
+        input.placeholder = 'Email';
+      }
+    }
+
+
+    function validar_senha(){
+      var input = document.getElementById('senhaInput');
+      var senha = input.value;
+
+
+      if(senha == ""){
+        input.classList.remove('correto');
+       input.classList.add('erro');
+       input.placeholder = 'Campo vazio';
+      }
+      else if(senha.length < 8){
+        input.classList.remove('correto');
+       input.classList.add('erro');
+       input.placeholder = 'Senha menor que 8 caracteres';
+      }
+      else{
+        input.classList.add('correto');
+        input.placeholder = 'Senha';
+      }
+    }
+    
+    function alterarUsuario(idAviso){
+      
+        var input_nome = document.getElementById('input_nome')
+        var input_email = document.getElementById('emailInput')
+        var input_senha = document.getElementById('senhaInput');
+
+        var nome = input_nome.value;
+        var email = input_email.value
+        var senha = input_senha.value
+
+
+        if(nome == "" || email == "" || senha == ""){
+      
+      input.classList.remove('correto');
+     input.classList.add('erro');
+     input.placeholder = 'Campo vazio';
+    }
+    else if(nome.length < 3 || email.indexOf("@") == -1 || email.indexOf(".com") == -1 || email.length < 7
+    || senha.length < 8 ){
+      input.classList.remove('correto');
+     input.classList.add('erro');
+     input.placeholder = 'Nome muito curto';
+    }
+    else{
+        fetch(`/avisos/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+                idSever: idAviso
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                Swal.fire({
+                                icon: 'success',
+                                background: '#151515',
+                                color: '#FFF',
+                                title: 'Bom trabalho!',
+                                text: 'Usuario Atualizado com sucesso',
+                                showConfirmButton: false,
+                            })
+            document.getElementById('okButton').addEventListener('click', function() {
+          Swal.close();
+         });
+                window.location = "cadastrar-usuario.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
     }
 
 </script>

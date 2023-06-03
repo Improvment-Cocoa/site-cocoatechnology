@@ -181,10 +181,12 @@ function plantacoes(req, res) {
 
 
 function editar(req, res) {
-    var novaDescricao = req.body.descricao;
-    var idAviso = req.params.idAviso;
+    var nome = req.body.nomeServer
+    var email = req.body.emailServer 
+    var senha = req.body.senhaServer
+    var idAviso = req.body.idSever
 
-    avisoModel.editar(novaDescricao, idAviso)
+    avisoModel.editar(nome,email , senha , idAviso)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -272,8 +274,61 @@ function mostrar_dados_plantacao(req, res) {
             }
         );
 }
+function infoPlantaUsuario(req, res) {
+    var idAviso = req.params.idAviso;
 
+    avisoModel.infoPlantaUsuario(idAviso)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+function deletar_plantacao(req, res) {
+    var idAviso = req.params.idAviso;
 
+    avisoModel.deletar_plantacao(idAviso)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar_plantacao o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function editar_plantacao(req, res) {
+    var nome = req.body.nomeServer
+    
+    var idAviso = req.body.idSever
+
+    avisoModel.editar_plantacao(nome, idAviso)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
 
 module.exports = {
     testar,
@@ -285,6 +340,9 @@ module.exports = {
     editar,
     deletar,
     mostrar_dados,
+    deletar_plantacao,
     plantacoes,
-    mostrar_dados_plantacao
+    mostrar_dados_plantacao,
+    infoPlantaUsuario,
+    editar_plantacao
 }

@@ -9,139 +9,139 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/cadastro-area.css">
     <title>Cadastro da Plantação - Cocoa</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body onload="mostrar_dados_funcionario()">
 
-    <body onload="atualizarFeed()">
-        <div id="dashboard-container">
-            <nav class="select-disable" id="nav">
-                <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
-                <div class="texto-user">
-                    <span>Bem-vindo</span>
-                    <span id="b_usuario"></span>
+<body onload="atualizarFeed()">
+    <div id="dashboard-container">
+        <nav class="select-disable" id="nav">
+            <img src="../assets/img/logotipo/branco.png" alt="Logo Cocoa Technology">
+            <div class="texto-user">
+                <span>Bem-vindo</span>
+                <span id="b_usuario"></span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="./dashboard-geral.html">
+                        <img class="icon-nav" src="../assets/img/icones/global.png" alt="Geral">
+                        <span>Geral</span></a>
+                </li>
+                <li>
+                    <a href="./dashboard-especifica.html">
+                        <img class="icon-nav" src="../assets/img/icones/thermometer-white.png" alt="Temperatura">
+                        <span>Específico</span>
+                    </a>
+                </li>
+                <li><a href="./cadastrar-usuario.html">
+                        <img class="icon-nav" src="../assets/img/icones/user.png" alt="Temperatura">
+                        <span>Cadastrar Usuário</span>
+                    </a>
+                </li>
+                <li class="pag-atual">
+                    <a href="./cadastro-plantacao.html">
+                        <img class="icon-nav" src="../assets/img/icones/folha.png" alt="Temperatura">
+                        <span>Cadastrar Plantações</span>
+                    </a>
+                </li>
+            </ul>
+            <a href="../login.html"><button>SAIR</button></a>
+        </nav>
+        <div id="content">
+            <section class="first-div-container">
+                <h1 class="titulo">Cadastro das plantações</h1>
+                <div class="cadastro">
+                    <form>
+                        <div class="column-form">
+                            <div>
+                                <span>Nome da plantação:</span>
+                                <input id="input_nomePlantacao">
+                            </div>
+
+                            <div>
+                                <span>Temperatura Máxima:</span>
+                                <input id="input_tempMaxima">
+                            </div>
+
+                            <div>
+                                <span>Umidade Máxima:</span>
+                                <input id="input_umidMaxima">
+                            </div>
+
+                            <div>
+                                <span>CEP:</span>
+                                <input id="input_cepPlantacao" onkeyup="api_cep()">
+                            </div>
+
+                            <div>
+                                <span>Cidade:</span>
+                                <input id="input_cidadePlantacao">
+                            </div>
+
+                            <div>
+                                <span>Número:</span>
+                                <input id="input_numeroPlantacao">
+                            </div>
+                        </div>
+                        <div class="column-form">
+                            <div>
+                                <span>Tamanho da plantação:</span>
+                                <input id="input_tamanhoPlantacao">
+                            </div>
+
+                            <div>
+                                <span>Temperatura Mínima:</span>
+                                <input id="input_tempMinima">
+                            </div>
+
+                            <div>
+                                <span>Umidade Mínima:</span>
+                                <input id="input_umidMinima">
+                            </div>
+
+                            <div>
+                                <span>Estado:</span>
+                                <input id="input_estadoPlantacao">
+                            </div>
+
+                            <div>
+                                <span>Bairro:</span>
+                                <input id="input_bairroPlantacao">
+                            </div>
+                            <div>
+                                <span>Complemento:</span>
+                                <input id="input_complementoPlantacao">
+                            </div>
+                        </div>
                 </div>
-                <ul class="nav-list">
-                    <li><a href="./dashboard-geral.html">
-                            <img class="icon-nav" src="../assets/img/icones/global.png" alt="Geral">
-                            <span>Geral</span></a>
-                    </li>
-                    <li>
-                        <a href="./dashboard-especifica.html">
-                            <img class="icon-nav" src="../assets/img/icones/thermometer-white.png" alt="Temperatura">
-                            <span>Específico</span>
-                        </a>
-                    </li>
-                    <li><a href="./cadastrar-usuario.html">
-                            <img class="icon-nav" src="../assets/img/icones/user.png" alt="Temperatura">
-                            <span>Cadastrar Usuário</span>
-                        </a>
-                    </li>
-                    <li class="pag-atual">
-                        <a href="./cadastro-plantacao.html">
-                            <img class="icon-nav" src="../assets/img/icones/folha.png" alt="Temperatura">
-                            <span>Cadastrar Plantações</span>
-                        </a>
-                    </li>
-                </ul>
-                <a href="../login.html"><button>SAIR</button></a>
-            </nav>
-            <div id="content">
-                <section class="first-div-container">
-                    <h1 class="titulo">Cadastro das plantações</h1>
-                    <div class="cadastro">
-                        <form>
-                            <div class="column-form">
-                                <div>
-                                    <span>Nome da plantação:</span>
-                                    <input id="input_nomePlantacao">
-                                </div>
-
-                                <div>
-                                    <span>Temperatura Máxima:</span>
-                                    <input id="input_tempMaxima">
-                                </div>
-
-                                <div>
-                                    <span>Umidade Máxima:</span>
-                                    <input id="input_umidMaxima">
-                                </div>
-
-                                <div>
-                                    <span>CEP:</span>
-                                    <input id="input_cepPlantacao" onkeyup="api_cep()">
-                                </div>
-
-                                <div>
-                                    <span>Cidade:</span>
-                                    <input id="input_cidadePlantacao">
-                                </div>
-
-                                <div>
-                                    <span>Número:</span>
-                                    <input id="input_numeroPlantacao">
-                                </div>
-                            </div>
-                            <div class="column-form">
-                                <div>
-                                    <span>Tamanho da plantação:</span>
-                                    <input id="input_tamanhoPlantacao">
-                                </div>
-
-                                <div>
-                                    <span>Temperatura Mínima:</span>
-                                    <input id="input_tempMinima">
-                                </div>
-
-                                <div>
-                                    <span>Umidade Mínima:</span>
-                                    <input id="input_umidMinima">
-                                </div>
-
-                                <div>
-                                    <span>Estado:</span>
-                                    <input id="input_estadoPlantacao">
-                                </div>
-
-                                <div>
-                                    <span>Bairro:</span>
-                                    <input id="input_bairroPlantacao">
-                                </div>
-                                <div>
-                                    <span>Complemento:</span>
-                                    <input id="input_complementoPlantacao">
-                                </div>
-                            </div>
-                    </div>
-                    <button class="btn_cadastro" onclick="cadastrar_plantacao()">Cadastrar</button>
-                    </form>
-                </section>
-                <section class="second-div_container">
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Nome</td>
-                                    <td>Modificar</td>
-                                </tr>
-                            </thead>
-                            <tbody id="feed_container">
-                                <tr>
+                <button class="btn_cadastro" onclick="cadastrar_plantacao()">Cadastrar</button>
+                </form>
+            </section>
+            <section class="second-div_container">
+                <div class="table-container" id="table_container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Nome</td>
+                                <td>Modificar</td>
+                            </tr>
+                        </thead>
+                        <tbody id="feed_container">
+                            <!-- <tr>
                                     <td>1</td>
-                                    <td>Haddock Lobo</td>
+                                    <td>Gerson</td>
                                     <td>
                                         <button class="btn-crud red">Deletar</button>
                                         <button class="btn-crud green">Alterar</button>
-                                        <button class="btn-crud blue">Informações</button>
+                                        <button class="btn-crud blue" onclick="mostrar_dados()">Informações</button>
                                     </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-    </body>
+                                </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+</body>
 
 </html>
 <script>
@@ -188,6 +188,7 @@
                     console.log(error);
                 });
         }
+    }
 
 
 
@@ -195,250 +196,83 @@
 
 
 
+    function cadastrar_plantacao() {
 
-        function cadastrar_plantacao() {
-
-            function cadastrar() {
-                var idUsuario = sessionStorage.ID_USUARIO;
+        var idUsuario = sessionStorage.ID_USUARIO;
 
 
-                var nome = input_nomePlantacao.value
-                var temp_max = Number(input_tempMaxima.value)
-                var umid_max = Number(input_umidMaxima.value)
-                var cep = input_cepPlantacao.value
-                var cidade = input_cidadePlantacao.value
-                var numero = Number(input_numeroPlantacao.value)
-                var tamanho_plantacao = Number(input_tamanhoPlantacao.value)
-                var temperatura_minima = Number(input_tempMinima.value)
-                var umidade_minima = Number(input_umidMinima.value)
-                var estado_plant = input_estadoPlantacao.value
-                var bairro_plantacao = input_bairroPlantacao.value
-                var coomplemeto_plantacao = input_complementoPlantacao.value
+        var nome = input_nomePlantacao.value
+        var temp_max = Number(input_tempMaxima.value)
+        var umid_max = Number(input_umidMaxima.value)
+        var cep = input_cepPlantacao.value
+        var cidade = input_cidadePlantacao.value
+        var numero = Number(input_numeroPlantacao.value)
+        var tamanho_plantacao = Number(input_tamanhoPlantacao.value)
+        var temperatura_minima = Number(input_tempMinima.value)
+        var umidade_minima = Number(input_umidMinima.value)
+        var estado_plant = input_estadoPlantacao.value
+        var bairro_plantacao = input_bairroPlantacao.value
+        var coomplemeto_plantacao = input_complementoPlantacao.value
 
 
 
-                fetch("/usuarios/cadastrar_plantacoes_usuario", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        // crie um atributo que recebe o valor recuperado aqui
-                        // Agora vá para o arquivo routes/usuario.js
-                        nomeServer: nome,
-                        temp_maxServer: temp_max,
-                        umid_max_Server: umid_max,
-                        cepServer: cep,
-                        cidadeServer: cidade,
-                        numeroServer: numero,
-                        tamanho_plantacaoServer: tamanho_plantacao,
-                        temp_minServer: temperatura_minima,
-                        umid_minServer: umidade_minima,
-                        estado_plantacaoServer: estado_plant,
-                        bairroServer: bairro_plantacao,
-                        complementoServer: coomplemeto_plantacao,
-                        idSever: idcliente
-
-                    })
-                }).then(function (resposta) {
-
-                    console.log("resposta: ", resposta);
-
-                    if (resposta.ok) {
-                        //cardErro.style.display = "block";
-                        swal("Bom trabalho!", "Cadastro realizado com sucesso redirecionando a tela de login...!", "success");
-
-
-
-
-                        finalizarAguardar();
-                    } else {
-                        swal("Ops", "Houve um erro ao fazer o cadastro", "error")
-                    }
-                }).catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
-                    finalizarAguardar();
-                });
-
-                return false;
-
-
-
-
-
-
-
-
-            }
-
-
-
-
-
-            function mostrar_dados_funcionario() {
-                var idUsuario = sessionStorage.ID_USUARIO;
-                //aguardar();
-                fetch(`/avisos/mostrar_dados_plantacao/${idUsuario}`).then(function (resposta) {
-                    if (resposta.ok) {
-                        if (resposta.status == 204) {
-                            var feed = document.getElementById("feed_container");
-                            var mensagem = document.createElement("span");
-                            mensagem.innerHTML = "Nenhum resultado encontrado."
-                            feed.appendChild(mensagem);
-                            throw "Nenhum resultado encontrado!!";
-                        }
-
-                        resposta.json().then(function (resposta) {
-                            console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                            var feed = document.getElementById("feed_container");
-                            feed.innerHTML = "";
-                            for (let i = 0; i < resposta.length; i++) {
-                                var publicacao = resposta[i];
-
-                                // criando e manipulando elementos do HTML via JavaScript
-                                var linha = document.createElement("tr");
-                                var tdId = document.createElement("td");
-                                var tdNome = document.createElement("td");
-                                var btnDeletar = document.createElement("button");
-                                var btnAlterar = document.createElement("button");
-                                var btnInformacao = document.createElement("button");
-
-
-                                tdId.innerHTML = publicacao.idusuario;
-                                var id_usuario = publicacao.idusuario
-                                console.log("O id é " + id_usuario)
-                                tdNome.innerHTML = publicacao.nome;
-                                btnDeletar.innerHTML = "Deletar";
-                                btnAlterar.innerHTML = "Alterar";
-                                btnInformacao.innerHTML = "Informações";
-
-
-                                tdNome.className = "publicacao-nome";
-                                btnAlterar.className = "btn-crud green"
-                                btnInformacao.className = "btn-crud blue"
-                                btnAlterar.id = "btnAlterar" + publicacao.idusuario;
-                                btnAlterar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
-                                btnInformacao.setAttribute("onclick", `mostrar(${publicacao.idusuario})`);
-
-                                btnDeletar.className = "btn-crud red"
-                                btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
-                                btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
-
-                                linha.appendChild(tdId);
-                                linha.appendChild(tdNome);
-                                linha.appendChild(btnDeletar);
-                                linha.appendChild(btnAlterar);
-                                linha.appendChild(btnInformacao);
-                                feed.appendChild(linha);
-                            }
-
-
-                        });
-                    } else {
-                        throw ('Houve um erro na API!');
-                    }
-                }).catch(function (resposta) {
-                    console.error(resposta);
-
-                });
-            }
-
-
-
-
-
-
-            return false;
-        }
-
-
-        fetch(`/avisos/plantacoes/${idUsuario}`, {
-            method: "post",
+        fetch("/usuarios/cadastrar_plantacoes_usuario", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(cadastro_plantacoes)
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nome,
+                temp_maxServer: temp_max,
+                umid_max_Server: umid_max,
+                cepServer: cep,
+                cidadeServer: cidade,
+                numeroServer: numero,
+                tamanho_plantacaoServer: tamanho_plantacao,
+                temp_minServer: temperatura_minima,
+                umid_minServer: umidade_minima,
+                estado_plantacaoServer: estado_plant,
+                bairroServer: bairro_plantacao,
+                complementoServer: coomplemeto_plantacao,
+                idSever: idcliente
+
+            })
         }).then(function (resposta) {
+
             console.log("resposta: ", resposta);
+
             if (resposta.ok) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Bom Trabalho',
-                    text: 'Usuario cadastrado com  sucesso!',
+                    icon: 'success',
+                    background: '#151515',
+                    color: '#FFF',
+                    showCancelButton: false,
+                    title: 'Bom trabalho!',
+                    text: 'Plantação Cadastrada com sucesso',
 
                 })
-                limparFormulario();
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-                alert("ERRO");
+                document.getElementById('okButton').addEventListener('click', function () {
+                    Swal.close()
+
+                });
+
+                finalizarAguardar();
             } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                swal("Ops", "Houve um erro ao fazer o cadastro", "error")
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
         });
 
         return false;
-
     }
 
 
-    function mostrar_dados(idAviso) {
-
-        //aguardar();
-        fetch(`/avisos/mostrar_dados/${idAviso}`).then(function (resposta_dados_usuario) {
-            if (resposta_dados_usuario.ok) {
-                if (resposta_dados_usuario.status == 204) {
-                    alert("ERRO")
-                }
-
-                resposta_dados_usuario.json().then(function (resposta_dados_usuario) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta_dados_usuario));
 
 
-                    for (let i = 0; i < resposta_dados_usuario.length; i++) {
-                        var dados = resposta_dados_usuario[i];
-                        console.log(dados)
-                        Swal.fire({
-
-                            title: 'Dados do Funcionário',
-                            html: `<div style="display: flex;">
-                                <div style="flex: 1;">
-                                <b>Nome</b>: ${dados.nome}<br>
-                                <b>Temperatura Máxima:</b> ${dados.responsavel}<br>
-                                <b>Umidade Máxima:</b> ${dados.cnpj}
-                                <b>Temperatura Mínima:</b> ${dados.cnpj}
-                                <b>Umidade Mínima:</b> ${dados.cnpj}
-                                <b>CEP:</b> ${dados.cnpj}
-                                <b>Cidade:</b> ${dados.cnpj}
-                                <b>Número:</b> ${dados.cnpj}
-                                <b>Tamanho da Plantação:</b> ${dados.cnpj}
-                                <b>Estado:</b> ${dados.cnpj}
-                                <b>Bairro:</b> ${dados.cnpj}
-                                <b>Complemento:</b> ${dados.cnpj}
-                                </div>
-                                </div>`
-                        })
-                    }
-                });
-            } else {
-                console.error('Houve um erro na API!', resposta_dados_usuario.status);
-
-            }
-        }).catch(function (erro) {
-            console.error(erro);
-
-        });
-    }
-
-    function editar(idAviso) {
-        sessionStorage.ID_POSTAGEM_EDITANDO = idAviso;
-        console.log("cliquei em editar - " + idAviso);
-        window.alert("Você será redirecionado à página de edição do aviso de id número: " + idAviso);
-        window.location = "/dashboard/edicao-aviso.html"
-
-    }
 
     function deletar(idAviso) {
         console.log("Criar função de apagar post escolhido - ID" + idAviso);
@@ -450,29 +284,35 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Erro',
+                background: '#151515',
+                color: '#FFF',
                 html: `Prezado usuário,
 
-                    Gostaríamos de informar que, de acordo com as políticas da Cocoa Technology, você não possui permissão para deletar funcionários em nosso sistema. Essa restrição foi estabelecida visando à segurança e integridade dos dados, bem como para garantir que as decisões de término de contrato e outras ações relacionadas aos funcionários sejam tomadas de acordo com os procedimentos adequados.
-                    <br>
-                    Para solicitar a exclusão de um funcionário em nosso sistema, pedimos que entre em contato com o departamento de recursos humanos da Cocoa Technology. Eles possuem a autoridade e o conhecimento necessário para gerenciar essa ação de maneira apropriada.
-                    <br>
-                    Agradecemos pela sua compreensão e colaboração em relação a essa política de acesso. Estamos empenhados em proteger a segurança dos dados e em assegurar que todas as atividades sejam conduzidas em conformidade com as diretrizes estabelecidas.
-                    <br>
-                    Atenciosamente,
-                    Cocoa Technology`,
+Gostaríamos de informar que, de acordo com as políticas da Cocoa Technology, você não possui permissão para deletar funcionários em nosso sistema. Essa restrição foi estabelecida visando à segurança e integridade dos dados, bem como para garantir que as decisões de término de contrato e outras ações relacionadas aos funcionários sejam tomadas de acordo com os procedimentos adequados.
+<br>
+Para solicitar a exclusão de um funcionário em nosso sistema, pedimos que entre em contato com o departamento de recursos humanos da Cocoa Technology. Eles possuem a autoridade e o conhecimento necessário para gerenciar essa ação de maneira apropriada.
+<br>
+Agradecemos pela sua compreensão e colaboração em relação a essa política de acesso. Estamos empenhados em proteger a segurança dos dados e em assegurar que todas as atividades sejam conduzidas em conformidade com as diretrizes estabelecidas.
+<br>
+Atenciosamente,
+Cocoa Technology`,
             })
             return false;
         }
         else {
             Swal.fire({
                 title: 'Você tem certeza que deseja deletar?',
+                background: '#151515',
+                color: '#FFF',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: 'Deletar',
                 denyButtonText: `Não Deletar`,
+                confirmButtonColor: '#FF5555',
+                denyButtonColor: '#424242',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`/avisos/deletar/${idAviso}`, {
+                    fetch(`/avisos/deletar_plantacao/${idAviso}`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json"
@@ -482,29 +322,124 @@
                             Swal.fire('Saved!', '', 'success')
                             Swal.fire({
                                 icon: 'success',
+                                background: '#151515',
+                                color: '#FFF',
                                 title: 'Bom trabalho!',
-                                text: 'Usuário deletado com sucesso',
-                                timer: 4500
+                                text: 'Plantação deletada com sucesso',
+
                             })
+                            document.getElementById('okButton').addEventListener('click', function () {
+                                Swal.close();
+                                location.reload();
+                            });
                             window.location = "cadastrar-usuario.html";
                         } else {
-                            Swal.fire('Falha ao deletar o usuário', '', 'error')
+                            Swal.fire('Saved!', '', 'success')
+                            Swal.fire({
+                                icon: 'error',
+                                background: '#151515',
+                                color: '#FFF',
+                                title: 'O erro foi do nosso lado!',
+                                text: 'Falha ao deletar a Plantação',
+
+                            })
+
                         }
                     }).catch(function (resposta) {
                         console.log(resposta);
                     });
                 } else if (result.isDenied) {
-                    Swal.fire('Usuário não deletado', '', 'warning')
+                    Swal.fire({
+                        icon: 'warning',
+                        background: '#151515',
+                        color: '#FFF',
+                        title: 'Bom trabalho!',
+                        text: 'Plantação não deletada',
+                        confirmButtonColor: '#4CAF50'
+                    })
+
                 }
             });
         }
     }
 
+
+    function alterar(idAviso) {
+      Swal.fire({
+        background: '#151515',
+        color: '#FFF',
+        title: '<span class="custom-title">Editar Plantação</span>',
+        html: `
+        <center>
+          <div class="input-container">
+            <input type="text" id="input_nome_plant"  placeholder="Nome da Plantação" />
+          </div>
+          </center>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Alterar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#74C365',
+        cancelButtonColor: '#FF5555',
+        preConfirm: () => {
+          var nome = document.getElementById('input_nome_plant').value;
+          
+
+          alterarUsuario(idAviso);
+        }
+      });
+    }
+
+    function alterarUsuario(idAviso) {
+      var input_nome_plant = document.getElementById('input_nome_plant');
+
+      var nome = input_nome_plant.value;
+   
+
+
+
+
+
+      fetch(`/avisos/editar_plantacao/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                idSever: idAviso
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                Swal.fire({
+                                icon: 'success',
+                                background: '#151515',
+                                color: '#FFF',
+                                title: 'Bom trabalho!',
+                                text: 'PLantação Atualizada com sucesso',
+                                showConfirmButton: false,
+                            })
+            document.getElementById('okButton').addEventListener('click', function() {
+          Swal.close();
+         });
+                window.location = "cadastrar-usuario.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
     function atualizarFeed() {
         var idUsuario = sessionStorage.ID_USUARIO;
         //aguardar();
-        fetch(`/avisos/listarPlantacao/${idUsuario}`).then(function (resposta) {
+        fetch(`/avisos/infoPlantaUsuario/${idUsuario}`).then(function (resposta) {
             if (resposta.ok) {
+
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
                     var mensagem = document.createElement("span");
@@ -532,40 +467,23 @@
 
 
                         tdId.innerHTML = publicacao.idplantacao;
-                        var id_usuario = publicacao.idusuario
+                        var id_usuario = publicacao.idplantacao
                         console.log("O id é " + id_usuario)
-                        tdNome.innerHTML = publicacao.nome;
+                        tdNome.innerHTML = publicacao.nome_plantacao;
                         tdButtons.innerHTML = `
-                                <button class="btn-crud red" id="btn_delete${i}" onclick="deletar(${publicacao.idplantacao})">Deletar</button>
-                                <button class="btn-crud green" id="btn_update${i}">Alterar</button>
-                                <button class="btn-crud blue" id="btn_get${i}" onclick="mostrar_dados(${publicacao.idplantacao})">Informações</button>
-                            `
-                        // btnDeletar.innerHTML = "Deletar";
-                        // btnAlterar.innerHTML = "Alterar";
-                        // btnInformacao.innerHTML = "Informações";
+                            <button class="btn-crud red" id="btn_delete${i}" onclick="deletar(${publicacao.idplantacao})">Deletar</button>
+                            <button class="btn-crud green" id="btn_update${i}" onclick="alterar(${publicacao.idplantacao})">Alterar</button>
+                          
+                        `
 
-                        // btnDeletar.innerHTML = "Deletar";
-                        // btnAlterar.innerHTML = "Alterar";
-                        // btnInformacao.innerHTML = "Informações";
 
 
                         tdNome.className = "publicacao-nome";
-                        // btnAlterar.className = "btn-crud green"
-                        // btnInformacao.className = "btn-crud blue"
-                        // btnAlterar.id = "btnAlterar" + publicacao.idusuario;
-                        // btnAlterar.setAttribute("onclick", `editar(${publicacao.idusuario})`);
-                        // btnInformacao.setAttribute("onclick", `mostrar(${publicacao.idusuario})`);
 
-                        // btnDeletar.className = "btn-crud red"
-                        // btnDeletar.id = "btnDeletar" + publicacao.b_usuario;
-                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idusuario})`);
 
                         linha.appendChild(tdId);
                         linha.appendChild(tdNome);
                         linha.appendChild(tdButtons);
-                        // linha.appendChild(btnDeletar);
-                        // linha.appendChild(btnAlterar);
-                        // linha.appendChild(btnInformacao);
                         feed.appendChild(linha);
                     }
 
@@ -580,20 +498,6 @@
         });
     }
 
-    function testar() {
-        aguardar();
-
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
-
-        var divResultado = document.getElementById("div_feed");
-
-        divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
-        divResultado.innerHTML = formulario.get("descricao");
-
-
-
-        return false;
-    }
 
 
 
