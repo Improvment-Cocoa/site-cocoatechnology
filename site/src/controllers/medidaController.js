@@ -225,7 +225,6 @@ function temperatura_atual(req, res) {
 }
 
 function status_plantacoes(req, res) {
-
     var idCliente = req.params.idCliente;
 
     console.log(`Recuperando medidas em tempo real`);

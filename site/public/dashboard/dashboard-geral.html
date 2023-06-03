@@ -388,7 +388,7 @@
         );
     }
 
-    function obterTemperaturaAtual(idAquario) {
+    function obterTemperaturaAtual(idCliente) {
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
@@ -401,7 +401,7 @@
             if (response.ok) {
                 response.json().then(function (resposta_temperatura) {
                     console.log(`Dados recebidos para as temperaturas contantes: ${JSON.stringify(resposta_temperatura)}`);
-                    plotarGrafico2(resposta_temperatura, idAquario);
+                    plotarGrafico2(resposta_temperatura, idCliente);
 
                 });
             } else {
@@ -413,7 +413,7 @@
             });
     }
 
-    function plotarGrafico2(resposta_temperatura, idAquario) {
+    function plotarGrafico2(resposta_temperatura, idCliente) {
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -549,11 +549,4 @@
             config
         );
     }
-</script>
-<script>
-    import { delegate } from 'tippy.js'
-
-    const instancia = tippy('.bloco');
-    const umAtivo = createSingleton(instancia, {delay: 1000});
-
 </script>

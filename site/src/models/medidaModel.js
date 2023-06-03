@@ -21,21 +21,15 @@ function exibirPlantacoes(idCliente, limite_linhas) {
 
 function exibirLeituraPlantacoes(idPlantacao, limite_linhas) {
     instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select leitura.* from leitura join sensor on fkLeitura_sensor = idsensor
-	join plantacao on fkSensor_plantacao = idplantacao
-		where idplantacao = ${idPlantacao};`;
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select leitura.* from leitura join sensor on fkLeitura_sensor = idsensor
-	join plantacao on fkSensor_plantacao = idplantacao
-		where idplantacao = 5;
-`;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
+        instrucaoSql = `select 
+        retorno_temp ,
+        retorno_umidd,
+        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as dataLeitura_hora,
+        fkLeitura_sensor 
+        from leitura join sensor on fkLeitura_sensor = idsensor
+	    join plantacao on fkSensor_plantacao = idplantacao
+		where idplantacao = ${idPlantacao} order by idleitura desc limit 7;`;
+   
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -206,19 +200,20 @@ function medidas_temperatura_ultimas(idAquario, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
-function medidas_umidade_ultimas(idAquario, limite_linhas) {
+function medidas_umidade_ultimas(idPlantacao, limite_linhas) {
     instrucaoSql = `select   
     retorno_umidd as umidade ,
     retorno_temp as temperatura,
     dataLeitura_hora, 
     DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
     fkLeitura_sensor 
-    from leitura where fkLeitura_sensor = 2
+    from leitura join sensor on fkLeitura_sensor = idsensor where fkSensor_plantacao = ${idPlantacao}
 order by dataLeitura_hora desc limit ${limite_linhas};`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 function dados_umidade(idsensor, limite_linhas) {
 
     instrucaoSql = ''

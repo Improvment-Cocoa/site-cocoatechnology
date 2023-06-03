@@ -7,7 +7,7 @@ router.get("/exibirPlantacoes/:idCliente", function (req, res) {
     medidaController.exibirPlantacoes(req, res);
 });
 
-router.get("/exibirLeituraPlantacoes/:idCliente", function (req, res) {
+router.get("/exibirLeituraPlantacoes/:idPlantacao", function (req, res) {
     medidaController.exibirLeituraPlantacoes(req, res);
 });
 
@@ -27,7 +27,7 @@ router.get("/obterplantacoesemalerta/:idCliente", function (req, res) {
     medidaController.obterplantacoesemalerta(req, res);
 })
 
-router.get("/status_plantacoes/:idUsuario", function (req, res) {
+router.get("/status_plantacoes/:idCliente", function (req, res) {
     medidaController.status_plantacoes(req, res);
 })
 router.get("/obternomeplantacoes/:idCliente", function (req, res) {
@@ -58,7 +58,6 @@ router.get("/medidas_umidade_ultimas/:idsensor", function (req, res) {
 router.get("/temperatura_atual/:idCliente", function (req, res) {
     medidaController.temperatura_atual(req, res);
 })
-
 
 router.get("/dados_umidade/:idsensor", function (req, res) {
     medidaController.dados_umidade(req, res);
