@@ -215,7 +215,7 @@
                 }
             });
 
-        fetch(`/medidas/ultimosDadosPlantacao/${sessionStorage.ID_USUARIO}`, {
+        fetch(`/medidas/plantaOrderStatus/${sessionStorage.ID_USUARIO}`, {
             method: "get"
         }).then(function (resposta) {
             if (resposta.ok) {
@@ -233,7 +233,7 @@
                             const tooltipContent = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF5555">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #FF5555">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`
 
                             tooltipArray.push({ target: blocoTip, content: tooltipContent })
-                        } else if (((linha.temperatura >= 27 && linha.temperatura <= 28) || (linha.temperatura >= 17 && linha.temperatura <= 19)) && (linha.umidade <= 85 && linha.umidade >= 75)) {
+                        } else if (((linha.temperatura > 26 && linha.temperatura < 29) || (linha.temperatura >= 17 && linha.temperatura <= 19)) && (linha.umidade <= 85 && linha.umidade >= 75)) {
                             alert_container.innerHTML += `
                             <div class="bloco" id="bloco${linha.idplantacao}"><img src="../assets/img/icones/orange-alert.png" alt="Cuidado"><span>${linha.nome}</span>
                             </div>
@@ -342,7 +342,7 @@
             if (registro.temperatura > 29 || registro.temperatura < 17) {
                 dados.datasets[0].backgroundColor.push("#FF5555");
                 dados.datasets[0].borderColor.push("#FF5555");
-            } else if ((registro.temperatura >= 27 && registro.temperatura <= 28) || (registro.temperatura >= 17 && registro.temperatura <= 19)) {
+            } else if ((registro.temperatura > 26 && registro.temperatura < 29) || (registro.temperatura >= 17 && registro.temperatura <= 19)) {
                 dados.datasets[0].backgroundColor.push("#FF9900");
                 dados.datasets[0].borderColor.push("#FF9900");
             } else if (registro.temperatura >= 25 && registro.temperatura <= 26) {
@@ -424,6 +424,7 @@
                 data: [],
                 backgroundColor: [],
                 borderColor: [],
+                borderWidth: 1,
                 fill: false,
 
                 tension: 0.1
@@ -439,20 +440,17 @@
             var registro = resposta_temperatura[i];
             labels.push(registro.nome);
             dados.datasets[0].data.push(registro.temperatura);
+
             console.log(registro)
 
             if (registro.temperatura > 29 || registro.temperatura < 17) {
                 dados.datasets[0].backgroundColor.push("#FF5555");
-                dados.datasets[0].borderColor.push("#FF5555");
             } else if ((registro.temperatura >= 27 && registro.temperatura <= 28) || (registro.temperatura >= 17 && registro.temperatura <= 19)) {
                 dados.datasets[0].backgroundColor.push("#FF9900");
-                dados.datasets[0].borderColor.push("#FF9900");
             } else if (registro.temperatura >= 25 && registro.temperatura <= 26) {
                 dados.datasets[0].backgroundColor.push("#FFCC00");
-                dados.datasets[0].borderColor.push("#FFCC00");
             } else {
                 dados.datasets[0].backgroundColor.push("#74C365");
-                dados.datasets[0].borderColor.push("#74C365");
             }
         }
 

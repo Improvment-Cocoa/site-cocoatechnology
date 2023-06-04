@@ -118,7 +118,7 @@ function status_plantacoes(idCliente) {
     select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( (retorno_temp > 29 or retorno_temp < 17) or (retorno_umidd > 85 or retorno_umidd < 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
     ) AS perigo,
     (
-    select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( ( (retorno_temp >= 27 and retorno_temp <= 28) or (retorno_temp >= 17 and retorno_temp <= 19) ) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
+    select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( ( (retorno_temp > 26 and retorno_temp < 29) or (retorno_temp >= 17 and retorno_temp <= 19) ) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
     ) AS cuidado,
     (
     select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( (retorno_temp >= 25 and retorno_temp <= 26) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
@@ -132,151 +132,44 @@ function status_plantacoes(idCliente) {
     return database.executar(instrucaoSql);
 }
 
-
-
-
-function buscarUltimasMedidas(idsensor, limite_linhas) {
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select 
-        retorno_temp as temperatura, 
-        retorno_umidd as umidade,
-        dataLeitura_hora,
-        fkLeitura_sensor
-                    from leitura where fkLeitura_sensor = ${idsensor};`;
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select retorno_umidd as umidade,
-        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico
-        from leitura where fkLeitura_sensor = 2
-        order by idleitura  desc limit 1;
-`;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function buscarMedidasEmTempoReal(idsensor) {
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select 
-        retorno_temp as temperatura, 
-        retorno_umidd as umidade,
-        dataLeitura_hora,
-        fkLeitura_sensor
-                    from leitura where fkLeitura_sensor = ${idsensor};`;
-
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select retorno_umidd as umidade,
-        retorno_temp as temperatura,
-        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico
-        from leitura where fkLeitura_sensor = 2
-        order by idleitura desc limit 1;`;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function medidas_temperatura_ultimas(idAquario, limite_linhas) {
-    instrucaoSql = `select   
-    retorno_temp as temperatura ,
-
+function plantaOrderStatus(idCliente) {
+    instrucaoSql = `
+    SELECT 
+    plantacao.idplantacao, 
+    plantacao.nome,
+    retorno_temp AS temperatura ,
+    retorno_umidd AS umidade,
     dataLeitura_hora, 
-    DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
+    DATE_FORMAT(dataLeitura_hora, '%H:%i:%s') AS momento_grafico, 
     fkLeitura_sensor 
-    from leitura where fkLeitura_sensor = 2
-    order by idleitura desc limit ${limite_linhas};`;
+FROM 
+    leitura 
+    JOIN sensor ON idsensor = fkLeitura_sensor
+    JOIN plantacao ON idplantacao = fkSensor_plantacao 
+    JOIN cliente ON fkPlantacao_cliente = idcliente
+WHERE 
+    idcliente = ${idCliente} 
+    AND idLeitura IN (SELECT MAX(idleitura) FROM leitura GROUP BY fkLeitura_sensor)
+ORDER BY 
+    CASE
+        WHEN (retorno_temp > 29 OR retorno_temp < 17) OR (retorno_umidd > 85 OR retorno_umidd < 75) THEN 1 -- Perigo
+        WHEN (retorno_temp > 26 AND retorno_temp < 29) OR (retorno_temp >= 17 AND retorno_temp <= 19) THEN 2 -- Cuidado
+        WHEN retorno_temp >= 25 AND retorno_temp <= 26 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 3 -- Atenção
+        WHEN retorno_temp >= 20 AND retorno_temp <= 24 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 4 -- Tranquilo
+    END;
+     `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function medidas_umidade_ultimas(idPlantacao, limite_linhas) {
-    instrucaoSql = `select   
-    retorno_umidd as umidade ,
-    retorno_temp as temperatura,
-    dataLeitura_hora, 
-    DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
-    fkLeitura_sensor 
-    from leitura join sensor on fkLeitura_sensor = idsensor where fkSensor_plantacao = ${idPlantacao}
-order by dataLeitura_hora desc limit ${limite_linhas};`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function dados_umidade(idsensor, limite_linhas) {
-
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select 
-        retorno_umidd as umidade,
-        dataLeitura_hora,
-        fkLeitura_sensor
-                    from leitura where fkLeitura_sensor = ${idsensor};`;
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select   
-        retorno_umidd as umidade ,
-        dataLeitura_hora, 
-        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
-        fkLeitura_sensor 
-        from leitura where fkLeitura_sensor = 2
-        order by idleitura  desc limit 5;`;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-
-function temperatura_atual(idCliente, limite_linhas) {
-    instrucaoSql = `select plantacao.nome, retorno_temp as temperatura , retorno_umidd as umidade from leitura
-        join sensor on idsensor = fkLeitura_sensor
-        join plantacao on idplantacao = fkSensor_plantacao 
-        join cliente on fkPlantacao_cliente = idcliente
-			where idcliente = ${idCliente} group by plantacao.nome, retorno_temp, retorno_umidd;
-        `;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-
-function obternomeplantacoes(idUsuario, limite_linhas) {
-    instrucaoSql = `select plantacao.nome as nome from plantacao 
-    join cliente on idcliente = fkPlantacao_cliente where idcliente = ${idUsuario};`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 
 module.exports = {
     exibirPlantacoes,
-    obternomeplantacoes,
     exibirLeituraPlantacoes,
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal,
-    medidas_temperatura_ultimas,
-    dados_umidade,
-    medidas_umidade_ultimas,
     ultimosDadosPlantacao,
-    temperatura_atual,
     obterquantidadeplantacoes,
     obterplantacoesemalerta,
     obterquantidadeusuario,
     status_plantacoes,
+    plantaOrderStatus,
 }

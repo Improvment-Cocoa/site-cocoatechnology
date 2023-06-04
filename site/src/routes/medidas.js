@@ -30,37 +30,9 @@ router.get("/obterplantacoesemalerta/:idCliente", function (req, res) {
 router.get("/status_plantacoes/:idCliente", function (req, res) {
     medidaController.status_plantacoes(req, res);
 })
-router.get("/obternomeplantacoes/:idCliente", function (req, res) {
-    medidaController.obternomeplantacoes(req, res);
-})
 
-
-
-
-
-
-
-router.get("/ultimas/:idsensor", function (req, res) {
-    medidaController.buscarUltimasMedidas(req, res);
-});
-
-router.get("/tempo-real/:idsensor", function (req, res) {
-    medidaController.buscarMedidasEmTempoReal(req, res);
-})
-
-router.get("/medidas_temperatura_ultimas/:idsensor", function (req, res) {
-    medidaController.medidas_temperatura_ultimas(req, res);
-})
-router.get("/medidas_umidade_ultimas/:idsensor", function (req, res) {
-    medidaController.medidas_umidade_ultimas(req, res);
-})
-
-router.get("/temperatura_atual/:idCliente", function (req, res) {
-    medidaController.temperatura_atual(req, res);
-})
-
-router.get("/dados_umidade/:idsensor", function (req, res) {
-    medidaController.dados_umidade(req, res);
+router.get("/plantaOrderStatus/:idCliente", function (req, res) {
+    medidaController.plantaOrderStatus(req, res);
 })
 
 module.exports = router;

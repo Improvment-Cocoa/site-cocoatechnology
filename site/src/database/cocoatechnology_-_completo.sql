@@ -184,7 +184,7 @@ insert into leitura values
 (null,now(),25.30,80.40,8);
 
 insert into leitura values
-(null,now(),21.30,82.40,1);
+(null,now(), 22.30, 83.40,1);
 
 -- SELECTS DO SITE:
 
@@ -264,9 +264,8 @@ join cliente on fkPlantacao_cliente = idcliente
 -- status da dashboard
        SELECT 
     idcliente AS cliente,
-    dataLeitura_hora,
     SUM(CASE WHEN ((retorno_temp > 29 OR retorno_temp < 17) OR (retorno_umidd > 85 OR retorno_umidd < 75)) THEN 1 ELSE 0 END) AS perigo,
-    SUM(CASE WHEN (((retorno_temp >= 27 AND retorno_temp <= 28) OR (retorno_temp >= 17 AND retorno_temp <= 19)) 
+    SUM(CASE WHEN (((retorno_temp > 26 AND retorno_temp < 29) OR (retorno_temp >= 17 AND retorno_temp <= 19)) 
                 AND (retorno_umidd <= 85 AND retorno_umidd >= 75)) THEN 1 ELSE 0 END) AS cuidado,
     SUM(CASE WHEN ((retorno_temp >= 25 AND retorno_temp <= 26) AND (retorno_umidd <= 85 AND retorno_umidd >= 75)) THEN 1 ELSE 0 END) AS atencao,
     SUM(CASE WHEN ((retorno_temp >= 20 AND retorno_temp <= 24) AND (retorno_umidd <= 85 AND retorno_umidd >= 75)) THEN 1 ELSE 0 END) AS tranquilo
@@ -279,7 +278,7 @@ WHERE
     idcliente = 2 
     AND idleitura IN (SELECT MAX(idleitura) FROM leitura GROUP BY fkLeitura_sensor) 
 GROUP BY 
-    idcliente, dataLeitura_hora;
+    idcliente;
     
 -- retornando as leituras de uma plantação específica
 select leitura.* from leitura join sensor on fkLeitura_sensor = idsensor
@@ -297,3 +296,28 @@ select  plantacao.idplantacao, plantacao.nome,
         join plantacao on idplantacao = fkSensor_plantacao 
         join cliente on fkPlantacao_cliente = idcliente
 			where idcliente = 2 and idLeitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor);
+            
+-- tabela dash
+SELECT 
+    plantacao.idplantacao, 
+    plantacao.nome,
+    retorno_temp AS temperatura ,
+    retorno_umidd AS umidade,
+    dataLeitura_hora, 
+    DATE_FORMAT(dataLeitura_hora, '%H:%i:%s') AS momento_grafico, 
+    fkLeitura_sensor 
+FROM 
+    leitura 
+    JOIN sensor ON idsensor = fkLeitura_sensor
+    JOIN plantacao ON idplantacao = fkSensor_plantacao 
+    JOIN cliente ON fkPlantacao_cliente = idcliente
+WHERE 
+    idcliente = 2 
+    AND idLeitura IN (SELECT MAX(idleitura) FROM leitura GROUP BY fkLeitura_sensor)
+ORDER BY 
+    CASE
+        WHEN (retorno_temp > 29 OR retorno_temp < 17) OR (retorno_umidd > 85 OR retorno_umidd < 75) THEN 1 -- Perigo
+        WHEN (retorno_temp > 26 AND retorno_temp < 29) OR (retorno_temp >= 17 AND retorno_temp <= 19) THEN 2 -- Cuidado
+        WHEN retorno_temp >= 25 AND retorno_temp <= 26 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 3 -- Atenção
+        WHEN retorno_temp >= 20 AND retorno_temp <= 24 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 4 -- Tranquilo
+    END;
