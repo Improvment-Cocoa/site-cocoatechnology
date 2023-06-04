@@ -145,12 +145,10 @@
 
 </html>
 <script>
-
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     var tipo_de_usuario = sessionStorage.TIPO_CLIENTE;
     var idcliente = sessionStorage.ID_USUARIO;
     function api_cep() {
-
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
         var tipo_de_usuario = sessionStorage.TIPO_CLIENTE
         function api_cep() {
@@ -365,42 +363,42 @@ Cocoa Technology`,
 
 
     function alterar(idAviso) {
-      Swal.fire({
-        background: '#151515',
-        color: '#FFF',
-        title: '<span class="custom-title">Editar Plantação</span>',
-        html: `
+        Swal.fire({
+            background: '#151515',
+            color: '#FFF',
+            title: '<span class="custom-title">Editar Plantação</span>',
+            html: `
         <center>
           <div class="input-container">
             <input type="text" id="input_nome_plant"  placeholder="Nome da Plantação" />
           </div>
           </center>
         `,
-        showCancelButton: true,
-        confirmButtonText: 'Alterar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#74C365',
-        cancelButtonColor: '#FF5555',
-        preConfirm: () => {
-          var nome = document.getElementById('input_nome_plant').value;
-          
+            showCancelButton: true,
+            confirmButtonText: 'Alterar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#74C365',
+            cancelButtonColor: '#FF5555',
+            preConfirm: () => {
+                var nome = document.getElementById('input_nome_plant').value;
 
-          alterarUsuario(idAviso);
-        }
-      });
+
+                alterarUsuario(idAviso);
+            }
+        });
     }
 
     function alterarUsuario(idAviso) {
-      var input_nome_plant = document.getElementById('input_nome_plant');
+        var input_nome_plant = document.getElementById('input_nome_plant');
 
-      var nome = input_nome_plant.value;
-   
-
+        var nome = input_nome_plant.value;
 
 
 
 
-      fetch(`/avisos/editar_plantacao/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
+
+
+        fetch(`/avisos/editar_plantacao/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -413,16 +411,16 @@ Cocoa Technology`,
 
             if (resposta.ok) {
                 Swal.fire({
-                                icon: 'success',
-                                background: '#151515',
-                                color: '#FFF',
-                                title: 'Bom trabalho!',
-                                text: 'PLantação Atualizada com sucesso',
-                                showConfirmButton: false,
-                            })
-            document.getElementById('okButton').addEventListener('click', function() {
-          Swal.close();
-         });
+                    icon: 'success',
+                    background: '#151515',
+                    color: '#FFF',
+                    title: 'Bom trabalho!',
+                    text: 'PLantação Atualizada com sucesso',
+                    showConfirmButton: false,
+                })
+                document.getElementById('okButton').addEventListener('click', function () {
+                    Swal.close();
+                });
                 window.location = "cadastrar-usuario.html"
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");

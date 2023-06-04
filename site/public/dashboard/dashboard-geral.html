@@ -126,10 +126,10 @@
                     <div class="states">
                         <div style="background-color: #FF5555;">
                             < 17°C</div>
-                                <div style="background-color: #FF9900;">17°C <br>a<br> 19°C</div>
+                                <div style="background-color: #e68a01;">17°C <br>a<br> 19°C</div>
                                 <div style="background-color: #74C365;">20°C <br>a<br> 24°C</div>
-                                <div style="background-color: #FFCC00;">25°C <br>a<br> 26°C</div>
-                                <div style="background-color: #FF9900;">27°C <br>a<br> 28°C</div>
+                                <div style="background-color: #ecbf0d;">25°C <br>a<br> 26°C</div>
+                                <div style="background-color: #e68a01;">27°C <br>a<br> 28°C</div>
                                 <div style="background-color: #FF5555;">29°C < </div>
                                 </div>
                                 <div class="state-box">
@@ -153,6 +153,9 @@
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
 <script>
+
+    const tooltipArray = [];
+
     const imgInfo = document.getElementById('info_img');
     setInterval(function () {
         imgInfo.classList.toggle('paused');
@@ -207,7 +210,7 @@
                 if (resposta.ok) {
                     resposta.json().then((jsonQtdPlantacaoAlerta) => {
                         console.log(jsonQtdPlantacaoAlerta)
-                        numero_de_alertas.innerHTML = `${jsonQtdPlantacaoAlerta[0].alertaPerigo}`
+                        numero_de_alertas.innerHTML = `${jsonQtdPlantacaoAlerta[0].alerta}`
                     })
                 }
             });
@@ -226,57 +229,51 @@
                             </div>
                             `
 
-                            tippy(`#bloco${linha.idplantacao}`, {
-                                content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF5555">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #FF5555">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
-                                placement: 'top',
-                                arrow: true,
-                                animation: 'fade',
-                                interactive: true,
-                                allowHTML: true,
-                            });
+                            const blocoTip = `#bloco${linha.idplantacao}`;
+                            const tooltipContent = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF5555">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #FF5555">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`
+
+                            tooltipArray.push({ target: blocoTip, content: tooltipContent })
                         } else if (((linha.temperatura >= 27 && linha.temperatura <= 28) || (linha.temperatura >= 17 && linha.temperatura <= 19)) && (linha.umidade <= 85 && linha.umidade >= 75)) {
                             alert_container.innerHTML += `
                             <div class="bloco" id="bloco${linha.idplantacao}"><img src="../assets/img/icones/orange-alert.png" alt="Cuidado"><span>${linha.nome}</span>
                             </div>
                             `
 
-                            tippy(`#bloco${linha.idplantacao}`, {
-                                content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF9900">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
-                                placement: 'top',
-                                arrow: true,
-                                animation: 'fade',
-                                interactive: true,
-                                allowHTML: true,
-                            });
+                            const blocoTip = `#bloco${linha.idplantacao}`;
+                            const tooltipContent = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FF9900">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`
+
+                            tooltipArray.push({ target: blocoTip, content: tooltipContent })
                         } else if ((linha.temperatura >= 25 && linha.temperatura <= 26) && (linha.umidade <= 85 && linha.umidade >= 75)) {
                             alert_container.innerHTML += `
                             <div class="bloco" id="bloco${linha.idplantacao}"><img src="../assets/img/icones/warning.png" alt="Atenção"><span>${linha.nome}</span>
                             </div>
                             `
+                            const blocoTip = `#bloco${linha.idplantacao}`;
+                            const tooltipContent = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FFCC00">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`
 
-                            tippy(`#bloco${linha.idplantacao}`, {
-                                content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #FFCC00">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
-                                placement: 'top',
-                                arrow: true,
-                                animation: 'fade',
-                                interactive: true,
-                                allowHTML: true,
-                            });
+                            tooltipArray.push({ target: blocoTip, content: tooltipContent })
                         } else {
                             alert_container.innerHTML += `
                             <div class="bloco" id="bloco${linha.idplantacao}"><img src="../assets/img/icones/fine.png" alt="ok"><span>${linha.nome}</span>
                             </div>
                             `
+                            const blocoTip = `#bloco${linha.idplantacao}`;
+                            const tooltipContent = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #74C365">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`
 
-                            tippy(`#bloco${linha.idplantacao}`, {
-                                content: `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; font-size: 12px; gap: 10px;"> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"> <p>Temperatura Atual: <span style="color: #74C365">${linha.temperatura}°C</span></p> <p>Temperatura ideal: <span style="color: #74C365">22°C</span></p></div> <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; width: 100%;"><p>Umidade Atual: <span style="color: #74C365">${linha.umidade}%</span></p> <p>Umidade ideal: <span style="color: #74C365">80%</span></p></div></div>`,
-                                placement: 'top',
-                                arrow: true,
-                                animation: 'fade',
-                                interactive: true,
-                                allowHTML: true,
-                            });
+                            tooltipArray.push({ target: blocoTip, content: tooltipContent })
                         }
+                    });
+                }).then(() => {
+                    tooltipArray.forEach((tooltip) => {
+                        const balao = document.querySelector(tooltip.target);
+                        tippy(balao, {
+                            content: tooltip.content,
+                            placement: 'top',
+                            arrow: true,
+                            animation: 'fade',
+                            interactive: true,
+                            allowHTML: true,
+                        });
                     });
                 })
             }
@@ -507,7 +504,7 @@
         let dados = {
             labels: ['Tranquilo', 'Cuidado', 'Atenção', 'Perigo'],
             datasets: [{
-                label: ['Plantações tranquilas', 'Plantações em delicadeza', 'Plantaçoes em atenção', 'Plantações em perigo'],
+                label: ['Quantidade de plantações'],
                 data: [],
                 backgroundColor: ['#74C365', '#FFCC00', '#FF9900', '#FF5555'],
                 borderColor: ['#74C365', '#FFCC00', '#FF9900', '#FF5555'],

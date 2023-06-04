@@ -270,6 +270,18 @@ input:hover {
   right: 80px;
 }
 
+#span_validar_email {
+  position: absolute;
+  top: 38.5vh;
+  right: 55px;
+}
+
+#span_nome_validacao {
+  position: absolute;
+  top: 39vh;
+  left: 85px;
+}
+
 .botao {
   padding: 10px;
   width: 150px;

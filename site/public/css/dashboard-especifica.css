@@ -309,6 +309,52 @@ nav button:hover {
     padding: 2rem;
 }
 
+#dados_reais {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    padding: 10px;
+}
+
+#dados_reais div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 22vh;
+    gap: 5vh;
+}
+
+#dados_reais div text h3 {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.green {
+    color: #74C365;
+    letter-spacing: 1px;
+}
+
+.yellow {
+    color: #FFCC00;
+    letter-spacing: 1px;
+}
+
+.orange {
+    color: #FF9900;
+    letter-spacing: 1px;
+}
+
+.red {
+    color: #FF5555;
+    letter-spacing: 1px;
+}
+
 /* canvas {
     height: auto;
     width: 40vw;

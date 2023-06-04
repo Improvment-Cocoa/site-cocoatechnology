@@ -92,8 +92,18 @@ select * from plantacao_param;
 select * from plantacao;
 select * from tipo_sensor;
 select * from sensor;
-select * from leitura;
+select * from leitura order by idleitura desc;
 
+truncate table endereco;
+truncate table tipo_cliente;
+truncate table cliente;
+truncate table usuario;
+truncate table telefone;
+truncate table plantacao_param;
+truncate table plantacao;
+truncate table tipo_sensor;
+truncate table sensor;
+truncate table leitura;
 
 -- inserts
 insert into endereco values
@@ -108,7 +118,7 @@ insert into tipo_cliente values
 
 insert into cliente values
 (null , 'Cacau Bom' , 'cacau.bom@gmail.com' , '12345678' , '61934918059' , 45632187456951 , 1 , 1),
-(null , 'Show de cacau' , 'showcacau@gmail.com' , '65789621' ,'42722006073' , 48562136874562 , 2 , 1),
+(null , 'Show de cacau' , 'showcacau@gmail.com' , '12345678' ,'42722006073' , 48562136874562 , 2 , 1),
 (null , 'Luiz dos santos' , 'luiz.ofc@gmail.com' , '965412387' , '11414713029' , 84563974125863 , 3 , 2),
 (null , 'Mariana Luiza da silva' , 'mariana.ofc@gmail.com' , '658756321' , '70236969030' , 89865412354879 , 4 , 2); 
 
@@ -125,6 +135,7 @@ insert into telefone values
 (null , '46098930' , 'Fixo' , 4);
 
 insert into plantacao_param values
+(null, 15.50, 29.40, 60.20, 99.99),
 (null , 18.20 , 26.70 , 60.80 , 98.40),
 (null , 15.20 , 28.40 , 41.30 , 87.20),
 (null , 16.70 , 29.40 , 70.10 , 90.20),
@@ -138,50 +149,44 @@ insert into plantacao values
 (null,'Show de cacau',700,3,3,2),
 (null,'Bahianos do cacau',900,4,4,4);
 
+desc plantacao;
 insert into plantacao values
-(null,'Cacauzinha',100,2,2,5),
-(null,'Chocolatinha INC',300,2,2,5),
-(null,'Doce Amor',300,2,2,5),
-(null,'Fabrica de chocolate Benta',1000,2,2,5);
+(null,'Cacauzinha',100,2,2,1),
+(null,'Chocolatinha INC',300,2,2,1),
+(null,'Doce Amor',300,2,2,1),
+(null,'Fabrica de chocolate Benta',1000,2,2,1);
 
 insert into tipo_sensor values
 (null,'Temperatura','ºC'),
-(null , 'Umidade' , '%');
+(null , 'Umidade' , '%'),
+(null , 'Temperatura e umidade' , 'ºC e %');
 
-
+desc sensor;
 insert into sensor values
-(null , 'Higrômetro' , 'Ativo' , 2 , 1),
+(null , 'DHT11.V8' , 'Ativo' , 1 , 3),
+(null , 'DHT11.V9' , 'Ativo' , 2 , 1),
 (null , 'LM35' , 'Manutenção' , 3 , 2),
-(null , 'DHT11' , 'Ativo' , 1 , 1),
-(null , 'DHT11' , 'Desativado' , 4 , 1);
-
-insert into sensor values
+(null , 'DHT11.V7' , 'Desativado' , 4 , 3),
 (null , 'DHT11' , 'Ativo' , 5 , 1),
 (null , 'DHT11' , 'Ativo' , 6 , 1),
 (null , 'DHT11' , 'Ativo' , 7 , 1),
 (null , 'DHT11' , 'Ativo' , 8 , 1);
 
+desc leitura;
 insert into leitura values
-(null,'2018-12-03 12:20:25',27.30,83.40,2),
-(null,'2020-11-27 13:45:10',25.10,93.20,3),
-(null,'2022-01-28 16:15:45',39.40,95.20,4);
+(null,now(),23.30,83.40,1),
+(null,now(),24.10,83.20,2),
+(null,now(),35.40,95.20,3),
+(null,now(),21.70,84.20,4),
+(null,now(),28.10,80.20,5),
+(null,now(),17.90,93.20,6),
+(null,now(),16.30,90.40,7),
+(null,now(),25.30,80.40,8);
 
 insert into leitura values
-(null,'2020-11-27 13:45:10',21.70,85.20,3),
-(null,'2020-11-27 13:46:10',21.10,80.20,3),
-(null,'2023-05-05 12:20:25',30.30,90.40,5),
-(null,'2023-05-05 12:20:25',27.30,80.40,6),
-(null,'2023-05-05 12:20:25',23.30,83.40,7),
-(null,'2020-11-27 13:47:10',29.90,93.20,3);
+(null,now(),21.30,82.40,1);
 
-insert into leitura values
-(null,'2023-05-05 12:20:25',17.30,80.40,8);
-
-insert into leitura values
-(null,'2023-05-05 12:10:25',23.30,77.40,5),
-(null,'2023-05-05 12:11:25',28.30,80.90,5),
-(null,'2023-05-05 12:12:25',24.30,83.00,5),
-(null,'2023-05-05 12:13:25',25.30,40.40,5);
+-- SELECTS DO SITE:
 
 -- Cliente + tipo_cliente + endereço
 SELECT * FROM cliente JOIN tipo_cliente ON idTipo_cliente = fkTipo_cliente JOIN
@@ -217,9 +222,20 @@ select * from sensor;
 select * from plantacao;
 
 -- select da contagem de plantacões em perigo
-select count(distinct idleitura) as alertaPerigo from plantacao join sensor on fkSensor_plantacao = idsensor
-	join leitura on fkLeitura_sensor = idsensor join cliente on fkPlantacao_cliente = idcliente
-		where (retorno_temp > 27 OR retorno_umidd > 85) AND idcliente = 2;
+SELECT
+    COUNT(DISTINCT p.idplantacao) AS alerta
+FROM
+    cliente c
+    JOIN plantacao p ON c.idcliente = p.fkPlantacao_cliente
+    JOIN sensor s ON p.idplantacao = s.fkSensor_plantacao
+    JOIN leitura l ON s.idsensor = l.fkLeitura_sensor
+WHERE
+    c.idcliente = 2
+    AND (
+        (l.retorno_temp > 29 OR l.retorno_temp < 17)
+        OR (l.retorno_umidd > 85 OR l.retorno_umidd < 75)
+    )
+    AND l.idleitura IN (SELECT MAX(idleitura) FROM leitura GROUP BY fkLeitura_sensor);
         
 -- select qtd de usuario por cliente
 SELECT COUNT(idusuario) AS qtdUsu FROM usuario where fkUsuario_cliente = 1;
@@ -227,6 +243,9 @@ SELECT COUNT(idusuario) AS qtdUsu FROM usuario where fkUsuario_cliente = 1;
 -- select qtd de plantações od cliente
 SELECT COUNT(idplantacao) AS qtdPlantacao FROM plantacao join cliente on fkPlantacao_cliente = idcliente
 	where idcliente = 1;
+
+-- select plantacoes cliente 
+select plantacao.nome as nome from plantacao join cliente on idcliente = fkPlantacao_cliente where idcliente = 2;
 
 -- ultima temperatura
 select plantacao.nome, retorno_temp as temperatura , retorno_umidd as umidade from leitura
@@ -242,40 +261,32 @@ join plantacao on fkSensor_plantacao = idplantacao
 join cliente on fkPlantacao_cliente = idcliente
 	where idcliente = 2 GROUP BY plantacao.nome, retorno_temp, retorno_umidd, dataLeitura_hora, fkLeitura_sensor ORDER BY dataLeitura_hora DESC;
     
--- tabela da dashboard
-SELECT p.idplantacao, p.nome, l.retorno_temp AS temperatura, l.retorno_umidd AS umidade, l.dataLeitura_hora, l.fkLeitura_sensor
-FROM plantacao p
-JOIN cliente c ON p.fkPlantacao_cliente = c.idcliente
-JOIN (
-  SELECT l2.*
-  FROM leitura l2
-  JOIN (
-    SELECT MAX(dataLeitura_hora) AS ultima_data, fkLeitura_sensor
-    FROM leitura
-    GROUP BY fkLeitura_sensor
-  ) l3 ON l2.dataLeitura_hora = l3.ultima_data AND l2.fkLeitura_sensor = l3.fkLeitura_sensor
-) l ON p.idplantacao = l.fkLeitura_sensor
-WHERE c.idcliente = 2 order by temperatura desc;
+-- status da dashboard
+       SELECT 
+    idcliente AS cliente,
+    dataLeitura_hora,
+    SUM(CASE WHEN ((retorno_temp > 29 OR retorno_temp < 17) OR (retorno_umidd > 85 OR retorno_umidd < 75)) THEN 1 ELSE 0 END) AS perigo,
+    SUM(CASE WHEN (((retorno_temp >= 27 AND retorno_temp <= 28) OR (retorno_temp >= 17 AND retorno_temp <= 19)) 
+                AND (retorno_umidd <= 85 AND retorno_umidd >= 75)) THEN 1 ELSE 0 END) AS cuidado,
+    SUM(CASE WHEN ((retorno_temp >= 25 AND retorno_temp <= 26) AND (retorno_umidd <= 85 AND retorno_umidd >= 75)) THEN 1 ELSE 0 END) AS atencao,
+    SUM(CASE WHEN ((retorno_temp >= 20 AND retorno_temp <= 24) AND (retorno_umidd <= 85 AND retorno_umidd >= 75)) THEN 1 ELSE 0 END) AS tranquilo
+FROM 
+    leitura 
+    JOIN sensor ON idsensor = fkLeitura_sensor 
+    JOIN plantacao ON idplantacao = fkSensor_plantacao 
+    JOIN cliente ON fkPlantacao_cliente = idcliente 
+WHERE 
+    idcliente = 2 
+    AND idleitura IN (SELECT MAX(idleitura) FROM leitura GROUP BY fkLeitura_sensor) 
+GROUP BY 
+    idcliente, dataLeitura_hora;
     
 -- retornando as leituras de uma plantação específica
--- usar para pegar e atualizar os dados na plotagem
 select leitura.* from leitura join sensor on fkLeitura_sensor = idsensor
 	join plantacao on fkSensor_plantacao = idplantacao
-		where idplantacao = 1 ORDER BY dataLeitura_hora DESC;
-
-select  plantacao.idplantacao, plantacao.nome,
-        retorno_temp as temperatura ,
-        retorno_umidd as umidade,
-        dataLeitura_hora, 
-        DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as momento_grafico, 
-        fkLeitura_sensor, leitura.*
-        from leitura join sensor on idsensor = fkLeitura_sensor
-        join plantacao on idplantacao = fkSensor_plantacao 
-        join cliente on fkPlantacao_cliente = idcliente
-			where idcliente = 2 and idplantacao = 5 and idLeitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor);
+		where idplantacao = 1 ORDER BY dataLeitura_hora DESC limit 11;
         
--- retornando ultimos dados dos sensores (sem especificar a plantacao)
---usar na plotagem da criação de graficos
+-- retornando ultimos dados dos sensores
 select  plantacao.idplantacao, plantacao.nome,
         retorno_temp as temperatura ,
         retorno_umidd as umidade,
@@ -286,7 +297,3 @@ select  plantacao.idplantacao, plantacao.nome,
         join plantacao on idplantacao = fkSensor_plantacao 
         join cliente on fkPlantacao_cliente = idcliente
 			where idcliente = 2 and idLeitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor);
-            
-            
-insert into leitura values 
-(null,'2020-11-27 20:45:10',25.10,93.20,3);

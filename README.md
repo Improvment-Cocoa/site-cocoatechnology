@@ -27,7 +27,7 @@ Site construido para a segunda sprint do primeiro semestre de 2023 da faculdade 
 
 #
 
-- 📌 Em progresso.
+- 📌 Finalizado.
 - 🔗 Sem link no momento
 
 

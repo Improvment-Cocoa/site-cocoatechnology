@@ -22,6 +22,7 @@ function exibirPlantacoes(idCliente, limite_linhas) {
 function exibirLeituraPlantacoes(idPlantacao, limite_linhas) {
     instrucaoSql = ''
         instrucaoSql = `select 
+        plantacao.nome,
         retorno_temp ,
         retorno_umidd,
         DATE_FORMAT(dataLeitura_hora,'%H:%i:%s') as dataLeitura_hora,
@@ -69,22 +70,21 @@ function obterquantidadeusuario(idCliente) {
 }
 
 function obterplantacoesemalerta(idCliente) {
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select count(distinct idleitura) as alertaPerigo from plantacao join sensor on fkSensor_plantacao = idsensor
-        join leitura on fkLeitura_sensor = idsensor join cliente on fkPlantacao_cliente = idcliente
-            where (retorno_temp > 27 OR retorno_umidd > 85) AND idcliente = ${idCliente};`;
-    }
-    else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select count(distinct idleitura) as alertaPerigo from plantacao join sensor on fkSensor_plantacao = idsensor
-        join leitura on fkLeitura_sensor = idsensor join cliente on fkPlantacao_cliente = idcliente
-            where (retorno_temp > 27 OR retorno_umidd > 85) AND idcliente = ${idCliente};
+        instrucaoSql = `SELECT
+        COUNT(DISTINCT p.idplantacao) AS alerta
+    FROM
+        cliente c
+        JOIN plantacao p ON c.idcliente = p.fkPlantacao_cliente
+        JOIN sensor s ON p.idplantacao = s.fkSensor_plantacao
+        JOIN leitura l ON s.idsensor = l.fkLeitura_sensor
+    WHERE
+        c.idcliente = ${idCliente}
+        AND (
+            (l.retorno_temp > 29 OR l.retorno_temp < 17)
+            OR (l.retorno_umidd > 85 OR l.retorno_umidd < 75)
+        )
+        AND l.idleitura IN (SELECT MAX(idleitura) FROM leitura GROUP BY fkLeitura_sensor);
         `;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -55,7 +55,7 @@
             </div>
             <span id="plantacoes">
                 <div class="plantacao-container select-disable">
-                    <h2>Plantação - Rua Haddock Lobo</h2>
+                    <h2 id="titulo_plantacao">Plantação - Rua Haddock Lobo</h2>
                     <div id="status-box">
                         <div class="chart-box">
                             <h3>Temperatura e Umidade em tempo real</h3>
@@ -67,14 +67,30 @@
                             <div class="info-plantacao">
                                 <div class="card-info">
                                     <h3>Status da plantação:</h3>
-                                    <span
-                                        style="color: #FF5555; align-self: center; letter-spacing: 2px; font-size: 22px;">TRANQUILO</span>
+                                    <span id="titulo_status"
+                                        style="align-self: center; letter-spacing: 2px !important; font-size: 22px;">
+                                        <article class="red">TRANQUILO</article>
+                                    </span>
                                     <div id="dados_reais">
                                         <div>
-
+                                            <text>
+                                                <h3>Temperatura Atual:</h3>
+                                                <span id="temp_atual">22.30°C</span>
+                                            </text>
+                                            <text>
+                                                <h3>Temperatura Ideal:</h3>
+                                                <span class="green">20°C a 23°C</span>
+                                            </text>
                                         </div>
                                         <div>
-
+                                            <text>
+                                                <h3>Umidade Atual:</h3>
+                                                <span id="umidd_atual">83%</span>
+                                            </text>
+                                            <text>
+                                                <h3>Umidade Ideal:</h3>
+                                                <span class="green">75% a 85%</span>
+                                            </text>
                                         </div>
                                     </div>
                                 </div>
@@ -87,22 +103,6 @@
     </div>
 </body>
 
-
-<!-- <div class="infos-graficos">
-    <h2>Status da plantação:</h2>
-    <span style="color: #74C365;" class="status">TRANQUILA</span>
-    <div>
-        <div>
-            <span>Temperatura atual:</span>
-            <span style="color: #FF5555;">23°C</span>
-        </div>
-        <div>
-            <span>Temperatura ideal:</span>
-            <span>10°C a 23°C</span>
-        </div>
-    </div>
-</div> -->
-
 </html>
 <script>
     var myChart;
@@ -112,6 +112,7 @@
     let proximaAtualizacao;
     let tempAtual;
     let umiddAtual;
+    let nomePlantacao;
 
     function obterDadosGraficos() {
         obterPlantacoesCliente()
@@ -123,17 +124,7 @@
         myChart.destroy()
         obterDadosGrafico(plantaSelec)
     }
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
 
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
     var primeiraPlot = true
 
     function obterDadosGrafico(idPlantacao) {
@@ -170,7 +161,6 @@
                     for (var i = 0; i < resposta.length; i++) {
                         slc_plantacao.innerHTML += `<option value="${resposta[i].idplantacao}">${resposta[i].nome}</option>`
                         console.log("Dados dos clientes" + resposta[i].idplantacao)
-
                     }
                 });
             } else {
@@ -186,10 +176,11 @@
         console.log('iniciando plotagem do gráfico...');
         // Criando estrutura para plotar gráfico - labels
 
-
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
+
+        titulo_plantacao.innerText = `Plantação - ${resposta[0].nome}`;
 
         let labels = [];
 
@@ -200,14 +191,16 @@
                 label: 'Umidade',
                 data: [],
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: [],
+                borderColor: [],
                 tension: 0.1
             },
             {
                 label: 'Temperatura',
                 data: [],
                 fill: false,
-                borderColor: 'rgb(199, 52, 52)',
+                backgroundColor: [],
+                borderColor: [],
                 tension: 0.1
             }]
         };
@@ -219,6 +212,63 @@
             console.log("Os dados é " + registro[i])
             dados.datasets[1].data.push(registro.retorno_temp);
             dados.datasets[0].data.push(registro.retorno_umidd);
+
+            tempAtual = dados.datasets[1].data[dados.datasets[1].data.length - 1];
+            umiddAtual = dados.datasets[0].data[dados.datasets[0].data.length - 1];
+
+            if ((tempAtual > 29 || tempAtual < 17) || (umiddAtual > 85 || umiddAtual < 75)) {
+                titulo_status.innerHTML = `<article class="red">PERIGO</article>`
+
+            } else if (((tempAtual >= 27 && tempAtual <= 28) || (tempAtual >= 17 && tempAtual <= 19)) && (umiddAtual <= 85 && umiddAtual >= 75)) {
+                titulo_status.innerHTML = `<article class="orange">CUIDADO</article>`
+
+            } else if ((tempAtual >= 25 && tempAtual <= 26) && (umiddAtual <= 85 && umiddAtual >= 75)) {
+                titulo_status.innerHTML = `<article class="yellow">ATENÇÃO</article>`
+
+            } else {
+                titulo_status.innerHTML = `<article class="green">TRANQUILO</article>`
+
+            }
+
+            if (registro.retorno_temp > 29 || registro.retorno_temp < 17) {
+                dados.datasets[1].borderColor.push('#FF5555');
+                dados.datasets[1].backgroundColor.push('#FF5555');
+
+                temp_atual.innerText = `${registro.retorno_temp}`
+                temp_atual.style.color = '#FF5555'
+            } else if ((registro.retorno_temp >= 27 && registro.retorno_temp <= 28) || (registro.retorno_temp >= 17 && registro.retorno_temp <= 19)) {
+                dados.datasets[1].borderColor.push('#FF9900');
+                dados.datasets[1].backgroundColor.push('#FF9900');
+
+                temp_atual.innerText = `${registro.retorno_temp}`
+                temp_atual.style.color = '#FF9900'
+            } else if (registro.retorno_temp >= 25 && registro.retorno_temp <= 26) {
+                dados.datasets[1].borderColor.push('#FFCC00');
+                dados.datasets[1].backgroundColor.push('#FFCC00');
+
+                temp_atual.innerText = `${registro.retorno_temp}`
+                temp_atual.style.color = '#FFCC00'
+            } else {
+                dados.datasets[1].borderColor.push('#74C365');
+                dados.datasets[1].backgroundColor.push('#74C365');
+
+                temp_atual.innerText = `${registro.retorno_temp}`
+                temp_atual.style.color = '#74C365'
+            }
+
+            if (registro.retorno_umidd > 85 || registro.retorno_umidd < 75) {
+                dados.datasets[0].borderColor.push('#FF5555');
+                dados.datasets[0].backgroundColor.push('#FF5555');
+
+                umidd_atual.innerText = `${registro.retorno_umidd}`
+                umidd_atual.style.color = '#FF5555'
+            } else {
+                dados.datasets[0].borderColor.push('#74C365');
+                dados.datasets[0].backgroundColor.push('#74C365');
+
+                umidd_atual.innerText = `${registro.retorno_umidd}`
+                umidd_atual.style.color = '#74C365'
+            }
         }
 
         console.log('----------------------------------------------')
@@ -228,9 +278,7 @@
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
-
         // Criando estrutura para plotar gráfico - config
-
 
         const config = {
             type: 'line',
@@ -244,9 +292,7 @@
 
         // Adicionando gráfico criado em div na tela
 
-
         myChart.update()
-
         setTimeout(() => {
             atualizarGrafico(idPlantacao, dados, myChart)
         }, 3000);
@@ -261,7 +307,6 @@
         fetch(`/medidas/exibirLeituraPlantacoes/${idPlantacao}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
-
 
                     // alertar(novoRegistro, idCliente);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
@@ -293,6 +338,78 @@
                         dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
                         dados.datasets[1].data.push(novoRegistro[0].retorno_temp); // incluir uma nova medida de temperatura
 
+                        if ((novoRegistro[0].retorno_temp > 29 || novoRegistro[0].retorno_temp < 17) || (novoRegistro[0].retorno_umidd > 85 || novoRegistro[0].retorno_umidd < 75)) {
+                            titulo_status.innerHTML = `<article class="red">PERIGO</article>`
+
+                        } else if (((novoRegistro[0].retorno_temp >= 27 && novoRegistro[0].retorno_temp <= 28) || (novoRegistro[0].retorno_temp >= 17 && novoRegistro[0].retorno_temp <= 19)) && (novoRegistro[0].retorno_umidd <= 85 && novoRegistro[0].retorno_umidd >= 75)) {
+                            titulo_status.innerHTML = `<article class="orange">CUIDADO</article>`
+
+                        } else if ((novoRegistro[0].retorno_temp >= 25 && novoRegistro[0].retorno_temp <= 26) && (novoRegistro[0].retorno_umidd <= 85 && novoRegistro[0].retorno_umidd >= 75)) {
+                            titulo_status.innerHTML = `<article class="yellow">ATENÇÃO</article>`
+
+                        } else {
+                            titulo_status.innerHTML = `<article class="green">TRANQUILO</article>`
+
+                        }
+
+                        if (novoRegistro[0].retorno_temp > 29 || novoRegistro[0].retorno_temp < 17) {
+                            dados.datasets[1].borderColor.shift();
+                            dados.datasets[1].borderColor.push('#FF5555');
+
+                            dados.datasets[1].backgroundColor.shift();
+                            dados.datasets[1].backgroundColor.push('#FF5555');
+
+                            temp_atual.innerText = `${novoRegistro[0].retorno_temp}`
+                            temp_atual.style.color = '#FF5555'
+                        } else if ((novoRegistro[0].retorno_temp >= 27 && novoRegistro[0].retorno_temp <= 28) || (novoRegistro[0].retorno_temp >= 17 && novoRegistro[0].retorno_temp <= 19)) {
+                            dados.datasets[1].borderColor.shift();
+                            dados.datasets[1].borderColor.push('#FF9900');
+
+                            dados.datasets[1].backgroundColor.shift();
+                            dados.datasets[1].backgroundColor.push('#FF9900');
+
+                            temp_atual.innerText = `${novoRegistro[0].retorno_temp}`
+                            temp_atual.style.color = '#FF9900'
+                        } else if (novoRegistro[0].retorno_temp >= 25 && novoRegistro[0].retorno_temp <= 26) {
+                            dados.datasets[1].borderColor.shift();
+                            dados.datasets[1].borderColor.push('#FFCC00');
+
+                            dados.datasets[1].backgroundColor.shift();
+                            dados.datasets[1].backgroundColor.push('#FFCC00');
+
+                            temp_atual.innerText = `${novoRegistro[0].retorno_temp}`
+                            temp_atual.style.color = '#FFCC00'
+                        } else {
+                            dados.datasets[1].borderColor.shift();
+                            dados.datasets[1].borderColor.push('#74C365');
+
+                            dados.datasets[1].backgroundColor.shift();
+                            dados.datasets[1].backgroundColor.push('#74C365');
+
+                            temp_atual.innerText = `${novoRegistro[0].retorno_temp}`
+                            temp_atual.style.color = '#74C365'
+                        }
+
+                        if (novoRegistro[0].retorno_umidd > 85 || novoRegistro[0].retorno_umidd < 75) {
+                            dados.datasets[0].borderColor.shift();
+                            dados.datasets[0].borderColor.push('#FF5555');
+
+                            dados.datasets[0].backgroundColor.shift();
+                            dados.datasets[0].backgroundColor.push('#FF5555');
+
+                            umidd_atual.innerText = `${novoRegistro[0].retorno_umidd}`
+                            umidd_atual.style.color = '#FF5555'
+                        } else {
+                            dados.datasets[0].borderColor.shift();
+                            dados.datasets[0].borderColor.push('#74C365');
+
+                            dados.datasets[0].backgroundColor.shift();
+                            dados.datasets[0].backgroundColor.push('#74C365');
+
+                            umidd_atual.innerText = `${novoRegistro[0].retorno_umidd}`
+                            umidd_atual.style.color = '#74C365'
+                        }
+
                         myChart.update();
                     }
                     tempAtual = dados.datasets[1].data[dados.datasets[1].data.length - 1];
@@ -312,6 +429,5 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-
     }
 </script>
