@@ -218,10 +218,10 @@
             if ((tempAtual > 29 || tempAtual < 17) || (umiddAtual > 85 || umiddAtual < 75)) {
                 titulo_status.innerHTML = `<article class="red">PERIGO</article>`
 
-            } else if (((tempAtual > 26 && tempAtual < 29) || (tempAtual >= 17 && tempAtual <= 19)) && (umiddAtual <= 85 && umiddAtual >= 75)) {
+            } else if (((tempAtual > 26 && tempAtual < 29) || (tempAtual >= 17 && tempAtual < 20)) && (umiddAtual <= 85 && umiddAtual >= 75)) {
                 titulo_status.innerHTML = `<article class="orange">CUIDADO</article>`
 
-            } else if ((tempAtual >= 25 && tempAtual <= 26) && (umiddAtual <= 85 && umiddAtual >= 75)) {
+            } else if ((tempAtual > 24 && tempAtual <= 26) && (umiddAtual <= 85 && umiddAtual >= 75)) {
                 titulo_status.innerHTML = `<article class="yellow">ATENÇÃO</article>`
 
             } else {
@@ -236,13 +236,13 @@
 
             temp_atual.innerText = `${registro.retorno_temp}`
             temp_atual.style.color = '#FF5555'
-        } else if ((registro.retorno_temp > 26 && registro.retorno_temp < 29) || (registro.retorno_temp >= 17 && registro.retorno_temp <= 19)) {
+        } else if ((registro.retorno_temp > 26 && registro.retorno_temp < 29) || (registro.retorno_temp >= 17 && registro.retorno_temp < 20)) {
             dados.datasets[1].borderColor.push('#FF9900');
             dados.datasets[1].backgroundColor.push('#FF9900');
 
             temp_atual.innerText = `${registro.retorno_temp}`
             temp_atual.style.color = '#FF9900'
-        } else if (registro.retorno_temp >= 25 && registro.retorno_temp <= 26) {
+        } else if (registro.retorno_temp > 24 && registro.retorno_temp <= 26) {
             dados.datasets[1].borderColor.push('#FFCC00');
             dados.datasets[1].backgroundColor.push('#FFCC00');
 
@@ -340,10 +340,10 @@
                         if ((novoRegistro[0].retorno_temp > 29 || novoRegistro[0].retorno_temp < 17) || (novoRegistro[0].retorno_umidd > 85 || novoRegistro[0].retorno_umidd < 75)) {
                             titulo_status.innerHTML = `<article class="red">PERIGO</article>`
 
-                        } else if (((novoRegistro[0].retorno_temp > 26 && novoRegistro[0].retorno_temp < 29) || (novoRegistro[0].retorno_temp >= 17 && novoRegistro[0].retorno_temp <= 19)) && (novoRegistro[0].retorno_umidd <= 85 && novoRegistro[0].retorno_umidd >= 75)) {
+                        } else if (((novoRegistro[0].retorno_temp > 26 && novoRegistro[0].retorno_temp < 29) || (novoRegistro[0].retorno_temp >= 17 && novoRegistro[0].retorno_temp < 20)) && (novoRegistro[0].retorno_umidd <= 85 && novoRegistro[0].retorno_umidd >= 75)) {
                             titulo_status.innerHTML = `<article class="orange">CUIDADO</article>`
 
-                        } else if ((novoRegistro[0].retorno_temp >= 25 && novoRegistro[0].retorno_temp <= 26) && (novoRegistro[0].retorno_umidd <= 85 && novoRegistro[0].retorno_umidd >= 75)) {
+                        } else if ((novoRegistro[0].retorno_temp > 24 && novoRegistro[0].retorno_temp <= 26) && (novoRegistro[0].retorno_umidd <= 85 && novoRegistro[0].retorno_umidd >= 75)) {
                             titulo_status.innerHTML = `<article class="yellow">ATENÇÃO</article>`
 
                         } else {
@@ -360,7 +360,7 @@
 
                             temp_atual.innerText = `${novoRegistro[0].retorno_temp}`
                             temp_atual.style.color = '#FF5555'
-                        } else if ((novoRegistro[0].retorno_temp > 26 && novoRegistro[0].retorno_temp < 29) || (novoRegistro[0].retorno_temp >= 17 && novoRegistro[0].retorno_temp <= 19)) {
+                        } else if ((novoRegistro[0].retorno_temp > 26 && novoRegistro[0].retorno_temp < 29) || (novoRegistro[0].retorno_temp >= 17 && novoRegistro[0].retorno_temp < 20)) {
                             dados.datasets[1].borderColor.shift();
                             dados.datasets[1].borderColor.push('#FF9900');
 
@@ -369,7 +369,7 @@
 
                             temp_atual.innerText = `${novoRegistro[0].retorno_temp}`
                             temp_atual.style.color = '#FF9900'
-                        } else if (novoRegistro[0].retorno_temp >= 25 && novoRegistro[0].retorno_temp <= 26) {
+                        } else if (novoRegistro[0].retorno_temp > 24 && novoRegistro[0].retorno_temp <= 26) {
                             dados.datasets[1].borderColor.shift();
                             dados.datasets[1].borderColor.push('#FFCC00');
 

@@ -118,10 +118,10 @@ function status_plantacoes(idCliente) {
     select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( (retorno_temp > 29 or retorno_temp < 17) or (retorno_umidd > 85 or retorno_umidd < 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
     ) AS perigo,
     (
-    select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( ( (retorno_temp > 26 and retorno_temp < 29) or (retorno_temp >= 17 and retorno_temp <= 19) ) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
+    select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( ( (retorno_temp > 26 and retorno_temp < 29) or (retorno_temp >= 17 and retorno_temp < 20) ) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
     ) AS cuidado,
     (
-    select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( (retorno_temp >= 25 and retorno_temp <= 26) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
+    select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( (retorno_temp > 24 and retorno_temp <= 26) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
     ) AS atencao,
     (
     select count(idplantacao) from leitura join sensor on idsensor = fkLeitura_sensor join plantacao on idplantacao = fkSensor_plantacao join cliente on fkPlantacao_cliente = idcliente where ( (retorno_temp >= 20 and retorno_temp <= 24) and (retorno_umidd <= 85 and retorno_umidd >= 75) ) and idcliente = ${idCliente} and idleitura IN (select MAX(idleitura) from leitura group by fkLeitura_sensor)
@@ -153,8 +153,8 @@ WHERE
 ORDER BY 
     CASE
         WHEN (retorno_temp > 29 OR retorno_temp < 17) OR (retorno_umidd > 85 OR retorno_umidd < 75) THEN 1 -- Perigo
-        WHEN (retorno_temp > 26 AND retorno_temp < 29) OR (retorno_temp >= 17 AND retorno_temp <= 19) THEN 2 -- Cuidado
-        WHEN retorno_temp >= 25 AND retorno_temp <= 26 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 3 -- Atenção
+        WHEN (retorno_temp > 26 AND retorno_temp < 29) OR (retorno_temp >= 17 AND retorno_temp < 20) THEN 2 -- Cuidado
+        WHEN retorno_temp > 24 AND retorno_temp <= 26 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 3 -- Atenção
         WHEN retorno_temp >= 20 AND retorno_temp <= 24 AND retorno_umidd <= 85 AND retorno_umidd >= 75 THEN 4 -- Tranquilo
     END;
      `;
