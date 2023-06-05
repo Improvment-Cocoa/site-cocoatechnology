@@ -43,7 +43,7 @@
             </ul>
             <a href="../login.html"><button>SAIR</button></a>
         </nav>
-        <div id="content">
+        <div style="position: relative;" id="content">
             <div class="div-select">
                 <span>Selecione uma plantação:
                     <button onclick="selecionarChart()">Selecionar plantação</button>
@@ -54,7 +54,7 @@
             </div>
             <span id="plantacoes">
                 <div class="plantacao-container select-disable">
-                    <h2 id="titulo_plantacao">Plantação - Rua Haddock Lobo</h2>
+                    <h2 id="titulo_plantacao">Cocoa Technology</h2>
                     <div id="status-box">
                         <div class="chart-box">
                             <h3>Temperatura e Umidade em tempo real</h3>
@@ -68,7 +68,7 @@
                                     <h3>Status da plantação:</h3>
                                     <span id="titulo_status"
                                         style="align-self: center; letter-spacing: 2px !important; font-size: 22px;">
-                                        <article class="red">TRANQUILO</article>
+                                        <article class="green">TRANQUILO</article>
                                     </span>
                                     <div id="dados_reais">
                                         <div>
@@ -98,11 +98,70 @@
                     </div>
                 </div>
             </span>
+            <img class="info-img select-disable" src="../assets/img/icones/Info.png" alt="info" id="info_img"
+                onclick="openModal()">
         </div>
-    </div>
+        <div class="modal" id="modal">
+            <div class="box-modal">
+                <img src="../assets/img/icones/XCircle.png" alt="botão de fechar modal" onclick="closeModal()">
+                <h2>SISTEMAS DE ALERTA!</h2>
+                <p>Para uma melhor visualização do que está ocorrendo com sua plantação, a plantação terá quatro
+                    indicadores de estado, sendo eles respectivamente: <text class="green">Tranquilo,</text><text
+                        class="yellow"> Atenção,</text><text class="orange"> Cuidado,</text><text class="red">
+                        Perigo.</text>
+                </p>
+                <div class="state-box">
+                    <h3>Temperatura:</h3>
+                    <div class="states">
+                        <div style="background-color: #FF5555;">
+                            < 17°C</div>
+                                <div style="background-color: #e68a01;"> >= 17°C <br>a<br>
+                                    < 20°C</div>
+                                        <div style="background-color: #74C365;"> >= 20°C <br>a<br>
+                                            <= 24°C</div>
+                                                <div style="background-color: #ecbf0d;"> > 24°C <br>a<br>
+                                                    <= 26°C</div>
+                                                        <div style="background-color: #e68a01;"> > 26°C <br>a<br>
+                                                            < 29°C</div>
+                                                                <div style="background-color: #FF5555;">29°C < </div>
+                                                                </div>
+                                                                <div class="state-box">
+                                                                    <h3>Umidade:</h3>
+                                                                    <div class="states">
+                                                                        <div style="background-color: #FF5555;">
+                                                                            < 75%</div>
+                                                                                <div style="background-color: #74C365;">
+                                                                                    > 75%
+                                                                                    <br>a<br> < 85%
+                                                                                </div>
+                                                                                <div style="background-color: #FF5555;">
+                                                                                    85%
+                                                                                    < </div>
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                        </div>
 </body>
 
 </html>
+<script>
+    const imgInfo = document.getElementById('info_img');
+    setInterval(function () {
+        imgInfo.classList.toggle('paused');
+    }, 2000);
+
+    const modal = document.getElementById(`modal`);
+    function openModal() {
+        modal.style.display = 'flex';
+        setTimeout(() => { modal.classList.toggle(`show`) }, 401);
+    }
+    function closeModal() {
+        modal.classList.toggle(`show`)
+        setTimeout(() => { modal.style.display = 'none'; }, 401);
+    }
+</script>
 <script>
     var myChart;
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
